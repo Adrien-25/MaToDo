@@ -38,3 +38,4 @@ out/
 
 ### Demo Database ###
 data/demo.mv.db
+data/demo.trace.db

@@ -1009,3 +1009,39 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/adrie/d
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 151 more
+2024-11-14 14:09:22.393883+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "drop table if exists [*]user cascade "; attendu "identifier"
+Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-224]
+2024-11-14 14:09:22.576125+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table [*]user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id))"; attendu "identifier"
+Syntax error in SQL statement "create table [*]user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-11-14 14:09:23.782360+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "drop table if exists [*]user cascade "; attendu "identifier"
+Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-224]
+2024-11-14 14:33:59.865452+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "drop table if exists [*]user cascade "; attendu "identifier"
+Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-224]
+2024-11-14 14:33:59.937630+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table [*]user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id))"; attendu "identifier"
+Syntax error in SQL statement "create table [*]user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-11-14 14:41:48.572730+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "drop table if exists [*]user cascade "; attendu "identifier"
+Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-224]
+2024-11-14 14:42:00.446852+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "drop table if exists [*]user cascade "; attendu "identifier"
+Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-224]
+2024-11-14 14:42:00.524914+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table [*]user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id))"; attendu "identifier"
+Syntax error in SQL statement "create table [*]user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, email varchar(255), password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-11-14 14:52:16.550276+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "drop table if exists [*]user cascade "; attendu "identifier"
+Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-224]
