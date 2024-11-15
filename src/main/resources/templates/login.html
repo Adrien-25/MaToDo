@@ -1,40 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <link rel="stylesheet" href="/css/style.css">
-  <script src="/js/signup.js" defer></script>
-</head>
-<body>
-<body>
-    <section>
-        
-        <form action="/req/login" method="post">
-            <h1>Login</h1>
-            <div class="dialog-row">
-                <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-center redText"></label>                   
-            </div>
-            <div class="inputbox">
-                <!-- <ion-icon name="email-outline"></ion-icon> -->
-                <input name="username" id="username"type="name" required>
-                <label for="">username</label>
-            </div>
-            <div class="inputbox">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input name="password" type="password" id="password" required>
-                <label for="">Password</label>
-            </div>
-            <div class="register">
-                <p><a href="#">Forget Password ?</a></p>
-            </div>
-            <button>Log in</button>
-            <div class="register">
-                <p>Don't have a account ?<a href="/req/signup"> Register!!</a></p>
-            </div>
-        </form>
-    </section>
-</body>
-  
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Connexion</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/signup.js" defer></script>
+
+  </head>
+  <body>
+    <body>
+      <section class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+          <div class="col-md-6">
+            <form action="/req/login" method="post" class="card-body border p-lg-5">
+              <h1 class="text-center">Connexion</h1>
+              <div class="form-outline mb-4">
+                <label
+                  th:if="${param.error}"
+                  th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+                  class="form-label"
+                ></label>
+              </div>
+              <!-- Username input -->
+              <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label fs-6" for="form2Example1"
+                    >Nom d'utilisateur
+                  </label>
+                <input
+                  name="username"
+                  type="name"
+                  id="form2Example1"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <!-- Password input -->
+              <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label fs-6" for="form2Example2"
+                    >Mot de passe</label
+                  >
+                <input
+                  name="password"
+                  type="password"
+                  id="form2Example2"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <!-- 2 column grid layout for inline styling -->
+              <div class="row mb-4">
+                <a href="#!">Mot de passe oublié ?</a>
+              </div>
+
+              <!-- Submit button -->
+              <button
+                type="submit"
+                id= "submit-login"
+                class="btn btn-primary btn-block mb-4"
+              >
+                Se connecter
+              </button>
+
+              <!-- Register buttons -->
+              <div class="">
+                <a href="/req/signup">Créer un compte</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </body>
+  </body>
+</html>
