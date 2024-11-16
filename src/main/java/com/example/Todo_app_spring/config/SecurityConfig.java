@@ -59,7 +59,7 @@ public class SecurityConfig {
 
                 })
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/req/signup", "/css/**", "/js/**", "/h2-console/**").permitAll();
+                    registry.requestMatchers("/req/signup", "/req/login", "/css/**", "/js/**", "/h2-console/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .logout(logout -> logout
