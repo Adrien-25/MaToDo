@@ -21,31 +21,15 @@
         <div class="form-auth">
           <form action="/req/signup" method="post" class="row p-2 p-lg-5">
             <h1 class="text-center mt-3">Créer un compte</h1>
-            <!-- <div class="form-outline mb-4">
-              <label
-                th:if="${error != null}"
-                class="form-label fs-6"
-                th:text="${error}"
-                style="color: red"
-              ></label>
-            </div> -->
-            <div class="form-outline mb-4">
-              <ul th:if="${errors != null}">
+            <div class="form-outline my-3 fw-bold">
+              <ul th:if="${errors != null}" class="list-unstyled">
                 <li
                   th:each="error : ${errors}"
-                  class="text-danger fs-6"
+                  class="text-danger"
                   th:text="${error}"
                 ></li>
               </ul>
             </div>
-            <!-- <div
-              th:if="${errors != null and not #lists.isEmpty(errors)}"
-              class="error-message"
-            >
-              <ul>
-                <li th:each="err : ${errors}" th:text="${err}"></li>
-              </ul>
-            </div> -->
 
             <!-- Username input -->
             <div class="form-outline mb-4 col-md-6">

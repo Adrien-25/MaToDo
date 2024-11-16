@@ -21,6 +21,6 @@ button.btn {
   border-radius: 10px;
   max-width: 100%;
 }
-.form-auth form.p-2{
-    padding: 0.5rem;
+.form-auth form.p-2 {
+  padding: 0.5rem !important;
 }

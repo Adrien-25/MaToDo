@@ -21,13 +21,14 @@
         <div class="form-auth">
           <form action="/req/login" method="post" class="row p-2 p-lg-5">
             <h1 class="text-center mt-3">Connexion</h1>
-            <div class="form-outline mb-4">
-              <label
+            <div class="form-outline my-3 fw-bold">
+              <p
                 th:if="${param.error}"
                 th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-                class="form-label"
-              ></label>
+                class="text-danger m-0"
+              ></p>
             </div>
+
             <!-- Username input -->
             <div class="form-outline mb-4">
               <input
