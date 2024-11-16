@@ -18,13 +18,9 @@
   <body>
     <section class="container">
       <div class="row justify-content-center align-items-center min-vh-100">
-        <div class="col-md-6">
-          <form
-            action="/req/login"
-            method="post"
-            class="card-body border p-lg-5"
-          >
-            <h1 class="text-center">Connexion</h1>
+        <div class="form-auth">
+          <form action="/req/login" method="post" class="row p-2 p-lg-5">
+            <h1 class="text-center mt-3">Connexion</h1>
             <div class="form-outline mb-4">
               <label
                 th:if="${param.error}"
@@ -33,50 +29,55 @@
               ></label>
             </div>
             <!-- Username input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label fs-6" for="form2Example1"
+            <div class="form-outline mb-4">
+              <!-- <label class="form-label fs-6" for="username"
                 >Nom d'utilisateur
-              </label>
+              </label> -->
               <input
                 name="username"
                 type="name"
-                id="form2Example1"
+                id="username"
                 class="form-control"
+                placeholder="Nom d'utilisateur"
                 required
               />
             </div>
 
             <!-- Password input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <label class="form-label fs-6" for="form2Example2"
-                >Mot de passe</label
-              >
+            <div class="form-outline mb-4">
+              <!-- <label class="form-label fs-6" for="password">Mot de passe</label> -->
               <input
                 name="password"
                 type="password"
-                id="form2Example2"
+                id="password"
                 class="form-control"
+                placeholder="Mot de passe"
                 required
               />
             </div>
 
             <!-- 2 column grid layout for inline styling -->
-            <div class="row mb-4">
+            <!-- <div class="row mb-4">
               <a href="#!">Mot de passe oublié ?</a>
-            </div>
+            </div> -->
 
             <!-- Submit button -->
-            <button
-              type="submit"
-              id="submit-login"
-              class="btn btn-primary btn-block mb-4"
-            >
-              Se connecter
-            </button>
+            <div>
+              <button
+                type="submit"
+                id="submit-login"
+                class="btn btn-primary btn-block mb-4 w-100"
+              >
+                Se connecter
+              </button>
+            </div>
 
             <!-- Register buttons -->
-            <div class="">
-              <a href="/req/signup">Créer un compte</a>
+            <div class="text-center fw-bold fs-minus mb-3 mt-2">
+              <a href="#!" class="text-dark">Mot de passe oublié ?</a>
+            </div>
+            <div class="text-center fw-bold fs-minus mb-3">
+              <a href="/req/signup" class="text-dark">Créer un compte</a>
             </div>
           </form>
         </div>

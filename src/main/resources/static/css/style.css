@@ -1,0 +1,26 @@
+html {
+  font-size: 0.8rem;
+}
+a {
+  text-decoration: none;
+}
+/* .fs-minus {
+  font-size: 0.9rem;
+} */
+input.form-control {
+  padding: 0.8rem 1rem;
+}
+button.btn {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  font-weight: bold;
+}
+.form-auth {
+  width: 400px;
+  background-color: #e1e1e1;
+  border-radius: 10px;
+  max-width: 100%;
+}
+.form-auth form.p-2{
+    padding: 0.5rem;
+}

@@ -37,5 +37,4 @@ out/
 .vscode/
 
 ### Demo Database ###
-data/demo.mv.db
-data/demo.trace.db
+data/*
