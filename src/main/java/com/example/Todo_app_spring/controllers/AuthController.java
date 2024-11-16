@@ -1,6 +1,10 @@
 package com.example.Todo_app_spring.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,16 +31,12 @@ public class AuthController {
     public String createUser(@ModelAttribute @Valid User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute("errors", result.getAllErrors());
+            List<String> errorMessages = result.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            model.addAttribute("errors", errorMessages);
             return "signup";
         }
-        // if (result.hasErrors()) {
-        //     List<String> errorMessages = result.getAllErrors().stream()
-        //             .map(DefaultMessageSourceResolvable::getDefaultMessage)
-        //             .collect(Collectors.toList());
-        //     model.addAttribute("errors", errorMessages);
-        //     return "signup";
-        // }
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             model.addAttribute("error", "Le nom d'utilisateur est déjà utilisé.");
             return "signup";

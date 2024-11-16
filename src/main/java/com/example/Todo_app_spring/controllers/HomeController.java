@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.Todo_app_spring.services.TodoItemService;
 
-
 @Controller
 public class HomeController {
 
@@ -20,6 +19,5 @@ public class HomeController {
         modelAndView.addObject("todoItems", todoItemService.getAll());
         return modelAndView;
     }
-    
-    
+
 }

@@ -44,7 +44,6 @@ public class User {
     //     return password != null && confirmPassword != null && password.equals(confirmPassword);
     //     // return password != null && confirmPassword != null && password.equals(confirmPassword);
     // }
-
     public Long getId() {
         return id;
     }
