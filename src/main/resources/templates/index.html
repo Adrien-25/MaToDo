@@ -24,7 +24,7 @@
           <u>Ma liste de tâches</u>
         </h1>
         <div class="d-flex gap-2">
-          <span th:if="${username}" th:text="${username}" class="mb-2"></span>
+          <span th:if="${username}" th:text="${username}" class=""></span>
           |
           <form th:action="@{/auth/logout}" method="post">
             <input
