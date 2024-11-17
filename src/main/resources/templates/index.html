@@ -33,9 +33,6 @@
               value="Déconnexion"
             />
           </form>
-          <!-- <div class="text-center fw-bold fs-minus mb-3">
-            <a href="/req/login" class="text-dark">Se connecter</a>
-          </div> -->
         </div>
       </div>
       <hr />
@@ -46,11 +43,68 @@
         </a>
       </div>
 
-      <table class="table table-hover table-bordered align-middle text-center">
+      <div class="">
+        <!-- Créer une tâche -->
+        <div class="d-flex justify-content-start mb-3 gap-2">
+          <input
+            id="new-task-input"
+            type="text"
+            class="form-control w-50"
+            placeholder="Nouvelle tâche..."
+          />
+          <button id="add-task-btn" class="btn btn-outline-success">
+            <i class="bi bi-plus-square-fill"></i>
+          </button>
+        </div>
+
+        <!-- Affichage des tâches -->
+        <div class="d-flex flex-column gap-3">
+          <div
+            class="card task-card border-bottom"
+            th:each="item : ${todoItems}"
+            th:classappend="${item.isComplete} ? 'task-complete' : ''"
+          >
+            <div
+              class="card-body d-flex align-items-center justify-content-between"
+            >
+              <div>
+                <!-- Checkbox pour l'état -->
+                <input
+                  type="checkbox"
+                  class="form-check-input me-3"
+                  th:checked="${item.isComplete}"
+                />
+                <!-- Description de la tâche -->
+                <span
+                  class="flex-grow-1"
+                  th:class="${item.isComplete} ? 'text-decoration-line-through' : ''"
+                  th:text="${item.description}"
+                ></span>
+              </div>
+
+              <!-- Boutons d'actions -->
+              <div class="btn-group gap-2" role="group">
+                <a
+                  class="btn btn-sm btn-outline-info d-flex align-items-center justify-content-center rounded"
+                  th:href="@{/edit/{id}(id=${item.id})}"
+                >
+                  <i class="bi bi-pencil-fill"></i>
+                </a>
+                <a
+                  class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center rounded"
+                  th:href="@{/delete/{id}(id=${item.id})}"
+                >
+                  <i class="bi bi-trash-fill"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <table class="table table-hover table-bordered align-middle text-center">
         <thead class="table-primary">
           <tr>
             <th scope="col">Actions</th>
-            <th scope="col">Id</th>
             <th scope="col">Description</th>
             <th scope="col">État</th>
             <th scope="col">Créé le</th>
@@ -81,7 +135,6 @@
                 </a>
               </div>
             </td>
-            <td th:text="${item.id}"></td>
             <td th:text="${item.description}"></td>
             <td>
               <span th:if="${item.isComplete}" class="badge bg-success"
@@ -101,7 +154,7 @@
             ></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
 
     <script

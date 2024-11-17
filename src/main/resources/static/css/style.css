@@ -5,13 +5,35 @@ html {
 /* .fs-minus {
   font-size: 0.9rem;
 } */
-input.form-control {
-  padding: 0.8rem 1rem;
-}
+
+/* GENERAL */
 button.btn {
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
   font-weight: bold;
+}
+.max-700 {
+  max-width: 700px;
+}
+/* TODO APP */
+.task-card {
+  transition: background-color 0.3s ease;
+}
+.task-card.task-complete {
+  background-color: #d4edda;
+  color: #155724;
+  text-decoration: line-through;
+}
+.task-card:hover {
+  background-color: #eeeeee;
+}
+.task-card.task-complete:hover {
+  background-color: #ace9ba;
+
+}
+/* AUTH */
+input.form-control.large {
+  padding: 0.8rem 1rem;
 }
 .form-auth {
   width: 400px;

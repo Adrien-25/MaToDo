@@ -1,54 +1,27 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//   const signupForm = document.querySelector("section");
-//   const signupButton = document.querySelector("#submit-signup");
-//   if (signupButton) {
-//     signupButton.addEventListener("click", function (e) {
-//       e.preventDefault();
+// document
+//   .getElementById("create-task-form")
+//   .addEventListener("submit", function (e) {
+//     e.preventDefault(); // Empêche le rechargement de la page
 
-//       // CHECK INPUT VALIDITY
-//       const emailInput = document.querySelector('input[type="email"]');
-//       const passwordInput = document.querySelector('input[type="password"]');
-//       const confirmPasswordInput = document.querySelector(
-//         'input[type="password"][name="confirm-password"]'
-//       );
-//       const isValid =
-//         emailInput.checkValidity() &&
-//         passwordInput.checkValidity() &&
-//         confirmPasswordInput.checkValidity();
+//     const description = document.getElementById("new-task-description").value;
 
-//       if (!isValid) {
-//         signupForm.classList.add("shake");
-
-//         setTimeout(() => {
-//           signupForm.classList.remove("shake");
-//         }, 1000);
-//       }
-
-//       // Post form
-//       const username = document.getElementById("username").value;
-//       const password = document.getElementById("password").value;
-//       const confirmPassword = document.getElementById("passwordcon").value;
-//       const email = document.getElementById("email").value;
-//       const data = {
-//         username,
-//         email,
-//         password,
-//       };
-//       if (password == confirmPassword) {
-//         const jsonData = JSON.stringify(data);
-//         fetch("/req/signup", {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: jsonData,
-//         }).then((response) => {
-//           //alert('succesfull');
-//           //if(response.status == 200){
-//           //alert('succesfull');
-//           //xs}
-//         });
-//       }
-//     });
-//   }
-// });
+//     fetch("/todo", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ description }),
+//     })
+//       .then((response) => {
+//         if (response.ok) {
+//           return response.json();
+//         }
+//         throw new Error("Erreur lors de la création de la tâche");
+//       })
+//       .then((task) => {
+//         // Ajoute la tâche au DOM
+//         addTaskToDOM(task);
+//         document.getElementById("new-task-description").value = ""; // Réinitialise le champ
+//       })
+//       .catch((error) => console.error(error));
+//   });
