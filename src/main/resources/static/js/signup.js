@@ -1,27 +1,34 @@
-// document
-//   .getElementById("create-task-form")
-//   .addEventListener("submit", function (e) {
-//     e.preventDefault(); // Empêche le rechargement de la page
+document
+  .getElementById("create-task-form")
+  .addEventListener("submit", function (e) {
+    e.preventDefault(); // Empêche le rechargement de la page
 
-//     const description = document.getElementById("new-task-description").value;
+    const description = document.getElementById("new-task-input").value;
 
-//     fetch("/todo", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ description }),
-//     })
-//       .then((response) => {
-//         if (response.ok) {
-//           return response.json();
-//         }
-//         throw new Error("Erreur lors de la création de la tâche");
-//       })
-//       .then((task) => {
-//         // Ajoute la tâche au DOM
-//         addTaskToDOM(task);
-//         document.getElementById("new-task-description").value = ""; // Réinitialise le champ
-//       })
-//       .catch((error) => console.error(error));
-//   });
+    if (!description) {
+      alert("Veuillez entrer une description pour la tâche.");
+      return;
+    }
+
+    const formData = new URLSearchParams();
+    formData.append("description", description);
+
+    fetch("/todo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
+    })
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          throw new Error('Erreur lors de la création de la tâche.');
+        }
+          // return response.json();
+          location.reload();
+          console.log(response);
+        
+      })
+      .catch((error) => console.error(error));
+  });

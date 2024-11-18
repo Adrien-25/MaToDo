@@ -37,25 +37,28 @@
       </div>
       <hr />
 
-      <div class="d-flex justify-content-start mb-3">
+      <!-- <div class="d-flex justify-content-start mb-3">
         <a class="btn btn-outline-success" href="/create-todo">
           <i class="bi bi-plus-square-fill"></i> Créer une tâche
         </a>
-      </div>
+      </div> -->
 
       <div class="">
         <!-- Créer une tâche -->
-        <div class="d-flex justify-content-start mb-3 gap-2">
-          <input
-            id="new-task-input"
-            type="text"
-            class="form-control w-50"
-            placeholder="Nouvelle tâche..."
-          />
-          <button id="add-task-btn" class="btn btn-outline-success">
-            <i class="bi bi-plus-square-fill"></i>
-          </button>
-        </div>
+        <form id="create-task-form">
+          <div class="d-flex justify-content-start mb-3 gap-2">
+            <input
+              id="new-task-input"
+              type="text"
+              class="form-control w-50"
+              placeholder="Nouvelle tâche..."
+              name="description"
+            />
+            <button id="add-task-btn" class="btn btn-outline-success">
+              <i class="bi bi-plus-square-fill"></i>
+            </button>
+          </div>
+        </form>
 
         <!-- Affichage des tâches -->
         <div class="d-flex flex-column gap-3">
@@ -162,5 +165,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="/js/signup.js" defer></script>
   </body>
 </html>
