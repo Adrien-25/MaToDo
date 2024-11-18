@@ -104,62 +104,7 @@
           </div>
         </div>
       </div>
-      <!-- <table class="table table-hover table-bordered align-middle text-center">
-        <thead class="table-primary">
-          <tr>
-            <th scope="col">Actions</th>
-            <th scope="col">Description</th>
-            <th scope="col">État</th>
-            <th scope="col">Créé le</th>
-            <th scope="col">Mis à jour le</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            th:each="item : ${todoItems}"
-            th:class="${item.isComplete} ? 'table-success' : 'table-warning'"
-          >
-            <td>
-              <div
-                class="btn-group gap-2 d-flex justify-content-center"
-                role="group"
-              >
-                <a
-                  class="btn btn-sm btn-info d-flex align-items-center justify-content-center rounded-circle p-2 m-0 flex-grow-0"
-                  th:href="@{/edit/{id}(id=${item.id})}"
-                >
-                  <i class="bi bi-pencil-fill d-flex"></i>
-                </a>
-                <a
-                  class="btn btn-sm btn-danger d-flex align-items-center justify-content-center rounded-circle p-2 m-0 flex-grow-0"
-                  th:href="@{/delete/{id}(id=${item.id})}"
-                >
-                  <i class="bi bi-trash-fill d-flex"></i>
-                </a>
-              </div>
-            </td>
-            <td th:text="${item.description}"></td>
-            <td>
-              <span th:if="${item.isComplete}" class="badge bg-success"
-                >Fait</span
-              >
-              <span
-                th:unless="${item.isComplete}"
-                class="badge bg-warning text-dark"
-                >A Faire</span
-              >
-            </td>
-            <td
-              th:text="${#dates.format(item.createdAt, 'dd-MM-yyyy HH:mm:ss')}"
-            ></td>
-            <td
-              th:text="${#dates.format(item.updatedAt, 'dd-MM-yyyy HH:mm:ss')}"
-            ></td>
-          </tr>
-        </tbody>
-      </table> -->
     </div>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
