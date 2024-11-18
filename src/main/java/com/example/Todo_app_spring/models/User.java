@@ -46,12 +46,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TodoItem> todos = new ArrayList<>();
 
-    // @AssertTrue(message = "Les mots de passe ne correspondent pas.")
-    // public boolean isPasswordConfirmed() {
-    //     System.out.println("Validation: Password = " + password + ", ConfirmPassword = " + confirmPassword);
-    //     return password != null && confirmPassword != null && password.equals(confirmPassword);
-    //     // return password != null && confirmPassword != null && password.equals(confirmPassword);
-    // }
     public Long getId() {
         return id;
     }

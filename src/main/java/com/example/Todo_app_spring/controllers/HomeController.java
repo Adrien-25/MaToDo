@@ -25,17 +25,13 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
-        // modelAndView.addObject("todoItems", todoItemService.getAll());
 
-        // Récupérer l'authentification actuelle
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Vérifier si l'utilisateur est authentifié
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
             String username = authentication.getName();
             User user = userService.getUserByUsername(username);
 
-            // Récupérer uniquement les tâches de l'utilisateur connecté
             List<TodoItem> userTodoItems = todoItemService.getAllByUser(user);
             modelAndView.addObject("todoItems", userTodoItems);
             modelAndView.addObject("username", username);
