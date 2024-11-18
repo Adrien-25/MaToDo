@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,25 +32,15 @@ public class TodoItem implements Serializable {
 
     private Instant updatedAt;
 
-    // private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Override
     public String toString() {
 
-        // String formattedCreatedAt = formatInstant(createdAt);
-        // String formattedUpdatedAt = formatInstant(updatedAt);
-
-        // return String.format("TodoItem{id=%d, description='%s', isComplete='%s', createdAt='%s', updatedAt='%s'}",
-        //         id, description, isComplete, createdAt, updatedAt);
-        return String.format("TodoItem{id=%d, description='%s', isComplete='%s', createdAt='%s', updatedAt='%s'}",
-                id, description, isComplete, createdAt, updatedAt);
+        return String.format("TodoItem{id=%d, description='%s', isComplete='%s', createdAt='%s', updatedAt='%s', user_id=%d}",
+                id, description, isComplete, createdAt, updatedAt, user != null ? user.getId() : null);
     }
-
-    // private String formatInstant(Instant instant) {
-    //     if (instant != null) {
-    //         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).format(formatter);
-    //     }
-    //     return "N/A";
-    // }
 
 }

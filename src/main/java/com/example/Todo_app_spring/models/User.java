@@ -1,10 +1,15 @@
 package com.example.Todo_app_spring.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -37,6 +42,9 @@ public class User {
     @Transient
     @NotBlank(message = "Veuillez confirmer le mot de passe")
     private String confirmPassword;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TodoItem> todos = new ArrayList<>();
 
     // @AssertTrue(message = "Les mots de passe ne correspondent pas.")
     // public boolean isPasswordConfirmed() {

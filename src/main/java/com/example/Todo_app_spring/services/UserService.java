@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,5 +33,10 @@ public class UserService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException(username);
         }
+    }
+
+    public User getUserByUsername(String username) {
+        return repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 }

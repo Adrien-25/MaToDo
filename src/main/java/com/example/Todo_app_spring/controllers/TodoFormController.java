@@ -1,15 +1,20 @@
 package com.example.Todo_app_spring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.Todo_app_spring.models.TodoItem;
+import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.services.TodoItemService;
+import com.example.Todo_app_spring.services.UserService;
 
 import jakarta.validation.Valid;
 
@@ -19,17 +24,28 @@ public class TodoFormController {
     @Autowired
     private TodoItemService todoItemService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/create-todo")
     public String showCreateForm(TodoItem todoItem) {
         return "new-todo-item";
     }
 
     @PostMapping("/todo")
-    public String createTodoItem(@Valid TodoItem todoItem, BindingResult bindingResult, Model model) {
+    public String createTodoItem(@Valid @ModelAttribute("todoItem") TodoItem todoItem, BindingResult bindingResult, Model model) {
 
-        TodoItem item = new TodoItem();
-        item.setDescription(todoItem.getDescription());
-        item.setIsComplete(todoItem.getIsComplete());
+        // TodoItem item = new TodoItem();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
+            String username = authentication.getName();
+            User user = userService.getUserByUsername(username);
+            todoItem.setUser(user);
+
+        }
+
+        todoItem.setDescription(todoItem.getDescription());
+        todoItem.setIsComplete(todoItem.getIsComplete());
 
         todoItemService.save(todoItem);
         return "redirect:/";
