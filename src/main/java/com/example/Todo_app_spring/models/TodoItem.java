@@ -26,7 +26,8 @@ public class TodoItem implements Serializable {
 
     private String description;
 
-    private Boolean isComplete;
+    // private Boolean isComplete;
+    private Boolean isComplete = false;
 
     private Instant createdAt;
 

@@ -71,11 +71,13 @@
               class="card-body d-flex align-items-center justify-content-between"
             >
               <div>
-                <!-- Checkbox pour l'état -->
+                <!-- Checkbox pour l'état FAIT/A FAIRE -->
                 <input
+                  id="inputIsComplete"
                   type="checkbox"
-                  class="form-check-input me-3"
+                  class="form-check-input me-3 task-checkbox"
                   th:checked="${item.isComplete}"
+                  th:attr="data-id=${item.id}"
                 />
                 <!-- Description de la tâche -->
                 <span
@@ -111,5 +113,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/create-task.js" defer></script>
+    <script src="/js/edit-task.js" defer></script>
   </body>
 </html>

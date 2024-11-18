@@ -1,6 +1,10 @@
 package com.example.Todo_app_spring.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -8,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -83,5 +88,21 @@ public class TodoFormController {
         todoItemService.save(item);
 
         return "redirect:/";
+    }
+
+    @PatchMapping("/todo/{id}/toggle")
+    public ResponseEntity<String> toggleTodoItem(@PathVariable Long id) {
+        // TodoItem todoItem = todoItemService.getById(id);
+        Optional<TodoItem> optionalTodoItem = todoItemService.getById(id);
+
+        if (optionalTodoItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("TodoItem not found");
+        }
+
+        TodoItem todoItem = optionalTodoItem.get();
+        todoItem.setIsComplete(!todoItem.getIsComplete());
+        todoItemService.save(todoItem);
+
+        return ResponseEntity.ok("TodoItem updated successfully");
     }
 }
