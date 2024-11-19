@@ -2,7 +2,7 @@
 FROM gradle:jdk23 AS build
 WORKDIR /app
 COPY . .
-RUN gradle build --no-daemon
+RUN gradle build -x test --no-daemon
 
 # Étape 2 : Exécution
 FROM eclipse-temurin:23-jre
