@@ -47,7 +47,7 @@
             </div>
 
             <!-- Password input -->
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-4 position-relative">
               <input
                 name="password"
                 type="password"
@@ -56,6 +56,13 @@
                 placeholder="Mot de passe"
                 required
               />
+              <button
+                type="button"
+                class="btn position-absolute password-unveil"
+                onclick="togglePasswordVisibility('password', this)"
+              >
+                <i class="bi bi-eye"></i>
+              </button>
             </div>
 
             <!-- Submit button -->
@@ -80,5 +87,6 @@
         </div>
       </div>
     </section>
+    <script src="/js/auth-user.js" defer></script>
   </body>
 </html>
