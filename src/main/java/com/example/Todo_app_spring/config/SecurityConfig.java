@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import com.example.Todo_app_spring.services.UserService;
 
@@ -45,23 +46,30 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                // .csrf(AbstractHttpConfigurer::disable)
+                // Protection CSRF activée pour toutes les routes
                 .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**")
-                .disable()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Utilisation d'un token CSRF dans les cookies
                 )
+                // .csrf(csrf -> csrf
+                // .ignoringRequestMatchers("/h2-console/**")
+                // .disable()
+                // )
+                // Gestion des en-têtes HTTP
                 .headers(headers -> headers
                 .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 )
+                // Configuration du formulaire de connexion
                 .formLogin(httpForm -> {
                     httpForm.loginPage("/req/login").permitAll();
                     httpForm.defaultSuccessUrl("/", true);
 
                 })
+                // Configuration des routes
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/req/signup", "/req/login", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
+                // Gestion de la déconnexion
                 .logout(logout -> logout
                 .logoutUrl("/auth/logout")
                 .logoutSuccessUrl("/auth/login?logout")

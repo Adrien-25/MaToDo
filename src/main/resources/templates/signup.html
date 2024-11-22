@@ -24,6 +24,7 @@
       <div class="row justify-content-center align-items-center min-vh-100">
         <div class="form-auth">
           <form action="/req/signup" method="post" class="row p-2 p-lg-5">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
             <h1 class="text-center mt-3">Créer un compte</h1>
             <div class="form-outline my-3 fw-bold">
               <ul th:if="${errors != null}" class="list-unstyled">
