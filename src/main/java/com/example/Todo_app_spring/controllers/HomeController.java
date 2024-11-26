@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.Todo_app_spring.models.TodoItem;
+import com.example.Todo_app_spring.models.TaskList;
 import com.example.Todo_app_spring.models.User;
+import com.example.Todo_app_spring.services.TaskListService;
 import com.example.Todo_app_spring.services.TodoItemService;
 import com.example.Todo_app_spring.services.UserService;
 
@@ -19,6 +20,10 @@ public class HomeController {
 
     @Autowired
     private TodoItemService todoItemService;
+
+    @Autowired
+    private TaskListService taskListService;
+
     @Autowired
     private UserService userService;
 
@@ -32,8 +37,12 @@ public class HomeController {
             String username = authentication.getName();
             User user = userService.getUserByUsername(username);
 
-            List<TodoItem> userTodoItems = todoItemService.getAllByUser(user);
-            modelAndView.addObject("todoItems", userTodoItems);
+            List<TaskList> userTaskLists = taskListService.getAllByUser(user);
+
+            System.out.println("user Take Lists : " + userTaskLists);
+
+            // modelAndView.addObject("todoItems", userTodoItems);
+            modelAndView.addObject("taskLists", userTaskLists);
             modelAndView.addObject("username", username);
         }
 

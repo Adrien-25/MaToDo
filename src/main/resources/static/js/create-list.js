@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 //   const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); 
   const csrfToken = document.querySelector('input[name="_csrf"]').value; 
 
-  console.log(csrfToken);
   addListBtn.addEventListener("click", () => {
     const listName = listNameInput.value.trim();
 

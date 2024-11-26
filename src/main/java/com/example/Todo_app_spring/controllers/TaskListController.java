@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Todo_app_spring.models.TaskList;
+import com.example.Todo_app_spring.models.TodoItem;
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.services.TaskListService;
 import com.example.Todo_app_spring.services.UserService;
+
+import ch.qos.logback.core.model.Model;
 
 @RestController
 @RequestMapping("/task-lists")
@@ -48,6 +51,19 @@ public class TaskListController {
     public ResponseEntity<List<TaskList>> getAllTaskLists() {
         List<TaskList> taskLists = taskListService.findAll();
         return ResponseEntity.ok(taskLists);
+    }
+
+    // Méthode pour afficher la liste des tâches d'une liste spécifique
+    @GetMapping("/{id}")
+    public String getTasksByList(@PathVariable Long id, Model model) {
+        TaskList taskList = taskListService.findById(id);
+        System.out.println(taskList);
+
+        List<TodoItem> todoItems = taskListService.findTasksByListId(id);
+        System.out.println(todoItems);
+        // model.addAttribute("todoItems", todoItems);  
+        // model.addAttribute("taskLists", taskListService.findAll());  
+        return "index";
     }
 
     // Endpoint pour supprimer une liste par ID

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Todo_app_spring.models.TaskList;
+import com.example.Todo_app_spring.models.TodoItem;
+import com.example.Todo_app_spring.models.User;
+import com.example.Todo_app_spring.repositories.TaskItemRepository;
 import com.example.Todo_app_spring.repositories.TaskListRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -15,6 +18,9 @@ public class TaskListService {
 
     @Autowired
     private TaskListRepository taskListRepository;
+
+    @Autowired
+    private TaskItemRepository taskItemRepository;
 
     // Créer une nouvelle liste
     public TaskList save(TaskList taskList) {
@@ -46,5 +52,13 @@ public class TaskListService {
         existingTaskList.setName(updatedTaskList.getName());
         existingTaskList.setTasks(updatedTaskList.getTasks());
         return taskListRepository.save(existingTaskList);
+    }
+
+    public List<TodoItem> findTasksByListId(Long listId) {
+        return taskItemRepository.findByTaskListId(listId);
+    }
+
+    public List<TaskList> getAllByUser(User user) {
+        return taskListRepository.findAllByUser(user);
     }
 }
