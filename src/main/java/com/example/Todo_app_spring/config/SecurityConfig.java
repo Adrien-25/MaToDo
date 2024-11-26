@@ -48,7 +48,7 @@ public class SecurityConfig {
         return httpSecurity
                 // // Protection CSRF activée pour toutes les routes
                 .csrf(csrf -> csrf
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Utilisation d'un token CSRF dans les cookies
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) 
                 )
                 // .csrf(csrf -> csrf
                 // .ignoringRequestMatchers("/h2-console/**")
