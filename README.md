@@ -2,7 +2,7 @@
 
 ## Description
 
-La **To-Do List Application** est une application web intuitive pour la gestion des tâches. Elle permet de créer, lire, modifier et supprimer des tâches facilement. Développée avec **Spring Boot** et **Gradle**, cette application met l'accent sur la simplicité d'utilisation et la fiabilité.
+**MaToDo** est une application web intuitive pour la gestion des tâches. Elle permet de créer, lire, modifier et supprimer des tâches facilement. Développée avec **Spring Boot** et **Gradle**, cette application met l'accent sur la simplicité d'utilisation et la fiabilité.
 
 ## Fonctionnalités
 
