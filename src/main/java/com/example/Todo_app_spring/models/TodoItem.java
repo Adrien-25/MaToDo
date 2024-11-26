@@ -2,6 +2,7 @@ package com.example.Todo_app_spring.models;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,8 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-// @Getter
-// @Setter
 @Entity
 @Table(name = "todo_items")
 public class TodoItem implements Serializable {
@@ -29,7 +28,7 @@ public class TodoItem implements Serializable {
     @Column(length = 500)
     private String description;
 
-    private Instant dueDate;
+    private LocalDate dueDate;
 
     // private Boolean isComplete;
     // private Boolean isComplete = false;
@@ -69,12 +68,7 @@ public class TodoItem implements Serializable {
         DONE,
         DELETED
     }
-    // @Override
-    // public String toString() {
 
-    //     return String.format("TodoItem{id=%d, description='%s', isComplete='%s', createdAt='%s', updatedAt='%s', user_id=%d}",
-    //             id, description, isComplete, createdAt, updatedAt, user != null ? user.getId() : null);
-    // }
     // Getters et setters
     public Long getId() {
         return id;
@@ -138,5 +132,13 @@ public class TodoItem implements Serializable {
 
     public void setCategory(TaskCategory category) {
         this.category = category;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }

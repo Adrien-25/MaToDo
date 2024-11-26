@@ -32,7 +32,7 @@
           <form th:action="@{/auth/logout}" method="post">
             <input
               type="submit"
-              class="fw-bold border-0 p-0 text-decoration-underline bg-transparent"
+              class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
               value="Déconnexion"
             />
           </form>
@@ -68,7 +68,7 @@
           <div
             class="card task-card border-bottom"
             th:each="item : ${todoItems}"
-            th:classappend="${item.isComplete} ? 'task-complete' : ''"
+            th:classappend="${item.status} == TODO ? 'task-complete' : ''"
           >
             <div
               class="card-body d-flex align-items-center justify-content-between"
@@ -79,13 +79,13 @@
                   id="inputIsComplete"
                   type="checkbox"
                   class="form-check-input me-3 task-checkbox"
-                  th:checked="${item.isComplete}"
+                  th:checked="${item.status}"
                   th:attr="data-id=${item.id}"
                 />
                 <!-- Description de la tâche -->
                 <span
                   class="flex-grow-1"
-                  th:class="${item.isComplete} ? 'text-decoration-line-through' : ''"
+                  th:class="${item.status} == TODO ? 'text-decoration-line-through' : ''"
                   th:text="${item.description}"
                 ></span>
               </div>

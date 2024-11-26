@@ -46,7 +46,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                // Protection CSRF activée pour toutes les routes
+                // // Protection CSRF activée pour toutes les routes
                 .csrf(csrf -> csrf
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Utilisation d'un token CSRF dans les cookies
                 )
