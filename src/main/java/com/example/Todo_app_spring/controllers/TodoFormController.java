@@ -51,7 +51,7 @@ public class TodoFormController {
 
     @PostMapping("/todo")
     // public String createTodoItem(@Valid @ModelAttribute("todoItem") TodoItem todoItem, BindingResult bindingResult, Model model) {
-    public String createTodoItem(@Valid @ModelAttribute("todoItem") TodoItem todoItem, BindingResult bindingResult, @RequestParam( "task_list_id")Long taskListId, @RequestParam(value = "categoryId", required = false) Long categoryId, @RequestParam(value = "dueDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate, Model model) {
+    public String createTodoItem(@Valid @ModelAttribute("todoItem") TodoItem todoItem, BindingResult bindingResult, @RequestParam("task_list_id") Long taskListId, @RequestParam(value = "categoryId", required = false) Long categoryId, @RequestParam(value = "dueDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate, Model model) {
         // Vérifiez les erreurs de validation
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Une erreur s'est produite lors de la validation du formulaire.");
