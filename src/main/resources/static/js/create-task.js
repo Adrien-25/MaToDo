@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault(); // Empêche le rechargement de la page
 
       const description = document.getElementById("new-task-input").value;
+      const csrfToken = document.querySelector('input[name="_csrf"]').value; 
+      const defaultCategory=1;
+      const taskListId=2;
 
       if (!description) {
         alert("Veuillez entrer une description pour la tâche.");
@@ -13,11 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const formData = new URLSearchParams();
       formData.append("description", description);
+      formData.append("categoryId", defaultCategory);
+      formData.append("task_list_id", taskListId);
 
       fetch("/todo", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          "X-XSRF-TOKEN": csrfToken
         },
         body: formData.toString(),
       })

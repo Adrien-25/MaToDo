@@ -7,5 +7,6 @@ import com.example.Todo_app_spring.models.TaskCategory;
 
 @Repository
 public interface TaskCategoryRepository extends JpaRepository<TaskCategory, Long> {
-    
+    TaskCategory findByName(String name);
+
 }

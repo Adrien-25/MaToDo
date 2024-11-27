@@ -18,5 +18,7 @@ public class TaskCategoryService {
         return taskCategoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Catégorie introuvable pour l'id : " + id));
     }
-
+    public TaskCategory findDefaultCategory() {
+        return taskCategoryRepository.findByName("Default");
+    }
 }

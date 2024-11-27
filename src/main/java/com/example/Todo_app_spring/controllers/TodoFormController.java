@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Todo_app_spring.models.TaskCategory;
+import com.example.Todo_app_spring.models.TaskList;
 import com.example.Todo_app_spring.models.TodoItem;
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.services.TaskCategoryService;
+import com.example.Todo_app_spring.services.TaskListService;
 import com.example.Todo_app_spring.services.TodoItemService;
 import com.example.Todo_app_spring.services.UserService;
 
@@ -39,6 +41,8 @@ public class TodoFormController {
 
     @Autowired
     private TaskCategoryService taskCategoryService;
+    @Autowired
+    private TaskListService taskListService;
 
     @GetMapping("/create-todo")
     public String showCreateForm(TodoItem todoItem) {
@@ -47,7 +51,7 @@ public class TodoFormController {
 
     @PostMapping("/todo")
     // public String createTodoItem(@Valid @ModelAttribute("todoItem") TodoItem todoItem, BindingResult bindingResult, Model model) {
-    public String createTodoItem(@Valid @ModelAttribute("todoItem") TodoItem todoItem, BindingResult bindingResult, @RequestParam("categoryId") Long categoryId, @RequestParam(value = "dueDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate, Model model) {
+    public String createTodoItem(@Valid @ModelAttribute("todoItem") TodoItem todoItem, BindingResult bindingResult, @RequestParam( "task_list_id")Long taskListId, @RequestParam(value = "categoryId", required = false) Long categoryId, @RequestParam(value = "dueDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate, Model model) {
         // Vérifiez les erreurs de validation
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Une erreur s'est produite lors de la validation du formulaire.");
@@ -67,7 +71,10 @@ public class TodoFormController {
                 todoItem.setCategory(category);
             }
         }
+        TaskList taskList = taskListService.findById(taskListId);
+
         todoItem.setDueDate(dueDate);
+        todoItem.setTaskList(taskList);
         todoItem.setDescription(todoItem.getDescription());
         todoItem.setStatus(TodoItem.Status.TODO);
 

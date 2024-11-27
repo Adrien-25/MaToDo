@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const addListBtn = document.getElementById("add-list-btn");
   const listNameInput = document.getElementById("list-name");
   const errorElement = document.getElementById("list-name-error");
-//   const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); 
-  const csrfToken = document.querySelector('input[name="_csrf"]').value; 
+  //   const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+  const csrfToken = document.querySelector('input[name="_csrf"]').value;
 
   addListBtn.addEventListener("click", () => {
     const listName = listNameInput.value.trim();
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-XSRF-TOKEN": csrfToken
+        "X-XSRF-TOKEN": csrfToken,
       },
       body: JSON.stringify({ name: listName }),
     })
