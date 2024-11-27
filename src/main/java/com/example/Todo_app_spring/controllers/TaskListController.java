@@ -7,13 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Todo_app_spring.models.TaskList;
 import com.example.Todo_app_spring.models.TodoItem;
@@ -21,9 +22,7 @@ import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.services.TaskListService;
 import com.example.Todo_app_spring.services.UserService;
 
-import ch.qos.logback.core.model.Model;
-
-@RestController
+@Controller
 @RequestMapping("/task-lists")
 public class TaskListController {
 
@@ -56,13 +55,26 @@ public class TaskListController {
     // Méthode pour afficher la liste des tâches d'une liste spécifique
     @GetMapping("/{id}")
     public String getTasksByList(@PathVariable Long id, Model model) {
+        // Username 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.getUserByUsername(username);
+
+        // Listes de l'user
+        List<TaskList> userTaskLists = taskListService.getAllByUser(user);
+
         TaskList taskList = taskListService.findById(id);
-        System.out.println(taskList);
 
         List<TodoItem> todoItems = taskListService.findTasksByListId(id);
+
+        System.out.println(taskList);
         System.out.println(todoItems);
-        // model.addAttribute("todoItems", todoItems);  
-        // model.addAttribute("taskLists", taskListService.findAll());  
+        System.out.println(userTaskLists);
+        model.addAttribute("selectedTaskList", taskList);
+        model.addAttribute("todoItems", todoItems);
+        model.addAttribute("taskLists", userTaskLists);
+        model.addAttribute("username", username);
+
         return "index";
     }
 

@@ -12,15 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.Todo_app_spring.models.TaskList;
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.services.TaskListService;
-import com.example.Todo_app_spring.services.TodoItemService;
 import com.example.Todo_app_spring.services.UserService;
 
 @Controller
 public class HomeController {
 
-    @Autowired
-    private TodoItemService todoItemService;
-
+    // @Autowired
+    // private TodoItemService todoItemService;
     @Autowired
     private TaskListService taskListService;
 
@@ -38,8 +36,6 @@ public class HomeController {
             User user = userService.getUserByUsername(username);
 
             List<TaskList> userTaskLists = taskListService.getAllByUser(user);
-
-            System.out.println("user Take Lists : " + userTaskLists);
 
             // modelAndView.addObject("todoItems", userTodoItems);
             modelAndView.addObject("taskLists", userTaskLists);

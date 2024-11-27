@@ -40,7 +40,7 @@ public class TodoItem implements Serializable {
     private Status status = Status.TODO;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = true)
     private TaskCategory category;
 
     @ManyToOne
