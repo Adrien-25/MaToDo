@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const description = document.getElementById("new-task-input").value;
       const csrfToken = document.querySelector('input[name="_csrf"]').value;
+      const taskListId = document.querySelector('input[name="taskListId"]').value;
       const defaultCategory = 1;
-      const taskListId = 2;
+      // const taskListId = 2;
 
       if (!description) {
         alert("Veuillez entrer une description pour la tâche.");
