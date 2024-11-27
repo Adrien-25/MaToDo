@@ -46,12 +46,11 @@ public class TaskListController {
     }
 
     // Endpoint pour récupérer toutes les listes
-    @GetMapping
-    public ResponseEntity<List<TaskList>> getAllTaskLists() {
-        List<TaskList> taskLists = taskListService.findAll();
-        return ResponseEntity.ok(taskLists);
-    }
-
+    // @GetMapping
+    // public ResponseEntity<List<TaskList>> getAllTaskLists() {
+    //     List<TaskList> taskLists = taskListService.findAll();
+    //     return ResponseEntity.ok(taskLists);
+    // }
     // Méthode pour afficher la liste des tâches d'une liste spécifique
     @GetMapping("/{id}")
     public String getTasksByList(@PathVariable Long id, Model model) {
@@ -67,10 +66,8 @@ public class TaskListController {
 
         List<TodoItem> todoItems = taskListService.findTasksByListId(id);
 
-        System.out.println(taskList);
-        System.out.println(todoItems);
-        System.out.println(userTaskLists);
         model.addAttribute("selectedTaskList", taskList);
+        model.addAttribute("selectedTaskListId", id);
         model.addAttribute("todoItems", todoItems);
         model.addAttribute("taskLists", userTaskLists);
         model.addAttribute("username", username);
@@ -80,8 +77,13 @@ public class TaskListController {
 
     // Endpoint pour supprimer une liste par ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTaskList(@PathVariable Long id) {
+    public String deleteTaskList(@PathVariable Long id) {
         taskListService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/"; // Redirige vers la page d'accueil pour recharger la liste mise à jour
     }
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<Void> deleteTaskList(@PathVariable Long id) {
+    //     taskListService.deleteById(id);
+    //     return ResponseEntity.noContent().build();
+    // }
 }
