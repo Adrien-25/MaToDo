@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Todo_app_spring.models.TaskList;
 import com.example.Todo_app_spring.models.TodoItem;
@@ -34,15 +34,18 @@ public class TaskListController {
 
     // Endpoint pour créer une liste
     @PostMapping
-    public ResponseEntity<TaskList> createTaskList(@RequestBody TaskList taskList) {
+    public String createTaskList(@RequestParam("name") String name) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
-            String username = authentication.getName();
-            User user = userService.getUserByUsername(username);
-            taskList.setUser(user);
-        }
+        String username = authentication.getName();
+        User user = userService.getUserByUsername(username);
+
+        TaskList taskList = new TaskList();
+        taskList.setName(name);
+        taskList.setUser(user);
         TaskList createdTaskList = taskListService.save(taskList);
-        return new ResponseEntity<>(createdTaskList, HttpStatus.CREATED);
+
+        return "redirect:/task-lists/" + createdTaskList.getId();
+
     }
 
     // Endpoint pour récupérer toutes les listes
@@ -81,9 +84,5 @@ public class TaskListController {
         taskListService.deleteById(id);
         return "redirect:/"; // Redirige vers la page d'accueil pour recharger la liste mise à jour
     }
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Void> deleteTaskList(@PathVariable Long id) {
-    //     taskListService.deleteById(id);
-    //     return ResponseEntity.noContent().build();
-    // }
+
 }
