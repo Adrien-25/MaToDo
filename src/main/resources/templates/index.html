@@ -89,12 +89,6 @@
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
-                <!-- <button
-                  class="btn btn-link text-dark text-decoration-none"
-                  th:onclick="'deleteTaskList(' + ${list.id} + ')'"
-                >
-                  <i class="bi bi-trash"></i>
-                </button> -->
               </li>
             </ul>
           </div>
@@ -159,9 +153,34 @@
         </div>
         <hr />
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column" th:if="${selectedTaskListId}">
           <!-- CREER UNE TACHE -->
-          <form id="create-task-form" class="col-md-6">
+          <form
+            action="/todo"
+            method="post"
+            id="create-task-form"
+            class="col-md-6"
+          >
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <input
+              type="hidden"
+              name="task_list_id"
+              th:value="${selectedTaskListId}"
+            />
+            <div class="d-flex justify-content-start mb-3 gap-2">
+              <input
+                id="new-task-input"
+                type="text"
+                class="form-control"
+                placeholder="Nouvelle tâche..."
+                name="description"
+              />
+              <button id="add-task-btn" class="btn btn-outline-success">
+                <i class="bi bi-plus-square-fill"></i>
+              </button>
+            </div>
+          </form>
+          <!-- <form id="create-task-form" class="col-md-6">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
             <input
               type="hidden"
@@ -180,7 +199,7 @@
                 <i class="bi bi-plus-square-fill"></i>
               </button>
             </div>
-          </form>
+          </form> -->
 
           <!-- AFFICHAGE DES TACHES -->
           <div class="d-flex flex-column gap-3">
@@ -253,9 +272,8 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form id="list-form">
+            <form id="list-form" action="/task-lists" method="POST">
               <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-
               <div class="mb-3">
                 <label for="list-name" class="form-label"
                   >Nom de la liste</label
@@ -264,6 +282,7 @@
                   type="text"
                   class="form-control"
                   id="list-name"
+                  name="name"
                   placeholder="Entrez le nom de la liste"
                   required
                 />
@@ -285,7 +304,12 @@
             >
               Fermer
             </button>
-            <button type="button" class="btn btn-primary" id="add-list-btn">
+            <button
+              type="submit"
+              form="list-form"
+              class="btn btn-primary"
+              id="add-list-btn"
+            >
               Ajouter
             </button>
           </div>
@@ -298,7 +322,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="/js/create-task.js" defer></script>
+    <!-- <script src="/js/create-task.js" defer></script> -->
     <script src="/js/edit-task.js" defer></script>
     <script src="/js/create-list.js" defer></script>
   </body>

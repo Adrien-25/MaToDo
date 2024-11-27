@@ -30,18 +30,12 @@ public class TodoItem implements Serializable {
 
     private LocalDate dueDate;
 
-    // private Boolean isComplete;
-    // private Boolean isComplete = false;
     private Instant createdAt;
 
     private Instant updatedAt;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.TODO;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = true)
-    private TaskCategory category;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -54,11 +48,10 @@ public class TodoItem implements Serializable {
     @Override
     public String toString() {
         return String.format(
-                "TodoItem{id=%d, name='%s', description='%s', status='%s', createdAt='%s', updatedAt='%s', dueDate='%s', user_id=%d, taskList_id=%d, category_id=%d}",
+                "TodoItem{id=%d, name='%s', description='%s', status='%s', createdAt='%s', updatedAt='%s', dueDate='%s', user_id=%d, taskList_id=%d}",
                 id, name, description, status, createdAt, updatedAt, dueDate,
                 user != null ? user.getId() : null,
-                taskList != null ? taskList.getId() : null,
-                category != null ? category.getId() : null
+                taskList != null ? taskList.getId() : null
         );
     }
 
@@ -124,14 +117,6 @@ public class TodoItem implements Serializable {
 
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
-    }
-
-    public TaskCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(TaskCategory category) {
-        this.category = category;
     }
 
     public LocalDate getDueDate() {

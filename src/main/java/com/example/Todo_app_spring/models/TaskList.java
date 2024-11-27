@@ -66,12 +66,4 @@ public class TaskList implements Serializable {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "TaskList{"
-                + "id=" + id
-                + ", name='" + name + '\''
-                + ", user=" + (user != null ? user.getUsername() : "null")
-                + '}';
-    }
 }
