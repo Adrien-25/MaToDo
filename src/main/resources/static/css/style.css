@@ -51,6 +51,11 @@ HOME PAGE (Index.html)
 .task-list-item a {
   gap: 9px;
 }
+#createdDate {
+  /* text-indent: -9999px;
+  width: 40px; */
+  width: fit-content;
+}
 .task-card {
   transition: background-color 0.3s ease;
 }
