@@ -49,7 +49,7 @@ HOME PAGE (Index.html)
   background-color: rgb(141 141 141 / 20%);
 }
 .task-list-item a {
-  gap: 5px;
+  gap: 9px;
 }
 .task-card {
   transition: background-color 0.3s ease;

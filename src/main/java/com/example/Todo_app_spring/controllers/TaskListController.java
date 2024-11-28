@@ -1,5 +1,6 @@
 package com.example.Todo_app_spring.controllers;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class TaskListController {
         TaskList taskList = taskListService.findById(id);
 
         List<TodoItem> todoItems = taskListService.findTasksByListId(id);
+        todoItems.sort(Comparator.comparing(TodoItem::getStatus));
 
         model.addAttribute("selectedTaskList", taskList);
         model.addAttribute("selectedTaskListId", id);
