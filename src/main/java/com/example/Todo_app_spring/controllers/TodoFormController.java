@@ -79,16 +79,7 @@ public class TodoFormController {
 
     }
 
-    // // SUPPRIMER UNE TACHE
-    // @GetMapping("/delete/{id}")
-    // public String deleteTodoItem(@PathVariable("id") Long id, Model model) {
-    //     TodoItem todoItem = todoItemService
-    //             .getById(id)
-    //             .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
-    //     todoItemService.delete(todoItem);
-    //     return "redirect:/";
-    // }
-    // Endpoint pour supprimer une liste par ID
+    // SUPPRIMER UNE TACHE
     @DeleteMapping("/delete/{id}")
     public String deleteTodoItem(@PathVariable Long id, @RequestParam("task_list_id") Long taskListId) {
         TodoItem todoItem = todoItemService
@@ -96,7 +87,6 @@ public class TodoFormController {
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
         todoItemService.delete(todoItem);
         return "redirect:/task-lists/" + taskListId;
-
     }
 
     // MODIFIER UNE TACHE
