@@ -48,7 +48,8 @@ public class TodoFormController {
     @PostMapping("/todo")
     public String createTodoItem(
             @Valid @ModelAttribute("todoItem") TodoItem todoItem,
-            BindingResult bindingResult, @RequestParam("task_list_id") Long taskListId,
+            BindingResult bindingResult,
+            @RequestParam("task_list_id") Long taskListId,
             @RequestParam(value = "dueDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate,
             Model model) {
         // Vérifiez les erreurs de validation
@@ -77,6 +78,7 @@ public class TodoFormController {
 
     }
 
+    // SUPPRIMER UNE TACHE
     @GetMapping("/delete/{id}")
     public String deleteTodoItem(@PathVariable("id") Long id, Model model) {
         TodoItem todoItem = todoItemService
@@ -86,6 +88,7 @@ public class TodoFormController {
         return "redirect:/";
     }
 
+    // MODIFIER UNE TACHE
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, org.springframework.ui.Model model) {
         TodoItem todoItem = todoItemService
@@ -96,6 +99,7 @@ public class TodoFormController {
         return "edit-todo-item";
     }
 
+    // MODIFIER UNE TACHE
     @PostMapping("/todo/{id}")
     public String updateTodoItem(@PathVariable("id") Long id, @Valid TodoItem todoItem, BindingResult result, Model model) {
 
@@ -111,27 +115,24 @@ public class TodoFormController {
         return "redirect:/";
     }
 
+    // STATUT DE TACHE FAITE / A FAIRE
     @PatchMapping("/todo/{id}/toggle")
-    public ResponseEntity<String> toggleTodoItem(@PathVariable Long id) {
+    public String toggleTodoItem(
+            @PathVariable Long id,
+            @RequestParam("task_list_id") Long taskListId
+    ) {
         Optional<TodoItem> optionalTodoItem = todoItemService.getById(id);
 
-        if (optionalTodoItem.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("TodoItem not found");
-        }
-
         TodoItem todoItem = optionalTodoItem.get();
-        // Basculer entre les statuts Todo et Done      
         if (todoItem.getStatus() == TodoItem.Status.TODO) {
             todoItem.setStatus(TodoItem.Status.DONE);
         } else if (todoItem.getStatus() == TodoItem.Status.DONE) {
-            todoItem.setStatus(TodoItem.Status.TODO); // Permet de revenir en arrière
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Invalid status transition for this operation");
+            todoItem.setStatus(TodoItem.Status.TODO); 
         }
 
         todoItemService.save(todoItem);
 
-        return ResponseEntity.ok("TodoItem updated successfully");
+        return "redirect:/task-lists/" + taskListId;
+
     }
 }

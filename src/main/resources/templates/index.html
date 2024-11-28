@@ -197,15 +197,32 @@
               <div
                 class="card-body d-flex align-items-center justify-content-between"
               >
-                <div th:attr="data-status=${item.status}">
+                <div class="d-flex">
                   <!-- CHECKBOX POUR L'ETAT FAIT/A FAIRE -->
-                  <input
-                    id="inputIsComplete"
-                    type="checkbox"
-                    class="form-check-input me-3 task-checkbox"
-                    th:checked="${item.status.name() == 'DONE'}"
-                    th:attr="data-id=${item.id}"
-                  />
+                  <form
+                    th:action="@{/todo/{id}/toggle(id=${item.id})}"
+                    method="POST"
+                    th:id="'todoForm-' + ${item.id}"
+                  >
+                    <input type="hidden" name="_method" value="PATCH" />
+                    <input
+                      type="hidden"
+                      name="_csrf"
+                      th:value="${_csrf.token}"
+                    />
+                    <input
+                      type="hidden"
+                      name="task_list_id"
+                      th:value="${selectedTaskListId}"
+                    />
+                    <input
+                      th:id="'inputIsComplete-' + ${item.id}"
+                      type="checkbox"
+                      class="form-check-input me-3 task-checkbox"
+                      th:checked="${item.status.name() == 'DONE'}"
+                      th:attr="data-id=${item.id}"
+                    />
+                  </form>
                   <!-- DESCRIPTION DE LA TACHE -->
                   <span
                     class="flex-grow-1"
