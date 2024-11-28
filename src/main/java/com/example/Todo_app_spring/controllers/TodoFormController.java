@@ -72,7 +72,9 @@ public class TodoFormController {
 
         // Enregistrer la tâche
         todoItemService.save(todoItem);
-        return "redirect:/";
+        // return "redirect:/";
+        return "redirect:/task-lists/" + taskListId;
+
     }
 
     @GetMapping("/delete/{id}")
@@ -111,7 +113,6 @@ public class TodoFormController {
 
     @PatchMapping("/todo/{id}/toggle")
     public ResponseEntity<String> toggleTodoItem(@PathVariable Long id) {
-        // TodoItem todoItem = todoItemService.getById(id);
         Optional<TodoItem> optionalTodoItem = todoItemService.getById(id);
 
         if (optionalTodoItem == null) {
@@ -119,7 +120,6 @@ public class TodoFormController {
         }
 
         TodoItem todoItem = optionalTodoItem.get();
-        // todoItem.setIsComplete(!todoItem.getIsComplete());
         todoItemService.save(todoItem);
 
         return ResponseEntity.ok("TodoItem updated successfully");

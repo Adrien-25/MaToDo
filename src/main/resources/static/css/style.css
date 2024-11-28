@@ -6,7 +6,11 @@ html {
   font-size: 0.9rem;
 } */
 
-/* GENERAL */
+/* 
+===================================================================
+GENERAL
+===================================================================
+*/
 button.btn {
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
@@ -19,7 +23,22 @@ button.btn {
   font-size: 13px;
 }
 
-/* TODO APP */
+/* 
+===================================================================
+HOME PAGE (Index.html)
+===================================================================
+*/
+/* SIDEBAR */
+/* Transition sur la largeur */
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  transition: all 0.3s;
+}
+#sidebar.close{
+  margin-left: -250px;
+}
+/* LISTE DE TACHES */
 .task-list-item {
   transition: all 0.3s ease;
 }
@@ -35,7 +54,6 @@ button.btn {
 .task-card {
   transition: background-color 0.3s ease;
 }
-
 .task-card.task-complete {
   background-color: #d4edda;
   color: #155724;
@@ -47,7 +65,11 @@ button.btn {
 .task-card.task-complete:hover {
   background-color: #ace9ba;
 }
-/* AUTH */
+/* 
+===================================================================
+AUTH PAGES (login.html and signup.html)
+===================================================================
+*/
 input.form-control.large {
   padding: 0.8rem 1rem;
 }
