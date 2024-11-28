@@ -115,11 +115,21 @@ public class TodoFormController {
     public ResponseEntity<String> toggleTodoItem(@PathVariable Long id) {
         Optional<TodoItem> optionalTodoItem = todoItemService.getById(id);
 
-        if (optionalTodoItem == null) {
+        if (optionalTodoItem.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("TodoItem not found");
         }
 
         TodoItem todoItem = optionalTodoItem.get();
+        // Basculer entre les statuts Todo et Done      
+        if (todoItem.getStatus() == TodoItem.Status.TODO) {
+            todoItem.setStatus(TodoItem.Status.DONE);
+        } else if (todoItem.getStatus() == TodoItem.Status.DONE) {
+            todoItem.setStatus(TodoItem.Status.TODO); // Permet de revenir en arrière
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid status transition for this operation");
+        }
+
         todoItemService.save(todoItem);
 
         return ResponseEntity.ok("TodoItem updated successfully");

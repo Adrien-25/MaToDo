@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const taskCheckboxes = document.querySelectorAll(".task-checkbox");
+  const csrfToken = document.querySelector('input[name="_csrf"]').value;
 
   taskCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", function () {
@@ -10,13 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          "X-XSRF-TOKEN": csrfToken,
         },
       })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Erreur lors de la mise à jour de la tâche");
           }
-          location.reload();
         })
         .catch((error) => {
           console.error("Erreur :", error);
