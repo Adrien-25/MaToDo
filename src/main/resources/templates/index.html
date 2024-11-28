@@ -239,13 +239,35 @@
                   >
                     <i class="bi bi-pencil-fill"></i>
                   </a> -->
-                  <a
+                  <!-- <a
                     class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center rounded"
                     th:href="@{/delete/{id}(id=${item.id})}"
                   >
                     <i class="bi bi-trash-fill"></i>
-                  </a>
-                  
+                  </a> -->
+                  <form
+                    action="#"
+                    th:action="@{/delete/{id}(id=${item.id})}"
+                    method="post"
+                  >
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <input
+                      type="hidden"
+                      name="task_list_id"
+                      th:value="${selectedTaskListId}"
+                    />
+                    <input
+                      type="hidden"
+                      name="_csrf"
+                      th:value="${_csrf.token}"
+                    />
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-link d-flex align-items-center justify-content-center rounded p-0 text-danger"
+                    >
+                      <i class="bi bi-trash-fill"></i>
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

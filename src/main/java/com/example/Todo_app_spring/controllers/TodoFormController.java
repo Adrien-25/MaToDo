@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -78,14 +79,24 @@ public class TodoFormController {
 
     }
 
-    // SUPPRIMER UNE TACHE
-    @GetMapping("/delete/{id}")
-    public String deleteTodoItem(@PathVariable("id") Long id, Model model) {
+    // // SUPPRIMER UNE TACHE
+    // @GetMapping("/delete/{id}")
+    // public String deleteTodoItem(@PathVariable("id") Long id, Model model) {
+    //     TodoItem todoItem = todoItemService
+    //             .getById(id)
+    //             .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
+    //     todoItemService.delete(todoItem);
+    //     return "redirect:/";
+    // }
+    // Endpoint pour supprimer une liste par ID
+    @DeleteMapping("/delete/{id}")
+    public String deleteTodoItem(@PathVariable Long id, @RequestParam("task_list_id") Long taskListId) {
         TodoItem todoItem = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
         todoItemService.delete(todoItem);
-        return "redirect:/";
+        return "redirect:/task-lists/" + taskListId;
+
     }
 
     // MODIFIER UNE TACHE
@@ -127,7 +138,7 @@ public class TodoFormController {
         if (todoItem.getStatus() == TodoItem.Status.TODO) {
             todoItem.setStatus(TodoItem.Status.DONE);
         } else if (todoItem.getStatus() == TodoItem.Status.DONE) {
-            todoItem.setStatus(TodoItem.Status.TODO); 
+            todoItem.setStatus(TodoItem.Status.TODO);
         }
 
         todoItemService.save(todoItem);
