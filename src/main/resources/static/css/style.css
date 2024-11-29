@@ -40,14 +40,26 @@ SIDEBAR
 #sidebar.close {
   margin-left: -250px;
 }
+#close-sidebar {
+  display: none;
+  width: 30px;
+  height: 30px;
+}
 @media only screen and (max-width: 700px) {
   #sidebar {
     position: fixed;
     height: 100vh;
     z-index: 99;
-    /* margin-left: -100%; */
+    margin-left: -100%;
+    max-width: 500px;
+    width: 100vw;
   }
-
+  #sidebar.close {
+    margin-left: 0;
+  }
+  #close-sidebar {
+    display: block;
+  }
 }
 /* -------------------------
 LISTES
@@ -122,6 +134,11 @@ TACHES
 .button-delete-task i.bi{
   
 } */
+
+.logout-header > button {
+  width: 30px;
+  height: 30px;
+}
 /* 
 ===================================================================
 AUTH PAGES (login.html and signup.html)

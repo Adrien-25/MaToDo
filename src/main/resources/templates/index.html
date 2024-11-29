@@ -28,12 +28,22 @@
       -->
       <div class="bg-light collapse show" id="sidebar">
         <div class="d-flex flex-column p-3 h-100">
-          <a
-            href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-          >
-            <span class="fs-4">MaToDo</span>
-          </a>
+          <div class="d-flex justify-content-between">
+            <a
+              href="/"
+              class="d-flex align-items-center mb-md-0 me-md-auto link-dark text-decoration-none"
+            >
+              <span class="fs-4">MaToDo</span>
+            </a>
+            <button
+              id="close-sidebar"
+              href="#"
+              class="border rounded-3 p-1 text-decoration-none d-flex align-items-center justify-content-center"
+            >
+              <i class="bi bi-x"></i>
+              <!-- <i class="bi bi-list bi-lg py-2 p-1"></i>  -->
+            </button>
+          </div>
           <hr />
           <div class="nav nav-pills flex-column mb-auto">
             <!-- LISTES DE TACHES -->
@@ -146,15 +156,22 @@
             <i class="fas fa-check-square me-1"></i>
             <u>MaToDo</u>
           </h1>
-          <div class="d-flex gap-2">
+          <div class="d-flex gap-2 align-items-center">
             <span th:if="${username}" th:text="${username}" class=""></span>
             |
-            <form th:action="@{/auth/logout}" method="post">
-              <input
+            <form th:action="@{/auth/logout}" method="post" class="logout-header">
+              <button
+                type="submit"
+                class="border-0 bg-transparent p-0 text-dark"
+                aria-label="Déconnexion"
+              >
+                <i class="bi bi-box-arrow-right"></i>
+              </button>
+              <!-- <input
                 type="submit"
                 class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
                 value="Déconnexion"
-              />
+              /> -->
             </form>
           </div>
         </div>
