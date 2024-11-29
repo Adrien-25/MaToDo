@@ -42,10 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "Content-Type": "application/x-www-form-urlencoded",
             "X-XSRF-TOKEN": csrfToken,
           },
-          // body: JSON.stringify({
-          //   description: newValue,
-          //   task_list_id: currentListId,
-          // }),
           body: formData.toString(),
         })
           .then((response) => {
