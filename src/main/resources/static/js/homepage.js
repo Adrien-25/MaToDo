@@ -12,7 +12,7 @@ toggleButton.addEventListener("click", () => {
 
 // inputIsComplete
 const taskCheckboxes = document.querySelectorAll(".task-checkbox");
-console.log(taskCheckboxes);
+// console.log(taskCheckboxes);
 taskCheckboxes.forEach((checkbox) => {
   checkbox.addEventListener("change", function () {
     // Récupère l'ID du formulaire associé à cette checkbox

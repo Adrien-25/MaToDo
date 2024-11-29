@@ -47,12 +47,6 @@ public class TaskListController {
 
     }
 
-    // Endpoint pour récupérer toutes les listes
-    // @GetMapping
-    // public ResponseEntity<List<TaskList>> getAllTaskLists() {
-    //     List<TaskList> taskLists = taskListService.findAll();
-    //     return ResponseEntity.ok(taskLists);
-    // }
     // Méthode pour afficher la liste des tâches d'une liste spécifique
     @GetMapping("/{id}")
     public String getTasksByList(@PathVariable Long id, Model model) {

@@ -133,6 +133,7 @@
       ============================================================================================================================================================== 
       -->
       <div class="min-vh-100 p-3 flex-grow-1 overflow-auto">
+        <!-- HEADER -->
         <div class="d-flex justify-content-between align-items-center">
           <button
             id="toggle-sidebar"
@@ -161,12 +162,7 @@
 
         <div class="d-flex flex-column" th:if="${selectedTaskListId}">
           <!-- CREER UNE TACHE -->
-          <form
-            action="/todo"
-            method="post"
-            id="create-task-form"
-            class=""
-          >
+          <form action="/todo" method="post" id="create-task-form" class="">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
             <input
               type="hidden"
@@ -181,7 +177,12 @@
                 placeholder="Nouvelle tâche..."
                 name="description"
               />
-              <input type="date" id="createdDate" name="dueDate" class="form-control" >
+              <input
+                type="date"
+                id="createdDate"
+                name="dueDate"
+                class="form-control"
+              />
 
               <button id="add-task-btn" class="btn btn-outline-success">
                 <i class="bi bi-plus-square-fill"></i>
@@ -197,14 +198,15 @@
               th:classappend="${item.status} == TODO ? 'task-complete' : ''"
             >
               <div
-                class="card-body d-flex align-items-center justify-content-between p-2 px-3"
+                class="card-body d-flex align-items-center justify-content-between py-2 px-3"
               >
-                <div class="d-flex">
+                <div class="d-flex task-container">
                   <!-- CHECKBOX POUR L'ETAT FAIT/A FAIRE -->
                   <form
                     th:action="@{/todo/{id}/toggle(id=${item.id})}"
                     method="POST"
                     th:id="'todoForm-' + ${item.id}"
+                    class="d-flex align-items-center"
                   >
                     <input type="hidden" name="_method" value="PATCH" />
                     <input
@@ -226,14 +228,15 @@
                     />
                   </form>
                   <!-- DESCRIPTION DE LA TACHE -->
+                  <!-- th:class="${item.status} == TODO ? 'text-decoration-line-through' : ''" -->
                   <span
-                    class="flex-grow-1"
-                    th:class="${item.status} == TODO ? 'text-decoration-line-through' : ''"
+                    class="description-content flex-grow-1 editable"
                     th:text="${item.description}"
+                    th:data-id="${item.id}"
                   ></span>
                 </div>
 
-                <!-- BOUTONS D'ACTIONS -->
+                <!-- BOUTONS D'ACTIONS MODIFIER/SUPPRIMER -->
                 <div class="btn-group gap-2" role="group">
                   <!-- <a
                     class="btn btn-sm btn-outline-info d-flex align-items-center justify-content-center rounded"
@@ -241,16 +244,21 @@
                   >
                     <i class="bi bi-pencil-fill"></i>
                   </a> -->
-                  <!-- <a
-                    class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center rounded"
-                    th:href="@{/delete/{id}(id=${item.id})}"
+                  <!-- <button
+                    type="button"
+                    class="btn btn-link text-info text-decoration-none p-0 d-flex align-items-center justify-content-center button-edit-task"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editTask"
                   >
-                    <i class="bi bi-trash-fill"></i>
-                  </a> -->
+                    <i class="bi bi-pencil-fill"></i>
+                  </button> -->
+
+                  <!-- SUPRESSION DE TACHE -->
                   <form
                     action="#"
                     th:action="@{/delete/{id}(id=${item.id})}"
                     method="post"
+                    class=""
                   >
                     <input type="hidden" name="_method" value="DELETE" />
                     <input
@@ -265,7 +273,7 @@
                     />
                     <button
                       type="submit"
-                      class="btn btn-sm btn-link d-flex align-items-center justify-content-center rounded p-0 text-danger"
+                      class="btn btn-sm btn-link d-flex align-items-center justify-content-center rounded p-0 text-danger button-delete-task"
                     >
                       <i class="bi bi-trash-fill"></i>
                     </button>
@@ -277,13 +285,73 @@
         </div>
       </div>
     </div>
-    <!-- MODAL CREATION DE LISTE  -->
+    <!-- MODAL CREATION DE LISTE -->
     <div
       class="modal fade modal-create-list"
       id="staticBackdrop"
       data-bs-keyboard="false"
       tabindex="-1"
       aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">
+              Ajouter une liste
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="list-form" action="/task-lists" method="POST">
+              <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+              <div class="mb-3">
+                <label for="list-name" class="form-label"
+                  >Nom de la liste</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="list-name"
+                  name="name"
+                  placeholder="Entrez le nom de la liste"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="submit"
+              form="list-form"
+              class="btn btn-primary"
+              id="add-list-btn"
+            >
+              Ajouter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL MODIFICATION DE TACHES -->
+    <div
+      class="modal fade modal-create-list"
+      id="editTask"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="editTaskLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
@@ -347,5 +415,6 @@
     <script src="/js/edit-task.js" defer></script>
     <script src="/js/create-list.js" defer></script>
     <script src="/js/homepage.js" defer></script>
+    <script src="/js/edit-desc.js" defer></script>
   </body>
 </html>
