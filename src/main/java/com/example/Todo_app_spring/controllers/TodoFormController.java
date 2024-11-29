@@ -85,30 +85,6 @@ public class TodoFormController {
         return "redirect:/task-lists/" + taskListId;
     }
 
-    // // MODIFIER UNE TACHE
-    // @GetMapping("/edit/{id}")
-    // public String showUpdateForm(@PathVariable("id") Long id, org.springframework.ui.Model model) {
-    //     TodoItem todoItem = todoItemService
-    //             .getById(id)
-    //             .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
-    //     model.addAttribute("todo", todoItem);
-    //     return "edit-todo-item";
-    // }
-    // // MODIFIER UNE TACHE
-    // @PostMapping("/todo/{id}")
-    // public String updateTodoItem(
-    //         @PathVariable("id") Long id,
-    //         @Valid TodoItem todoItem,
-    //         BindingResult result,
-    //         Model model) {
-    //     TodoItem item = todoItemService
-    //             .getById(id)
-    //             .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
-    //     // item.setIsComplete(todoItem.getIsComplete());
-    //     item.setDescription(todoItem.getDescription());
-    //     todoItemService.save(item);
-    //     return "redirect:/";
-    // }
     @PostMapping("/todo/{id}")
     public String updateTodoItem(
             @Valid @ModelAttribute("todoItem") TodoItem todoItem,
@@ -133,10 +109,7 @@ public class TodoFormController {
         if (todoItem.getDescription() != null && !todoItem.getDescription().isBlank()) {
             existingItem.setDescription(todoItem.getDescription());
         }
-        System.out.println("-----------------------------");
-        System.out.println(todoItem);
-        System.out.println(taskListId);
-        System.out.println("-----------------------------");
+        
 
         todoItemService.save(existingItem);
 

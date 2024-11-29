@@ -41,7 +41,7 @@ SIDEBAR
   margin-left: -250px;
 }
 #close-sidebar {
-  display: none;
+  display: none !important;
   width: 30px;
   height: 30px;
 }
@@ -58,7 +58,7 @@ SIDEBAR
     margin-left: 0;
   }
   #close-sidebar {
-    display: block;
+    display: block !important;
   }
 }
 /* -------------------------
@@ -83,6 +83,13 @@ TACHES
   /* text-indent: -9999px;
   width: 40px; */
   width: fit-content;
+}
+@media only screen and (max-width: 700px) {
+  #createdDate {
+    text-indent: -9999px;
+    width: 40px;
+    /* width: fit-content; */
+  }
 }
 .task-card {
   transition: background-color 0.3s ease;

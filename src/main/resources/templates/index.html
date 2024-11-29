@@ -40,7 +40,7 @@
               href="#"
               class="border rounded-3 p-1 text-decoration-none d-flex align-items-center justify-content-center"
             >
-              <i class="bi bi-x"></i>
+              <i class="bi bi-x fs-5 d-flex align-items-center justify-content-center"></i>
               <!-- <i class="bi bi-list bi-lg py-2 p-1"></i>  -->
             </button>
           </div>
@@ -154,7 +154,8 @@
           </button>
           <h1 class="h2 text-center text-dark">
             <i class="fas fa-check-square me-1"></i>
-            <u>MaToDo</u>
+            <u th:if="${selectedtaskListname == null}">MaToDo</u>
+            <u th:if="${selectedtaskListname}" th:text="${selectedtaskListname}" class=""></u>
           </h1>
           <div class="d-flex gap-2 align-items-center">
             <span th:if="${username}" th:text="${username}" class=""></span>
@@ -165,7 +166,7 @@
                 class="border-0 bg-transparent p-0 text-dark"
                 aria-label="Déconnexion"
               >
-                <i class="bi bi-box-arrow-right"></i>
+                <i class="bi bi-box-arrow-right fs-5"></i>
               </button>
               <!-- <input
                 type="submit"
