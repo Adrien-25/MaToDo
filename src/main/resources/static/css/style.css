@@ -40,6 +40,15 @@ SIDEBAR
 #sidebar.close {
   margin-left: -250px;
 }
+@media only screen and (max-width: 900px) {
+  #sidebar {
+    position: fixed;
+    height: 100vh;
+    z-index: 99;
+    /* margin-left: -100%; */
+  }
+
+}
 /* -------------------------
 LISTES
 */
@@ -77,10 +86,10 @@ TACHES
 .task-card.task-complete:hover {
   background-color: #ace9ba;
 }
-.task-container{
+.task-container {
   flex-basis: 100%;
 }
-.task-container .input-edit-des{
+.task-container .input-edit-desc {
   flex-basis: 100%;
 }
 
@@ -92,12 +101,15 @@ TACHES
 }
 .description-content.editable {
   cursor: pointer;
+  /* padding: 0 5px; */
 }
 .input-edit-desc {
   border: 0;
   padding: 0;
   background-color: transparent;
-  box-shadow: none;
+}
+.input-edit-desc:focus {
+  box-shadow: unset;
 }
 .form-check-input {
   cursor: pointer;

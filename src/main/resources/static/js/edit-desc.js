@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Sélectionner tous les éléments modifiables
   const editableElements = document.querySelectorAll(".editable");
+  const csrfToken = document.querySelector('input[name="_csrf"]').value;
+  const currentListId = document.getElementById("current-list-id").value;
 
   editableElements.forEach((element) => {
     element.addEventListener("click", () => {
@@ -29,13 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
+        const formData = new URLSearchParams();
+        formData.append("description", newValue);
+        formData.append("task_list_id", currentListId);
+
         // Envoyer les nouvelles données au serveur (AJAX)
-        fetch(`/tasks/${taskId}`, {
-          method: "PUT",
+        fetch(`/todo/${taskId}`, {
+          method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-XSRF-TOKEN": csrfToken,
           },
-          body: JSON.stringify({ description: newValue }),
+          // body: JSON.stringify({
+          //   description: newValue,
+          //   task_list_id: currentListId,
+          // }),
+          body: formData.toString(),
         })
           .then((response) => {
             if (response.ok) {

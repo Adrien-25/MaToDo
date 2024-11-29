@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -72,9 +70,7 @@ public class TodoFormController {
         todoItem.setDescription(todoItem.getDescription());
         todoItem.setStatus(TodoItem.Status.TODO);
 
-        // Enregistrer la tâche
         todoItemService.save(todoItem);
-        // return "redirect:/";
         return "redirect:/task-lists/" + taskListId;
 
     }
@@ -89,30 +85,62 @@ public class TodoFormController {
         return "redirect:/task-lists/" + taskListId;
     }
 
-    // MODIFIER UNE TACHE
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") Long id, org.springframework.ui.Model model) {
-        TodoItem todoItem = todoItemService
-                .getById(id)
-                .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
-
-        model.addAttribute("todo", todoItem);
-        return "edit-todo-item";
-    }
-
-    // MODIFIER UNE TACHE
+    // // MODIFIER UNE TACHE
+    // @GetMapping("/edit/{id}")
+    // public String showUpdateForm(@PathVariable("id") Long id, org.springframework.ui.Model model) {
+    //     TodoItem todoItem = todoItemService
+    //             .getById(id)
+    //             .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
+    //     model.addAttribute("todo", todoItem);
+    //     return "edit-todo-item";
+    // }
+    // // MODIFIER UNE TACHE
+    // @PostMapping("/todo/{id}")
+    // public String updateTodoItem(
+    //         @PathVariable("id") Long id,
+    //         @Valid TodoItem todoItem,
+    //         BindingResult result,
+    //         Model model) {
+    //     TodoItem item = todoItemService
+    //             .getById(id)
+    //             .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
+    //     // item.setIsComplete(todoItem.getIsComplete());
+    //     item.setDescription(todoItem.getDescription());
+    //     todoItemService.save(item);
+    //     return "redirect:/";
+    // }
     @PostMapping("/todo/{id}")
-    public String updateTodoItem(@PathVariable("id") Long id, @Valid TodoItem todoItem, BindingResult result, Model model) {
+    public String updateTodoItem(
+            @Valid @ModelAttribute("todoItem") TodoItem todoItem,
+            @PathVariable("id") Long id,
+            BindingResult result,
+            @RequestParam("task_list_id") Long taskListId,
+            Model model
+    ) {
 
-        TodoItem item = todoItemService
+        // Vérification de la validation des données
+        if (result.hasErrors()) {
+            model.addAttribute("error", "Validation error. Please check the input data.");
+            return "redirect:/";
+        }
+
+        // Récupérer la tâche existante
+        TodoItem existingItem = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
 
-        // item.setIsComplete(todoItem.getIsComplete());
-        item.setDescription(todoItem.getDescription());
+        // Mettre à jour les champs nécessaires
+        if (todoItem.getDescription() != null && !todoItem.getDescription().isBlank()) {
+            existingItem.setDescription(todoItem.getDescription());
+        }
+        System.out.println("-----------------------------");
+        System.out.println(todoItem);
+        System.out.println(taskListId);
+        System.out.println("-----------------------------");
 
-        todoItemService.save(item);
+        todoItemService.save(existingItem);
 
+        // return "redirect:/task-lists/" + taskListId;
         return "redirect:/";
     }
 
