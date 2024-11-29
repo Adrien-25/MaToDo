@@ -62,9 +62,7 @@ public class TaskListController {
 
         List<TodoItem> todoItems = taskListService.findTasksByListId(id);
         todoItems.sort(Comparator.comparing(TodoItem::getStatus));
-        String selectedtaskListname =taskList.getName();
-        System.out.println(selectedtaskListname);
-
+        String selectedtaskListname = taskList.getName();
 
         model.addAttribute("selectedTaskList", taskList);
         model.addAttribute("selectedTaskListId", id);
