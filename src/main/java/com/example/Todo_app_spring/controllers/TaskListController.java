@@ -80,15 +80,6 @@ public class TaskListController {
             } else {
                 System.out.println("Date non spécifiée");
             }
-            // if (dueDate != null) {
-            //     String formattedDate = dueDate.format(formatter);
-            //     System.out.println(formattedDate);
-
-            //     LocalDate newDueDate = LocalDate.parse(formattedDate, formatter);
-            //     item.setDueDate(newDueDate);
-            // } else {
-            //     System.out.println("Date non spécifiée");
-            // }
         }
 
         todoItems.sort(Comparator.comparing(TodoItem::getStatus));

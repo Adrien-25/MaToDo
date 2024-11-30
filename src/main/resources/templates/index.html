@@ -193,12 +193,12 @@
                 <!-- DESCRIPTION DE LA TACHE -->
                 <!-- th:class="${item.status} == TODO ? 'text-decoration-line-through' : ''" -->
 
-                <div class="task-infos d-flex gap-2 flex-column">
+                <div class="task-infos d-flex gap-1 flex-column">
                   <span class="description-content flex-grow-1 editable" th:text="${item.description}"
                     th:data-id="${item.id}"></span>
-                  <div class="" th:if="${item.dueDate}">
-                    <small><i class="bi bi-alarm me-2"></i><span th:text="${item.dueDate}"></span>
-                    </small>
+                  <div class="task-date" th:if="${item.dueDate}">
+                    <i class="bi bi-alarm me-2"></i><span th:text="${item.dueDate}"></span>
+
                   </div>
                 </div>
 
