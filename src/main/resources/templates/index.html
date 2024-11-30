@@ -64,27 +64,32 @@
                   </a>
                   <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownList2">
                     <li>
-                      <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post" class="dropdown-item">
-                        <input type="hidden" name="_method" value="delete" />
-                        <button type="submit" class="btn btn-link text-dark text-decoration-none p-0 fw-normal">
-                          Renommer
-                        </button>
-                      </form>
+                      <button type="button"
+                        class="dropdown-item btn btn-link text-dark text-decoration-none fw-normal py-2"
+                        data-bs-toggle="modal" data-bs-target="#editList" th:data-id="${list.id}">
+                        <span class="d-none list-name-data" th:data-name="${list.name}"></span>
+                        <span class="d-none current-list-data" th:data-name="${selectedTaskListId}"></span>
+                        <i class="bi bi-pencil me-2"></i>
+                        Renommer
+                      </button>
                     </li>
                     <li>
-                      <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post" class="dropdown-item"
+                      <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post" class="dropdown-item py-2"
                         onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette liste ?');">
                         <input type="hidden" name="_method" value="delete" />
-                        <button type="submit" class="btn btn-link text-dark text-decoration-none p-0 fw-normal">
+                        <button type="submit" class="btn btn-link text-decoration-none p-0 fw-normal text-danger">
+                          <i class="bi bi-trash-fill me-2 text-danger"></i>
                           Supprimer
                         </button>
                       </form>
                     </li>
                     <!-- <li>
-                    <form th:action="@{/auth/logout}" method="post" class="dropdown-item">
-                      <input type="submit"
-                        class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
-                        value="Déconnexion" />
+                    <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post" class="dropdown-item">
+                      <input type="hidden" name="_method" value="delete" />
+                      <button type="submit" class="btn btn-link text-dark text-decoration-none p-0 fw-normal">
+                        <i class="bi bi-pencil me-2"></i>
+                        Renommer
+                      </button>
                     </form>
                   </li> -->
                   </ul>
@@ -244,7 +249,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="list-form" action="/task-lists" method="POST">
+          <form id="create-list-form" action="/task-lists" method="POST">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
             <div class="mb-3">
               <label for="list-name" class="form-label">Nom de la liste</label>
@@ -257,31 +262,33 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Fermer
           </button>
-          <button type="submit" form="list-form" class="btn btn-primary" id="add-list-btn">
+          <button type="submit" form="create-list-form" class="btn btn-primary" id="add-list-btn">
             Ajouter
           </button>
         </div>
       </div>
     </div>
   </div>
-  <!-- MODAL MODIFICATION DE TACHES -->
-  <div class="modal fade modal-create-list" id="editTask" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="editTaskLabel" aria-hidden="true">
+  <!-- MODAL RENOMMER UNE LISTE -->
+  <div class="modal fade modal-create-list" id="editList" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="editListLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalCenterTitle">
-            Ajouter une liste
+            Renommer une liste
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="list-form" action="/task-lists" method="POST">
+          <form id="edit-list-form" action="/task-lists/{id}" method="POST">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
             <div class="mb-3">
-              <label for="list-name" class="form-label">Nom de la liste</label>
-              <input type="text" class="form-control" id="list-name" name="name" placeholder="Entrez le nom de la liste"
-                required />
+              <label for="edit-list-name" class="form-label">Nom de la liste</label>
+              <input type="text" class="form-control" id="edit-list-name" name="name"
+                placeholder="Entrez le nom de la liste" required />
+              <input type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
+
             </div>
           </form>
         </div>
@@ -289,8 +296,8 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Fermer
           </button>
-          <button type="submit" form="list-form" class="btn btn-primary" id="add-list-btn">
-            Ajouter
+          <button type="submit" form="edit-list-form" class="btn btn-primary" id="edit-list-btn">
+            Renommer
           </button>
         </div>
       </div>

@@ -23,3 +23,24 @@ taskCheckboxes.forEach((checkbox) => {
     form.submit();
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Sélectionner les boutons "Renommer" et le formulaire du modal
+  const renameButtons = document.querySelectorAll(
+    "[data-bs-target='#editList']"
+  );
+  const form = document.getElementById("edit-list-form");
+  const inputName = document.getElementById("edit-list-name");
+
+  renameButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const listId = button.getAttribute("data-id");
+      const listName = button
+        .querySelector(".list-name-data")
+        .getAttribute("data-name");
+
+      form.action = `/task-lists/${listId}`;
+      inputName.value = listName;
+    });
+  });
+});

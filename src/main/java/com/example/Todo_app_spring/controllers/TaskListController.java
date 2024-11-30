@@ -74,6 +74,25 @@ public class TaskListController {
         return "index";
     }
 
+    @PostMapping("/{id}")
+    public String updateTaskListName(
+            @PathVariable("id") Long id,
+            @RequestParam("name") String newName,
+            @RequestParam("task_list_id") Long taskListId,
+            Model model
+    ) {
+        // Vérifier si la liste existe
+        TaskList taskList = taskListService.findById(id);
+        // .orElseThrow(() -> new IllegalArgumentException("TaskList id: " + id + " not found"));
+
+        // Mettre à jour le nom de la liste
+        taskList.setName(newName);
+        taskListService.save(taskList);
+
+        return "redirect:/task-lists/" + taskListId;
+        // return "redirect:/";
+    }
+
     // Endpoint pour supprimer une liste par ID
     @DeleteMapping("/{id}")
     public String deleteTaskList(@PathVariable Long id) {

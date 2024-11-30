@@ -85,6 +85,11 @@ LISTES
   display: inline-block;
   font-weight: bold;
   margin: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* -------------------------
 TACHES 
