@@ -137,6 +137,9 @@ TACHES
   cursor: pointer;
   /* padding: 0 5px; */
 }
+.task-infos{
+  flex-basis: 100%;
+}
 .task-infos .task-date{
   font-size: 12px;
 }
