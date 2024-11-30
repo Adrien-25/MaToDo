@@ -29,6 +29,8 @@ public class TodoItem implements Serializable {
     private String description;
 
     private LocalDate dueDate;
+    private String formattedDueDate;
+
 
     private Instant createdAt;
 
@@ -125,5 +127,12 @@ public class TodoItem implements Serializable {
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
+    }
+    public void setFormattedDueDate(String formattedDueDate) {
+        this.formattedDueDate = formattedDueDate;
+    }
+
+    public String getFormattedDueDate() {
+        return formattedDueDate;
     }
 }

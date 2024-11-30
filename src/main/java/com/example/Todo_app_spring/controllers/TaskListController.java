@@ -65,20 +65,22 @@ public class TaskListController {
 
         List<TodoItem> todoItems = taskListService.findTasksByListId(id);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dayMonthFormatter = DateTimeFormatter.ofPattern("d MMM");
+        int currentYear = LocalDate.now().getYear();
 
         for (TodoItem item : todoItems) {
             LocalDate dueDate = item.getDueDate();
             if (dueDate != null) {
                 try {
-                    String formattedDate = dueDate.format(formatter);
-                    LocalDate newDueDate = LocalDate.parse(formattedDate, formatter);
-                    item.setDueDate(newDueDate);
+                    String formattedDate = dueDate.format(dayMonthFormatter);
+                    if (dueDate.getYear() != currentYear) {
+                        formattedDate += " " + dueDate.getYear();
+                    }
+                    item.setFormattedDueDate(formattedDate);
+                    System.out.println("Date formatée : " + formattedDate);
                 } catch (DateTimeParseException e) {
                     System.err.println("Erreur lors du parsing de la date : " + e.getMessage());
                 }
-            } else {
-                System.out.println("Date non spécifiée");
             }
         }
 
