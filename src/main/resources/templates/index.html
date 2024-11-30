@@ -1,274 +1,212 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    <title>MaToDo</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
-  <body>
-    <div class="d-flex overflow-hidden vh-100">
-      <!-- 
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <title>MaToDo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="d-flex overflow-hidden vh-100">
+    <!-- 
       ============================================================================================================================================================== 
       SIDEBAR 
       ============================================================================================================================================================== 
       -->
-      <div class="bg-light collapse show" id="sidebar">
-        <div class="d-flex flex-column p-3 h-100">
-          <div class="d-flex justify-content-between">
-            <a
-              href="/"
-              class="d-flex align-items-center mb-md-0 me-md-auto link-dark text-decoration-none"
-            >
-              <span class="fs-4">MaToDo</span>
+    <div class="bg-light collapse show" id="sidebar">
+      <div class="d-flex flex-column p-3 h-100">
+        <div class="d-flex justify-content-between">
+          <a href="/" class="d-flex align-items-center mb-md-0 me-md-auto link-dark text-decoration-none">
+            <span class="fs-4">MaToDo</span>
+          </a>
+          <button id="close-sidebar" href="#"
+            class="border rounded-3 p-1 text-decoration-none d-flex align-items-center justify-content-center">
+            <i class="bi bi-x fs-5 d-flex align-items-center justify-content-center"></i>
+            <!-- <i class="bi bi-list bi-lg py-2 p-1"></i>  -->
+          </button>
+        </div>
+        <hr />
+        <div class="nav nav-pills flex-column mb-auto">
+          <!-- LISTES DE TACHES -->
+          <div>
+            <a href="#" class="nav-link link-dark d-flex align-items-center justify-content-between">
+              <span><strong>Listes</strong></span>
+              <button type="button"
+                class="btn btn-link text-dark text-decoration-none p-0 d-flex align-items-center justify-content-center"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="width: 30px; height: 30px">
+                <i class="bi bi-plus d-flex align-items-center justify-content-center fs-4"></i>
+              </button>
             </a>
-            <button
-              id="close-sidebar"
-              href="#"
-              class="border rounded-3 p-1 text-decoration-none d-flex align-items-center justify-content-center"
-            >
-              <i class="bi bi-x fs-5 d-flex align-items-center justify-content-center"></i>
-              <!-- <i class="bi bi-list bi-lg py-2 p-1"></i>  -->
-            </button>
-          </div>
-          <hr />
-          <div class="nav nav-pills flex-column mb-auto">
-            <!-- LISTES DE TACHES -->
-            <div>
-              <a
-                href="#"
-                class="nav-link link-dark d-flex align-items-center justify-content-between"
-              >
-                <span><strong>Listes</strong></span>
-                <button
-                  type="button"
-                  class="btn btn-link text-dark text-decoration-none p-0 d-flex align-items-center justify-content-center"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                  style="width: 30px; height: 30px"
-                >
-                  <i
-                    class="bi bi-plus d-flex align-items-center justify-content-center fs-4"
-                  ></i>
-                </button>
-              </a>
 
-              <ul class="list-group list-unstyled">
-                <!-- Liste des TaskLists -->
-                <li
-                  th:each="list : ${taskLists}"
-                  th:data-id="${list.id}"
-                  class="task-list-item rounded d-flex"
-                  th:classappend="${list.id == selectedTaskListId} ? 'active' : ''"
-                >
-                  <a
-                    th:href="@{/task-lists/{id}(id=${list.id})}"
-                    class="text-decoration-none text-dark d-flex p-2 w-100 align-items-center"
-                  >
-                    <i class="bi bi-card-checklist"></i>
-                    <span class="fs-13" th:text="${list.name}"></span>
+            <ul class="list-group list-unstyled">
+              <!-- Liste des TaskLists -->
+              <li th:each="list : ${taskLists}" th:data-id="${list.id}" class="task-list-item rounded d-flex"
+                th:classappend="${list.id == selectedTaskListId} ? 'active' : ''">
+                <a th:href="@{/task-lists/{id}(id=${list.id})}"
+                  class="text-decoration-none text-dark d-flex p-2 w-100 align-items-center">
+                  <i class="bi bi-card-checklist"></i>
+                  <span class="fs-13" th:text="${list.name}"></span>
+                </a>
+                <!-- DROPDOWN LIST  -->
+                <div class="dropdown edit-list  d-flex align-items-center justify-content-center">
+                  <a href="#"
+                    class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle h-100 justify-content-center"
+                    id="dropdownList2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- <i class="bi bi-three-dots-vertical me-2"></i> -->
                   </a>
-                  <!-- class="btn btn-link text-dark text-decoration-none p-0 d-flex align-items-center justify-content-center" -->
-                  <form
-                    th:action="@{/task-lists/{id}(id=${list.id})}"
-                    method="post"
-                    class="d-inline ms-2"
-                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette liste ?');"
-                  >
-                    <input type="hidden" name="_method" value="delete" />
+                  <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownList2">
+                    <li>
+                      <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post" class="dropdown-item">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="btn btn-link text-dark text-decoration-none p-0 fw-normal">
+                          Renommer
+                        </button>
+                      </form>
+                    </li>
+                    <li>
+                      <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post" class="dropdown-item"
+                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette liste ?');">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="btn btn-link text-dark text-decoration-none p-0 fw-normal">
+                          Supprimer
+                        </button>
+                      </form>
+                    </li>
+                    <!-- <li>
+                    <form th:action="@{/auth/logout}" method="post" class="dropdown-item">
+                      <input type="submit"
+                        class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
+                        value="Déconnexion" />
+                    </form>
+                  </li> -->
+                  </ul>
+                </div>
 
-                    <button
-                      type="submit"
-                      class="btn btn-link text-dark text-decoration-none"
-                    >
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </form>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <hr />
-          <div class="dropdown">
-            <a
-              href="#"
-              class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
-              id="dropdownUser2"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-person-circle me-2 fs-4"></i>
-              <strong th:if="${username}" th:text="${username}"></strong>
-            </a>
-            <ul
-              class="dropdown-menu text-small shadow"
-              aria-labelledby="dropdownUser2"
-            >
-              <li><a class="dropdown-item" href="#">Paramètres</a></li>
-              <li><a class="dropdown-item" href="#">Profil</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <form
-                  th:action="@{/auth/logout}"
-                  method="post"
-                  class="dropdown-item"
-                >
-                  <input
-                    type="submit"
-                    class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
-                    value="Déconnexion"
-                  />
-                </form>
+                <!-- <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post" class="d-inline ms-2"
+                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette liste ?');">
+                  <input type="hidden" name="_method" value="delete" />
+
+                  <button type="submit" class="btn btn-link text-dark text-decoration-none">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form> -->
               </li>
             </ul>
           </div>
         </div>
+        <hr />
+        <!-- USER INFOS DROPDOWN -->
+        <div class="dropdown user-edit">
+          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle me-2 fs-4"></i>
+            <strong th:if="${username}" th:text="${username}" class="me-2"></strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item" href="#">Paramètres</a></li>
+            <li><a class="dropdown-item" href="#">Profil</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <form th:action="@{/auth/logout}" method="post" class="dropdown-item">
+                <input type="submit" class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
+                  value="Déconnexion" />
+              </form>
+            </li>
+          </ul>
+        </div>
       </div>
-      <!-- 
+    </div>
+    <!-- 
       ============================================================================================================================================================== 
       CONTENU DES TACHES 
       ============================================================================================================================================================== 
       -->
-      <div class="min-vh-100 p-3 flex-grow-1 overflow-auto">
-        <!-- HEADER -->
-        <div class="d-flex justify-content-between align-items-center">
-          <button
-            id="toggle-sidebar"
-            href="#"
-            class="border rounded-3 p-1 text-decoration-none"
-          >
-            <i class="bi bi-list bi-lg py-2 p-1"></i> Menu
-          </button>
-          <h1 class="h2 text-center text-dark">
-            <i class="fas fa-check-square me-1"></i>
-            <u th:if="${selectedtaskListname == null}">MaToDo</u>
-            <u th:if="${selectedtaskListname}" th:text="${selectedtaskListname}" class=""></u>
-          </h1>
-          <div class="d-flex gap-2 align-items-center">
-            <span th:if="${username}" th:text="${username}" class=""></span>
-            |
-            <form th:action="@{/auth/logout}" method="post" class="logout-header">
-              <button
-                type="submit"
-                class="border-0 bg-transparent p-0 text-dark"
-                aria-label="Déconnexion"
-              >
-                <i class="bi bi-box-arrow-right fs-5"></i>
-              </button>
-              <!-- <input
+    <div class="min-vh-100 p-3 flex-grow-1 overflow-auto">
+      <!-- HEADER -->
+      <div class="d-flex justify-content-between align-items-center">
+        <button id="toggle-sidebar" href="#" class="border rounded-3 p-1 text-decoration-none">
+          <i class="bi bi-list bi-lg py-2 p-1"></i> Menu
+        </button>
+        <h1 class="h2 text-center text-dark">
+          <i class="fas fa-check-square me-1"></i>
+          <u th:if="${selectedtaskListname == null}">MaToDo</u>
+          <u th:if="${selectedtaskListname}" th:text="${selectedtaskListname}" class=""></u>
+        </h1>
+        <div class="d-flex gap-2 align-items-center">
+          <span th:if="${username}" th:text="${username}" class=""></span>
+          |
+          <form th:action="@{/auth/logout}" method="post" class="logout-header">
+            <button type="submit" class="border-0 bg-transparent p-0 text-dark" aria-label="Déconnexion">
+              <i class="bi bi-box-arrow-right fs-5"></i>
+            </button>
+            <!-- <input
                 type="submit"
                 class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
                 value="Déconnexion"
               /> -->
-            </form>
-          </div>
-        </div>
-        <hr />
-
-        <div class="d-flex flex-column" th:if="${selectedTaskListId}">
-          <!-- CREER UNE TACHE -->
-          <form action="/todo" method="post" id="create-task-form" class="">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-            <input
-              type="hidden"
-              name="task_list_id"
-              th:value="${selectedTaskListId}"
-            />
-            <div class="d-flex justify-content-start mb-3 gap-2">
-              <input
-                id="new-task-input"
-                type="text"
-                class="form-control"
-                placeholder="Nouvelle tâche..."
-                name="description"
-              />
-              <input
-                type="date"
-                id="createdDate"
-                name="dueDate"
-                class="form-control"
-              />
-
-              <button id="add-task-btn" class="btn btn-outline-success">
-                <i class="bi bi-plus-square-fill"></i>
-              </button>
-            </div>
           </form>
+        </div>
+      </div>
+      <hr />
 
-          <!-- AFFICHAGE DES TACHES -->
-          <div class="d-flex flex-column gap-3">
-            <div
-              class="card task-card border-bottom"
-              th:each="item : ${todoItems}"
-              th:classappend="${item.status} == TODO ? 'task-complete' : ''"
-            >
-              <div
-                class="card-body d-flex align-items-center justify-content-between py-2 px-3"
-              >
-                <div class="d-flex task-container">
-                  <!-- CHECKBOX POUR L'ETAT FAIT/A FAIRE -->
-                  <form
-                    th:action="@{/todo/{id}/toggle(id=${item.id})}"
-                    method="POST"
-                    th:id="'todoForm-' + ${item.id}"
-                    class="d-flex align-items-center"
-                  >
-                    <input type="hidden" name="_method" value="PATCH" />
-                    <input
-                      type="hidden"
-                      name="_csrf"
-                      th:value="${_csrf.token}"
-                    />
-                    <input
-                      type="hidden"
-                      name="task_list_id"
-                      th:value="${selectedTaskListId}"
-                    />
-                    <input
-                      th:id="'inputIsComplete-' + ${item.id}"
-                      type="checkbox"
-                      class="form-check-input me-3 task-checkbox"
-                      th:checked="${item.status.name() == 'DONE'}"
-                      th:attr="data-id=${item.id}"
-                    />
-                  </form>
-                  <!-- DESCRIPTION DE LA TACHE -->
-                  <!-- th:class="${item.status} == TODO ? 'text-decoration-line-through' : ''" -->
-                  <span
-                    class="description-content flex-grow-1 editable"
-                    th:text="${item.description}"
-                    th:data-id="${item.id}"
-                  ></span>
-                  <input
-                    id="current-list-id"
-                    type="hidden"
-                    name="task_list_id"
-                    th:value="${selectedTaskListId}"
-                  />
-                </div>
+      <div class="d-flex flex-column" th:if="${selectedTaskListId}">
+        <!-- CREER UNE TACHE -->
+        <form action="/todo" method="post" id="create-task-form" class="">
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+          <input type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
+          <div class="d-flex justify-content-start mb-3 gap-2">
+            <input id="new-task-input" type="text" class="form-control" placeholder="Nouvelle tâche..."
+              name="description" />
+            <input type="date" id="createdDate" name="dueDate" class="form-control" />
 
-                <!-- BOUTONS D'ACTIONS MODIFIER/SUPPRIMER -->
-                <div class="btn-group gap-2" role="group">
-                  <!-- <a
+            <button id="add-task-btn" class="btn btn-outline-success">
+              <i class="bi bi-plus-square-fill"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- AFFICHAGE DES TACHES -->
+        <div class="d-flex flex-column gap-3">
+          <div class="card task-card border-bottom" th:each="item : ${todoItems}"
+            th:classappend="${item.status} == TODO ? 'task-complete' : ''">
+            <div class="card-body d-flex align-items-center justify-content-between py-2 px-3">
+              <div class="d-flex task-container">
+                <!-- CHECKBOX POUR L'ETAT FAIT/A FAIRE -->
+                <form th:action="@{/todo/{id}/toggle(id=${item.id})}" method="POST" th:id="'todoForm-' + ${item.id}"
+                  class="d-flex align-items-center">
+                  <input type="hidden" name="_method" value="PATCH" />
+                  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                  <input type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
+                  <input th:id="'inputIsComplete-' + ${item.id}" type="checkbox"
+                    class="form-check-input me-3 task-checkbox" th:checked="${item.status.name() == 'DONE'}"
+                    th:attr="data-id=${item.id}" />
+                </form>
+                <!-- DESCRIPTION DE LA TACHE -->
+                <!-- th:class="${item.status} == TODO ? 'text-decoration-line-through' : ''" -->
+                <span class="description-content flex-grow-1 editable" th:text="${item.description}"
+                  th:data-id="${item.id}"></span>
+                <input id="current-list-id" type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
+              </div>
+
+              <!-- BOUTONS D'ACTIONS MODIFIER/SUPPRIMER -->
+              <div class="btn-group gap-2" role="group">
+                <!-- <a
                     class="btn btn-sm btn-outline-info d-flex align-items-center justify-content-center rounded"
                     th:href="@{/edit/{id}(id=${item.id})}"
                   >
                     <i class="bi bi-pencil-fill"></i>
                   </a> -->
-                  <!-- <button
+                <!-- <button
                     type="button"
                     class="btn btn-link text-info text-decoration-none p-0 d-flex align-items-center justify-content-center button-edit-task"
                     data-bs-toggle="modal"
@@ -277,168 +215,96 @@
                     <i class="bi bi-pencil-fill"></i>
                   </button> -->
 
-                  <!-- SUPRESSION DE TACHE -->
-                  <form
-                    action="#"
-                    th:action="@{/delete/{id}(id=${item.id})}"
-                    method="post"
-                    class=""
-                  >
-                    <input type="hidden" name="_method" value="DELETE" />
-                    <input
-                      type="hidden"
-                      name="task_list_id"
-                      th:value="${selectedTaskListId}"
-                    />
-                    <input
-                      type="hidden"
-                      name="_csrf"
-                      th:value="${_csrf.token}"
-                    />
-                    <button
-                      type="submit"
-                      class="btn btn-sm btn-link d-flex align-items-center justify-content-center rounded p-0 text-danger button-delete-task"
-                    >
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
-                  </form>
-                </div>
+                <!-- SUPRESSION DE TACHE -->
+                <form action="#" th:action="@{/delete/{id}(id=${item.id})}" method="post" class="">
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <input type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
+                  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                  <button type="submit"
+                    class="btn btn-sm btn-link d-flex align-items-center justify-content-center rounded p-0 text-danger button-delete-task">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- MODAL CREATION DE LISTE -->
-    <div
-      class="modal fade modal-create-list"
-      id="staticBackdrop"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">
-              Ajouter une liste
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="list-form" action="/task-lists" method="POST">
-              <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-              <div class="mb-3">
-                <label for="list-name" class="form-label"
-                  >Nom de la liste</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="list-name"
-                  name="name"
-                  placeholder="Entrez le nom de la liste"
-                  required
-                />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Fermer
-            </button>
-            <button
-              type="submit"
-              form="list-form"
-              class="btn btn-primary"
-              id="add-list-btn"
-            >
-              Ajouter
-            </button>
-          </div>
+  </div>
+  <!-- MODAL CREATION DE LISTE -->
+  <div class="modal fade modal-create-list" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">
+            Ajouter une liste
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="list-form" action="/task-lists" method="POST">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <div class="mb-3">
+              <label for="list-name" class="form-label">Nom de la liste</label>
+              <input type="text" class="form-control" id="list-name" name="name" placeholder="Entrez le nom de la liste"
+                required />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Fermer
+          </button>
+          <button type="submit" form="list-form" class="btn btn-primary" id="add-list-btn">
+            Ajouter
+          </button>
         </div>
       </div>
     </div>
-    <!-- MODAL MODIFICATION DE TACHES -->
-    <div
-      class="modal fade modal-create-list"
-      id="editTask"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="editTaskLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">
-              Ajouter une liste
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="list-form" action="/task-lists" method="POST">
-              <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-              <div class="mb-3">
-                <label for="list-name" class="form-label"
-                  >Nom de la liste</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="list-name"
-                  name="name"
-                  placeholder="Entrez le nom de la liste"
-                  required
-                />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Fermer
-            </button>
-            <button
-              type="submit"
-              form="list-form"
-              class="btn btn-primary"
-              id="add-list-btn"
-            >
-              Ajouter
-            </button>
-          </div>
+  </div>
+  <!-- MODAL MODIFICATION DE TACHES -->
+  <div class="modal fade modal-create-list" id="editTask" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="editTaskLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">
+            Ajouter une liste
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="list-form" action="/task-lists" method="POST">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <div class="mb-3">
+              <label for="list-name" class="form-label">Nom de la liste</label>
+              <input type="text" class="form-control" id="list-name" name="name" placeholder="Entrez le nom de la liste"
+                required />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Fermer
+          </button>
+          <button type="submit" form="list-form" class="btn btn-primary" id="add-list-btn">
+            Ajouter
+          </button>
         </div>
       </div>
     </div>
-    <!-- SCRIPT -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script src="/js/create-task.js" defer></script> -->
-    <script src="/js/edit-task.js" defer></script>
-    <script src="/js/create-list.js" defer></script>
-    <script src="/js/homepage.js" defer></script>
-    <script th:if="${selectedTaskListId}" src="/js/edit-desc.js" defer></script>
-  </body>
+  </div>
+  <!-- SCRIPT -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <!-- <script src="/js/create-task.js" defer></script> -->
+  <script src="/js/edit-task.js" defer></script>
+  <script src="/js/create-list.js" defer></script>
+  <script src="/js/homepage.js" defer></script>
+  <script th:if="${selectedTaskListId}" src="/js/edit-desc.js" defer></script>
+</body>
+
 </html>
