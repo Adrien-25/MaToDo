@@ -439,6 +439,6 @@
     <script src="/js/edit-task.js" defer></script>
     <script src="/js/create-list.js" defer></script>
     <script src="/js/homepage.js" defer></script>
-    <script src="/js/edit-desc.js" defer></script>
+    <script th:if="${selectedTaskListId}" src="/js/edit-desc.js" defer></script>
   </body>
 </html>
