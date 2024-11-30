@@ -11,5 +11,4 @@ import com.example.Todo_app_spring.models.TodoItem;
 public interface TaskItemRepository extends JpaRepository<TodoItem, Long> {
 
     List<TodoItem> findByTaskListId(Long taskListId);
-
 }

@@ -1,5 +1,8 @@
 package com.example.Todo_app_spring.controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -61,6 +64,33 @@ public class TaskListController {
         TaskList taskList = taskListService.findById(id);
 
         List<TodoItem> todoItems = taskListService.findTasksByListId(id);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (TodoItem item : todoItems) {
+            LocalDate dueDate = item.getDueDate();
+            if (dueDate != null) {
+                try {
+                    String formattedDate = dueDate.format(formatter);
+                    LocalDate newDueDate = LocalDate.parse(formattedDate, formatter);
+                    item.setDueDate(newDueDate);
+                } catch (DateTimeParseException e) {
+                    System.err.println("Erreur lors du parsing de la date : " + e.getMessage());
+                }
+            } else {
+                System.out.println("Date non spécifiée");
+            }
+            // if (dueDate != null) {
+            //     String formattedDate = dueDate.format(formatter);
+            //     System.out.println(formattedDate);
+
+            //     LocalDate newDueDate = LocalDate.parse(formattedDate, formatter);
+            //     item.setDueDate(newDueDate);
+            // } else {
+            //     System.out.println("Date non spécifiée");
+            // }
+        }
+
         todoItems.sort(Comparator.comparing(TodoItem::getStatus));
         String selectedtaskListname = taskList.getName();
 

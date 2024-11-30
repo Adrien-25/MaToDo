@@ -30,7 +30,6 @@
           <button id="close-sidebar" href="#"
             class="border rounded-3 p-1 text-decoration-none d-flex align-items-center justify-content-center">
             <i class="bi bi-x fs-5 d-flex align-items-center justify-content-center"></i>
-            <!-- <i class="bi bi-list bi-lg py-2 p-1"></i>  -->
           </button>
         </div>
         <hr />
@@ -154,11 +153,6 @@
             <button type="submit" class="border-0 bg-transparent p-0 text-dark" aria-label="Déconnexion">
               <i class="bi bi-box-arrow-right fs-5"></i>
             </button>
-            <!-- <input
-                type="submit"
-                class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
-                value="Déconnexion"
-              /> -->
           </form>
         </div>
       </div>
@@ -198,8 +192,16 @@
                 </form>
                 <!-- DESCRIPTION DE LA TACHE -->
                 <!-- th:class="${item.status} == TODO ? 'text-decoration-line-through' : ''" -->
-                <span class="description-content flex-grow-1 editable" th:text="${item.description}"
-                  th:data-id="${item.id}"></span>
+
+                <div class="task-infos d-flex gap-2 flex-column">
+                  <span class="description-content flex-grow-1 editable" th:text="${item.description}"
+                    th:data-id="${item.id}"></span>
+                  <div class="" th:if="${item.dueDate}">
+                    <small><i class="bi bi-alarm me-2"></i><span th:text="${item.dueDate}"></span>
+                    </small>
+                  </div>
+                </div>
+
                 <input id="current-list-id" type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
               </div>
 

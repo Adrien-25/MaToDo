@@ -93,23 +93,18 @@ public class TodoFormController {
             @RequestParam("task_list_id") Long taskListId,
             Model model
     ) {
-
-        // Vérification de la validation des données
         if (result.hasErrors()) {
             model.addAttribute("error", "Validation error. Please check the input data.");
             return "redirect:/";
         }
 
-        // Récupérer la tâche existante
         TodoItem existingItem = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
 
-        // Mettre à jour les champs nécessaires
         if (todoItem.getDescription() != null && !todoItem.getDescription().isBlank()) {
             existingItem.setDescription(todoItem.getDescription());
         }
-        
 
         todoItemService.save(existingItem);
 
