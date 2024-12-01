@@ -3,10 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Sélectionner tous les éléments modifiables
     const editableElements = document.querySelectorAll(".editable");
     const csrfToken = document.querySelector('input[name="_csrf"]').value;
-    console.log(document.getElementById("current-list-id"));
-    console.log(
-      "Curren list id : " + document.getElementById("current-list-id").value
-    );
     const currentListId = document.getElementById("current-list-id").value;
 
     editableElements.forEach((element) => {

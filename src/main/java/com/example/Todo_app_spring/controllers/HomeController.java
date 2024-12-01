@@ -34,12 +34,17 @@ public class HomeController {
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
             String username = authentication.getName();
             User user = userService.getUserByUsername(username);
+            User currentUser = userService.getCurrentUser();
 
             List<TaskList> userTaskLists = taskListService.getAllByUser(user);
+
+            // System.out.println(currentUser);
+            // System.out.println(currentUser.getEmail());
 
             // modelAndView.addObject("todoItems", userTodoItems);
             modelAndView.addObject("taskLists", userTaskLists);
             modelAndView.addObject("username", username);
+            modelAndView.addObject("userInfo", currentUser);
         }
 
         return modelAndView;

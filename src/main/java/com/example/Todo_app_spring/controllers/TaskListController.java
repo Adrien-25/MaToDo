@@ -83,6 +83,7 @@ public class TaskListController {
                 }
             }
         }
+        User currentUser = userService.getCurrentUser();
 
         todoItems.sort(Comparator.comparing(TodoItem::getStatus));
         String selectedtaskListname = taskList.getName();
@@ -93,6 +94,8 @@ public class TaskListController {
         model.addAttribute("todoItems", todoItems);
         model.addAttribute("taskLists", userTaskLists);
         model.addAttribute("username", username);
+        model.addAttribute("userInfo", currentUser);
+        
 
         return "index";
     }

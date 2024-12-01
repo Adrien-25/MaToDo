@@ -3,6 +3,7 @@ package com.example.Todo_app_spring.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,12 +19,12 @@ import lombok.AllArgsConstructor;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<User> user = repository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             var userObj = user.get();
             return org.springframework.security.core.userdetails.User.builder()
@@ -36,7 +37,16 @@ public class UserService implements UserDetailsService {
     }
 
     public User getUserByUsername(String username) {
-        return repository.findByUsername(username)
+        return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+    }
+
+    public User getCurrentUser() {
+        // Obtenez l'utilisateur connecté
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        // Recherchez l'utilisateur dans la base de données
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé : " + username));
     }
 }
