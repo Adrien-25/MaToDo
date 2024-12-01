@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Sélectionner tous les éléments modifiables
   const editableElements = document.querySelectorAll(".editable");
   const csrfToken = document.querySelector('input[name="_csrf"]').value;
-  const currentListId = document.getElementById("current-list-id").value;
+  if (document.getElementById("current-list-id")) {
+    const currentListId = document.getElementById("current-list-id").value;
+  }
 
   editableElements.forEach((element) => {
     element.addEventListener("click", () => {
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const input = document.createElement("input");
       input.type = "text";
       input.value = originalValue;
-      input.className = "form-control input-edit-desc";
+      input.className = "form-control input-edit-desc px-2";
 
       // Remplacer le contenu
       element.replaceWith(input);
