@@ -217,7 +217,7 @@
                 <div class="task-infos d-flex gap-1 flex-column">
                   <span class="description-content flex-grow-1 editable px-2" th:text="${item.description}"
                     th:data-id="${item.id}"></span>
-                  <div class="task-date d-flex align-items-center" th:if="${item.dueDate}">
+                  <div class="task-date d-flex align-items-center px-2" th:if="${item.dueDate}">
                     <i class="bi bi-alarm me-2 d-flex"></i>
                     <span th:text="${item.formattedDueDate}"></span>
                     <!-- <span th:text="${#temporals.format(item.dueDate, 'd MMM yyyy')}"></span> -->
