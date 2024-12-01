@@ -159,17 +159,18 @@
       <hr />
 
       <!-- PAGE D'ACCUEIL - AFFICHAGE DES LISTES DETAILLE -->
-      <div class="" th:if="${selectedTaskListId} == null">
+      <div class="row g-4 lists-details" th:if="${selectedTaskListId} == null">
         <div class="col-md-6 col-lg-4" th:each="list : ${taskLists}">
-          <div class="card shadow-sm border-0">
-            <div class="card-body">
-              <h5 class="card-title fw-bold" th:text="${list.name}">Nom de la liste</h5>
-              <p class="card-text text-muted">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold text-truncate" th:text="${list.name}">
+                Nom de la liste
+              </h5>
+              <p class="card-text text-muted mb-3">
                 <span th:text="${list.tasks.size()}">0</span> tâches
               </p>
-              <div class="d-flex justify-content-between">
-                <!-- Bouton pour voir les détails -->
-                <a th:href="@{/task-lists/{id}(id=${list.id})}" class="btn btn-outline-primary btn-sm">
+              <div class="mt-auto">
+                <a th:href="@{/task-lists/{id}(id=${list.id})}" class="btn btn-outline-primary btn-sm w-100">
                   Voir les tâches
                 </a>
               </div>
@@ -177,6 +178,7 @@
           </div>
         </div>
       </div>
+
       <div class="d-flex flex-column" th:if="${selectedTaskListId}">
         <!-- CREER UNE TACHE -->
         <form action="/todo" method="post" id="create-task-form" class="">

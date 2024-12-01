@@ -92,6 +92,12 @@ LISTES
   justify-content: center;
 }
 /* -------------------------
+LISTE DETAILLE PAGE D'ACCUEIL 
+*/
+.lists-details .card {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+/* -------------------------
 TACHES 
 */
 #createdDate {
@@ -137,10 +143,10 @@ TACHES
   cursor: pointer;
   /* padding: 0 5px; */
 }
-.task-infos{
+.task-infos {
   flex-basis: 100%;
 }
-.task-infos .task-date{
+.task-infos .task-date {
   font-size: 12px;
 }
 .input-edit-desc {
