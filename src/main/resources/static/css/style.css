@@ -92,6 +92,26 @@ LISTES
   justify-content: center;
 }
 /* -------------------------
+PROFIL
+*/
+#editProfileModal .dropdown .dropdown-menu button:hover {
+  background-color: #80808040;
+}
+@media (min-width: 992px) {
+  #editProfileModal .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}
+.input-edit-profil {
+  /* border: 0;
+  padding: 0;
+  background-color: transparent; */
+  max-width: fit-content;
+}
+.input-edit-profil:focus {
+  box-shadow: unset;
+}
+/* -------------------------
 LISTE DETAILLE PAGE D'ACCUEIL 
 */
 .lists-details .card {

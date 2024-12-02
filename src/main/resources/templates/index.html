@@ -117,7 +117,7 @@
           </a>
           <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                Paramètres
+                Profil
               </button>
             </li>
             <!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">Paramètres</a></li> -->
@@ -345,44 +345,38 @@
       <div class="modal-content">
         <!-- Header du modal -->
         <div class="modal-header">
-          <h5 class="modal-title" id="editProfileModalLabel">Paramètres</h5>
+          <h5 class="modal-title" id="editProfileModalLabel">Profil</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <!-- Corps du modal -->
         <div class="modal-body">
-          <form id="editProfileForm" method="post" action="/profile/update">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
-            <!-- Nom -->
-            <div class="mb-3 d-flex align-items-center justify-content-between">
-              <label for="editName" class="form-label m-0 me-2">Nom d'utilisateur </label>
-              <!-- <input type="text" class="form-control" id="profileName" name="name" placeholder="Votre nom"
-                th:value="${userInfo.username}" required /> -->
-              <button type="button" class="btn btn-link fw-normal text-decoration-none" id="editName"
-                th:text="${userInfo.username}">
-              </button>
-            </div>
+          <!-- Nom -->
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <div class="m-0 me-2 w-100">Nom d'utilisateur</div>
+            <button class="gap-2 align-items-center d-flex btn btn-link fw-normal text-decoration-none text-dark "
+              type="button" id="editUsername" th:text="${userInfo.username}">
+            </button>
+          </div>
 
-            <!-- Email -->
-            <div class="mb-3 d-flex align-items-center justify-content-between">
-              <label for="editEmail" class="form-label m-0 me-2">Email</label>
-              <button type="button" class="btn btn-link fw-normal text-decoration-none" id="editEmail"
-                th:text="${userInfo.email}">
-              </button>
-              <!-- <input type="email" class="form-control" id="profileEmail" name="email" placeholder="Votre email"
-                th:value="${userInfo.email}" required /> -->
-            </div>
+          <!-- Email -->
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <div class="m-0 me-2 w-100">Email</div>
+            <button class="gap-2 d-flex btn btn-link fw-normal text-decoration-none text-dark" type="button"
+              id="editEmail" th:text="${userInfo.email}">
+            </button>
+          </div>
 
-            <!-- Mot de passe -->
-            <div class="mb-3 d-flex align-items-center justify-content-between">
-              <label for="editPassword" class="form-label m-0 me-2">Mot de passe</label>
-              <button type="button" class="btn btn-link fw-normal text-decoration-none" id="editPassword">
-                Modifier le mot de passe
-              </button>
-              <!-- th:value="{userInfo.email}" -->
-            </div>
-          </form>
+          <!-- Mot de passe -->
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <div class="form-label m-0 me-2 w-100">Mot de passe</div>
+            <button type="button" class="btn btn-link fw-normal text-decoration-none" id="editPassword">
+              Modifier le mot de passe
+            </button>
+            <!-- th:value="{userInfo.email}" -->
+          </div>
+          <!-- </form> -->
         </div>
         <!-- Pied de page du modal -->
         <div class="modal-footer">
@@ -413,6 +407,7 @@
   <script src="/js/edit-task.js" defer></script>
   <script src="/js/create-list.js" defer></script>
   <script src="/js/homepage.js" defer></script>
+  <script src="/js/edit-profil.js" defer></script>
   <script th:if="${selectedTaskListId}" src="/js/edit-desc.js" defer></script>
 </body>
 
