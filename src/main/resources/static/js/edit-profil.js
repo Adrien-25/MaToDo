@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ===================================================================
   MODIFER PROFIL
   */
-  // EDIT EMAIL
 
+  // EDIT EMAIL
   document.getElementById("editEmail").addEventListener("click", changeEmail);
 
   function changeEmail() {
@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
     inputEmail.value = originalEmailValue;
     inputEmail.className = "form-control input-edit-profil text-end";
     emailDiv.replaceWith(inputEmail);
+    inputEmail.focus();
+
     const saveChanges = () => {
       const newEmailValue = inputEmail.value.trim();
 
@@ -28,7 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const formData = new URLSearchParams();
-      formData.append("email", newEmailValue);
+      formData.append("value", newEmailValue);
+      formData.append('field', 'email'); 
+
 
       // Envoyer les nouvelles données au serveur (AJAX)
       fetch(`/req/profil`, {
@@ -62,7 +66,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  document.getElementById("editUsername").addEventListener("click", changeUsername);
+
+  // EDIT USERNAME
+
+  document
+    .getElementById("editUsername")
+    .addEventListener("click", changeUsername);
 
   function changeUsername() {
     // Logique pour changer l'email
@@ -76,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
     inputUsername.value = originalUsernameValue;
     inputUsername.className = "form-control input-edit-profil text-end";
     usernameDiv.replaceWith(inputUsername);
+    inputUsername.focus();
+
     const saveChanges = () => {
       const newUsernameValue = inputUsername.value.trim();
 
@@ -86,7 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const formData = new URLSearchParams();
-      formData.append("email", newUsernameValue);
+      formData.append("value", newUsernameValue);
+      formData.append('field', 'username'); 
 
       // Envoyer les nouvelles données au serveur (AJAX)
       fetch(`/req/profil`, {

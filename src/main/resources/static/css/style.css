@@ -107,6 +107,12 @@ PROFIL
   padding: 0;
   background-color: transparent; */
   max-width: fit-content;
+  height: 35px;
+  padding: 0 5px!important;
+}
+.btn-edit-profil{
+  height: 35px;
+  padding: 0 5px!important;
 }
 .input-edit-profil:focus {
   box-shadow: unset;

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.repositories.UserRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -48,5 +49,17 @@ public class UserService implements UserDetailsService {
         // Recherchez l'utilisateur dans la base de données
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé : " + username));
+    }
+
+    @Transactional
+    public void updateUser(User user) {
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            // Log l'erreur
+            System.out.println("Erreur lors de la mise à jour de l'utilisateur" + e);
+            // Relancer l'exception ou gérer l'erreur selon vos besoins
+            throw new RuntimeException("Erreur lors de la mise à jour de l'utilisateur", e);
+        }
     }
 }

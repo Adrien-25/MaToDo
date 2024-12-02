@@ -30,12 +30,12 @@ public class AuthController {
 
     @GetMapping("/req/login")
     public String showLoginPage() {
-        return "login"; // correspond à login.html
+        return "login"; 
     }
 
     @GetMapping("/req/signup")
     public String showSignUpPage() {
-        return "signup"; // correspond à signup.html
+        return "signup"; 
     }
 
     @PostMapping(value = "/req/signup")
