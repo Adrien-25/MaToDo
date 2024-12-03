@@ -56,18 +56,29 @@ public class UserService implements UserDetailsService {
     public void updateField(String field, String value, Long userId) {
         try {
             switch (field) {
-                case "username":
+                case "username" ->
                     userRepository.updateUsername(value, userId);
-                    break;
-                case "email":
+                case "email" ->
                     userRepository.updateEmail(value, userId);
-                    break;
-                default:
+                default ->
                     throw new IllegalArgumentException("Champ invalide");
             }
+            // switch (field) {
+            //     case "username":
+            //         userRepository.updateUsername(value, userId);
+            //         break;
+            //     case "email":
+            //         userRepository.updateEmail(value, userId);
+            //         break;
+            //     default:
+            //         throw new IllegalArgumentException("Champ invalide");
+            // }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erreur de validation des données : " + e.getMessage());
+            throw new RuntimeException("Erreur de validation des données", e);
         } catch (Exception e) {
-            System.err.println("Erreur lors de la sauvegarde de l'utilisateur : " + e.getMessage());
-            throw new RuntimeException("Erreur lors de la sauvegarde de l'utilisateur", e);
+            System.err.println("Erreur imprévue : " + e.getMessage());
+            throw new RuntimeException("Erreur imprévue", e);
         }
     }
 

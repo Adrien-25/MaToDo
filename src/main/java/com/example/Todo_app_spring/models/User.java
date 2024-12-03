@@ -1,6 +1,5 @@
 package com.example.Todo_app_spring.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,7 +25,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "app_user")
-public class User implements Serializable,UserDetails {
+public class User implements UserDetails {
 
     @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,7 +55,6 @@ public class User implements Serializable,UserDetails {
     private String confirmPassword;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    // private List<TodoItem> todos;
     private final List<TodoItem> todos = new ArrayList<>();
 
     // Relation avec TaskList
@@ -79,6 +77,7 @@ public class User implements Serializable,UserDetails {
         this.id = id;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -95,6 +94,7 @@ public class User implements Serializable,UserDetails {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
