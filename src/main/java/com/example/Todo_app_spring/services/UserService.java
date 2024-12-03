@@ -63,16 +63,6 @@ public class UserService implements UserDetailsService {
                 default ->
                     throw new IllegalArgumentException("Champ invalide");
             }
-            // switch (field) {
-            //     case "username":
-            //         userRepository.updateUsername(value, userId);
-            //         break;
-            //     case "email":
-            //         userRepository.updateEmail(value, userId);
-            //         break;
-            //     default:
-            //         throw new IllegalArgumentException("Champ invalide");
-            // }
         } catch (IllegalArgumentException e) {
             System.err.println("Erreur de validation des données : " + e.getMessage());
             throw new RuntimeException("Erreur de validation des données", e);
@@ -87,5 +77,9 @@ public class UserService implements UserDetailsService {
                 user, user.getPassword(), user.getAuthorities()
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 }

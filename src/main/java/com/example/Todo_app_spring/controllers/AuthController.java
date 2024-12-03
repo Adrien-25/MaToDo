@@ -23,6 +23,7 @@ import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.repositories.UserRepository;
 import com.example.Todo_app_spring.services.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -45,6 +46,21 @@ public class AuthController {
     @GetMapping("/req/signup")
     public String showSignUpPage() {
         return "signup";
+    }
+
+    @PostMapping("/user/delete")
+    public String deleteUser(HttpServletRequest request) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();
+            User user = userService.getUserByUsername(username);
+            userService.deleteUser(user.getId());
+            SecurityContextHolder.getContext().setAuthentication(null);
+            return "redirect:/login";
+        } catch (Exception e) {
+            return "redirect:/error";
+
+        }
     }
 
     @PostMapping(value = "/req/profil")
