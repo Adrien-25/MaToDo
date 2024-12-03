@@ -2,7 +2,12 @@ package com.example.Todo_app_spring.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -21,7 +26,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "app_user")
-public class User implements  Serializable {
+public class User implements Serializable,UserDetails {
 
     @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,12 +55,12 @@ public class User implements  Serializable {
     @NotBlank(message = "Veuillez confirmer le mot de passe")
     private String confirmPassword;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     // private List<TodoItem> todos;
     private final List<TodoItem> todos = new ArrayList<>();
 
     // Relation avec TaskList
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<TaskList> taskLists = new ArrayList<>();
 
     public List<TaskList> getTaskLists() {
@@ -106,4 +111,9 @@ public class User implements  Serializable {
         this.confirmPassword = confirmPassword;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Implémentez en fonction de votre logique métier
+        return Collections.emptyList(); // Remplacez par vos rôles si nécessaire
+    }
 }

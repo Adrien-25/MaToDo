@@ -57,7 +57,11 @@ public class AuthController {
             User user = userService.getUserByUsername(username);
 
             userService.updateField(field, value, user.getId());
-            // refreshAuthentication(user);
+
+            if ("username".equals(field)) {
+                user.setUsername(value); // Met à jour le champ localement
+                userService.refreshAuthentication(user); // Rafraîchit le contexte
+            }
             return ResponseEntity.ok().body("Profil mis à jour avec succès");
         } catch (Exception e) {
             System.out.println("Erreur lors de la mise à jour du profil" + e);
@@ -66,7 +70,6 @@ public class AuthController {
                     .body("Erreur lors de la mise à jour du profil: " + e.getMessage());
         }
     }
-
 
     @PostMapping(value = "/req/signup")
     public String createUser(@ModelAttribute @Valid User user, BindingResult result, Model model) {
