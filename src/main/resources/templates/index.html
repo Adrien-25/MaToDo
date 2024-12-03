@@ -108,8 +108,15 @@
           </div>
         </div>
         <hr />
+        <div class="p-2 github-link">
+          <a href="https://github.com/Adrien-25/MaToDo" target="_blank"
+            class="text-decoration-none d-flex justify-content-center text-dark fw-bold">
+            <i class="bi bi-github me-2"></i>
+            Voir le projet sur GitHub
+          </a>
+        </div>
         <!-- USER INFOS DROPDOWN -->
-        <div class="dropdown user-edit">
+        <!-- <div class="dropdown user-edit">
           <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-circle me-2 fs-4"></i>
@@ -120,9 +127,7 @@
                 Profil
               </button>
             </li>
-            <!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">Paramètres</a></li> -->
-            <!-- <li><a class="dropdown-item" href="#">Paramètres</a></li> -->
-            <!-- <li><a class="dropdown-item" href="#">Profil</a></li> -->
+
             <li>
               <hr class="dropdown-divider" />
             </li>
@@ -133,7 +138,7 @@
               </form>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- 
@@ -153,13 +158,36 @@
           <u th:if="${selectedtaskListname}" th:text="${selectedtaskListname}" class=""></u>
         </h1>
         <div class="d-flex gap-2 align-items-center">
-          <span th:if="${userInfo.username}" th:text="${userInfo.username}" class=""></span>
+          <!-- <span th:if="${userInfo.username}" th:text="${userInfo.username}" class=""></span>
           |
           <form th:action="@{/auth/logout}" method="post" class="logout-header">
             <button type="submit" class="border-0 bg-transparent p-0 text-dark" aria-label="Déconnexion">
               <i class="bi bi-box-arrow-right fs-5"></i>
             </button>
-          </form>
+          </form> -->
+          <!-- DROPDOWN USERS INFOS -->
+          <div class="dropdown user-edit">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+              id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-2 fs-4"></i>
+              <strong th:if="${userInfo.username}" th:text="${userInfo.username}" class="me-2"></strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+              <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                  Profil
+                </button>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <form th:action="@{/auth/logout}" method="post" class="dropdown-item">
+                  <input type="submit" class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
+                    value="Déconnexion" />
+                </form>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <hr />
@@ -396,7 +424,7 @@
           <!-- </form> -->
           <form action="/user/delete" method="POST"
             onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> 
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
             <button type="submit" class="p-0 btn btn-link text-danger fw-normal text-decoration-none">Supprimer mon
               compte</button>

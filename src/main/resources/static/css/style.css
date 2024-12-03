@@ -61,6 +61,14 @@ SIDEBAR
     display: block !important;
   }
 }
+.github-link > a,.github-link > i{
+  transition: all 0.3s ease;
+
+}
+
+.github-link:hover > a{
+  color:grey!important;
+}
 /* -------------------------
 LISTES
 */
