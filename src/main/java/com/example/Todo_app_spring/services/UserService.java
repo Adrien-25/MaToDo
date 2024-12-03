@@ -4,16 +4,17 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.repositories.UserRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -23,6 +24,13 @@ public class UserService implements UserDetailsService {
     @Autowired
     private final UserRepository userRepository;
 
+    // @Transactional
+    // public void updatePassword(Long userId, String encodedPassword) {
+    //     User user = userRepository.findById(userId)
+    //             .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
+    //     user.setPassword(encodedPassword);
+    //     userRepository.save(user);
+    // }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -53,16 +61,25 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateField(String field, String value, Long userId) {
+    public void updateField(String field, String value) {
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();
+            User user = getUserByUsername(username);
+            System.out.println(user.getId());
+            System.out.println(value);
+            System.out.println(field);
+
             switch (field) {
                 case "username" ->
-                    userRepository.updateUsername(value, userId);
+                    userRepository.updateUsername(value,user.getId());
                 case "email" ->
-                    userRepository.updateEmail(value, userId);
+                    userRepository.updateEmail(value,user.getId());
                 default ->
                     throw new IllegalArgumentException("Champ invalide");
             }
+            // userRepository.save(user);
+
         } catch (IllegalArgumentException e) {
             System.err.println("Erreur de validation des données : " + e.getMessage());
             throw new RuntimeException("Erreur de validation des données", e);
@@ -81,5 +98,10 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public void updatePassword(Long userId, String encodedPassword) {
+        userRepository.updatePassword(encodedPassword, userId);
     }
 }

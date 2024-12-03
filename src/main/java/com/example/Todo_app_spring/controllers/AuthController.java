@@ -48,6 +48,34 @@ public class AuthController {
         return "signup";
     }
 
+    @PostMapping("/user/change-password")
+    public ResponseEntity<String> changePassword(HttpServletRequest request,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword,
+            @RequestParam String confirmPassword) {
+        try {
+            String username = request.getUserPrincipal().getName();
+            User user = userService.getUserByUsername(username);
+
+            // Vérifier que l'ancien mot de passe est correct
+            if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+                return ResponseEntity.badRequest().body("Ancien mot de passe incorrect.");
+            }
+
+            // Vérifier que les nouveaux mots de passe correspondent
+            if (!newPassword.equals(confirmPassword)) {
+                return ResponseEntity.badRequest().body("Les nouveaux mots de passe ne correspondent pas.");
+            }
+
+            // Mettre à jour le mot de passe
+            userService.updatePassword(user.getId(), passwordEncoder.encode(newPassword));
+            return ResponseEntity.ok("Mot de passe modifié avec succès.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de la modification du mot de passe : " + e.getMessage());
+        }
+    }
+
     @PostMapping("/user/delete")
     public String deleteUser(HttpServletRequest request) {
         try {
@@ -71,7 +99,7 @@ public class AuthController {
             String username = authentication.getName();
             User user = userService.getUserByUsername(username);
 
-            userService.updateField(field, value, user.getId());
+            userService.updateField(field, value);
 
             if ("username".equals(field)) {
                 user.setUsername(value); // Met à jour le champ localement

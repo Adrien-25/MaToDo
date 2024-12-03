@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,11 +24,10 @@ public class SecurityConfig {
     @Autowired
     private final UserService userService;
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return userService;
-    }
-
+    // @Bean
+    // public UserDetailsService userDetailsService() {
+    //     return userService;
+    // }
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -48,7 +46,7 @@ public class SecurityConfig {
         return httpSecurity
                 // // Protection CSRF activée pour toutes les routes
                 .csrf(csrf -> csrf
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) 
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
                 // .csrf(csrf -> csrf
                 // .ignoringRequestMatchers("/h2-console/**")

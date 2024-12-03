@@ -370,6 +370,7 @@
               type="button" id="editUsername" th:text="${userInfo.username}">
             </button>
           </div>
+          <!-- <hr /> -->
 
           <!-- Email -->
           <div class="mb-3 d-flex justify-content-between align-items-center">
@@ -379,31 +380,43 @@
               type="button" id="editEmail" th:text="${userInfo.email}">
             </button>
           </div>
+          <!-- <hr /> -->
 
           <!-- Mot de passe -->
-          <div class="mb-3 d-flex justify-content-between align-items-center">
-            <div class="form-label m-0 me-2 w-100">Mot de passe</div>
-            <button type="button" class="btn-edit-profil btn btn-link fw-normal text-decoration-none w-100 text-end"
-              id="editPassword">
-              Modifier le mot de passe
-            </button>
+          <div class="mb-2 d-flex justify-content-between align-items-center flex-column">
+            <div class="w-100 d-flex justify-content-between mb-4 align-items-center ">
+              <div class="form-label m-0 me-2 w-100">Mot de passe</div>
+              <button type="button" class="btn-edit-profil btn btn-link fw-normal text-decoration-none w-100 text-end"
+                id="editPassword">
+                Modifier le mot de passe
+              </button>
+            </div>
+            <div class="d-flex flex-column w-100">
+              <form action="/user/change-password" method="post" class="bg-white p-6 rounded shadow-md">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+                <label class="mb-2 d-flex flex-column">
+                  Ancien mot de passe :
+                  <input type="password" name="oldPassword" required class="border w-full p-2 rounded">
+                </label>
+                <label class="mb-2 d-flex flex-column">
+                  Nouveau mot de passe :
+                  <input type="password" name="newPassword" required class="border w-full p-2 rounded">
+                </label>
+                <label class="mb-3 d-flex flex-column">
+                  Confirmer le mot de passe :
+                  <input type="password" name="confirmPassword" required class="border w-full p-2 rounded">
+                </label>
+                <button type="submit" class="btn btn-primary">
+                  Modifier
+                </button>
+              </form>
+            </div>
             <!-- th:value="{userInfo.email}" -->
           </div>
-          <!-- </form> -->
         </div>
-        <!-- Pied de page du modal -->
+        <!-- Supprimer le compte -->
         <div class="modal-footer">
-          <!-- Bouton Supprimer le compte -->
-          <!-- <form method="post" action="/profile/delete"
-            onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');"
-            class="d-flex align-items-center justify-content-between">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
-          <!-- <label for="editPassword" class="form-label m-0 me-2">Gestion de compte</label> -->
-          <!-- <button type="submit" class="p-0 btn btn-link text-danger fw-normal text-decoration-none"
-              id="deleteAccount">
-              Supprimer le compte
-            </button> -->
-          <!-- </form> -->
           <form action="/user/delete" method="POST"
             onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
