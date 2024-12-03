@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const listName = button
         .querySelector(".list-name-data")
         .getAttribute("data-name");
+      const clickedTaskId = document.querySelector('#edit-list-form  input[name="task_list_id"');
+      clickedTaskId.value=listId;
 
       form.action = `/task-lists/${listId}`;
       inputName.value = listName;
