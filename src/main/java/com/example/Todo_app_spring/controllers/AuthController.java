@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +18,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.repositories.UserRepository;
+import com.example.Todo_app_spring.services.UserService;
 
 import jakarta.validation.Valid;
 
@@ -26,17 +33,40 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/req/login")
     public String showLoginPage() {
-        return "login"; 
+        return "login";
     }
 
     @GetMapping("/req/signup")
     public String showSignUpPage() {
-        return "signup"; 
+        return "signup";
     }
+
+    @PostMapping(value = "/req/profil")
+    public ResponseEntity<?> updateUser(@RequestParam String field,
+            @RequestParam String value) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();
+            User user = userService.getUserByUsername(username);
+
+            userService.updateField(field, value, user.getId());
+            // refreshAuthentication(user);
+            return ResponseEntity.ok().body("Profil mis à jour avec succès");
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la mise à jour du profil" + e);
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de la mise à jour du profil: " + e.getMessage());
+        }
+    }
+
 
     @PostMapping(value = "/req/signup")
     public String createUser(@ModelAttribute @Valid User user, BindingResult result, Model model) {

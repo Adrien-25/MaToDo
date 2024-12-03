@@ -51,15 +51,36 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé : " + username));
     }
 
+    // @Transactional
+    // public void updateUser(User user) {
+    //     try {
+    //         userRepository.save(user);
+    //     } catch (Exception e) {
+    //         // Log l'erreur
+    //         System.out.println("Erreur lors de la mise à jour de l'utilisateur" + e);
+    //         // Relancer l'exception ou gérer l'erreur selon vos besoins
+    //         throw new RuntimeException("Erreur lors de la mise à jour de l'utilisateur", e);
+    //     }
+    // }
     @Transactional
-    public void updateUser(User user) {
+    public void updateField(String field, String value, Long userId) {
         try {
-            userRepository.save(user);
+            // System.out.println("ID: " + user.getId());
+            // System.out.println("Username: " + user.getUsername());
+            // System.out.println("Email: " + user.getEmail());
+            switch (field) {
+                case "username":
+                    userRepository.updateUsername(value, userId);
+                    break;
+                case "email":
+                    userRepository.updateEmail(value, userId);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Champ invalide");
+            }
         } catch (Exception e) {
-            // Log l'erreur
-            System.out.println("Erreur lors de la mise à jour de l'utilisateur" + e);
-            // Relancer l'exception ou gérer l'erreur selon vos besoins
-            throw new RuntimeException("Erreur lors de la mise à jour de l'utilisateur", e);
+            System.err.println("Erreur lors de la sauvegarde de l'utilisateur : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la sauvegarde de l'utilisateur", e);
         }
     }
 }

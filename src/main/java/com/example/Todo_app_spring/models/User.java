@@ -1,11 +1,13 @@
 package com.example.Todo_app_spring.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +21,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "app_user")
-public class User {
+public class User implements  Serializable {
 
     @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,11 +50,12 @@ public class User {
     @NotBlank(message = "Veuillez confirmer le mot de passe")
     private String confirmPassword;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TodoItem> todos = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    // private List<TodoItem> todos;
+    private final List<TodoItem> todos = new ArrayList<>();
 
     // Relation avec TaskList
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<TaskList> taskLists = new ArrayList<>();
 
     public List<TaskList> getTaskLists() {

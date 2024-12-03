@@ -14,25 +14,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputEmail = document.createElement("input");
     const csrfToken = document.querySelector('input[name="_csrf"]').value;
 
+    // Création INPUT
     inputEmail.type = "text";
     inputEmail.value = originalEmailValue;
     inputEmail.className = "form-control input-edit-profil text-end";
     emailDiv.replaceWith(inputEmail);
     inputEmail.focus();
 
+    let isSavingEmail = false;
     const saveChanges = () => {
+      if (isSavingEmail) return;
+      isSavingEmail = true;
+
       const newEmailValue = inputEmail.value.trim();
 
       // Revenir à l'affichage si la valeur n'a pas changé
       if (newEmailValue === originalEmailValue) {
         inputEmail.replaceWith(emailDiv);
+        isSavingEmail = false;
         return;
       }
 
       const formData = new URLSearchParams();
       formData.append("value", newEmailValue);
-      formData.append('field', 'email'); 
-
+      formData.append("field", "email");
 
       // Envoyer les nouvelles données au serveur (AJAX)
       fetch(`/req/profil`, {
@@ -46,8 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => {
           if (response.ok) {
             // Mise à jour réussie, afficher la nouvelle valeur
-            emailDiv.textContent = newValue;
-            inputEmail.replaceWith(emailDiv);
+            const newEmailDiv = document.createElement("div");
+            newEmailDiv.id = "editEmail";
+            newEmailDiv.textContent = newEmailValue;
+            inputEmail.replaceWith(newEmailDiv);
           } else {
             alert("Erreur lors de la mise à jour. Veuillez réessayer.");
             inputEmail.replaceWith(emailDiv);
@@ -56,7 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch((error) => {
           console.error("Erreur réseau :", error);
           alert("Erreur réseau. Veuillez réessayer.");
-          inputEmail.replaceWith(element);
+          inputEmail.replaceWith(emailDiv);
+        })
+        .finally(() => {
+          isSavingEmail = false; // Réinitialiser l'état
         });
     };
     inputEmail.addEventListener("blur", saveChanges);
@@ -68,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // EDIT USERNAME
-
   document
     .getElementById("editUsername")
     .addEventListener("click", changeUsername);
@@ -87,18 +96,23 @@ document.addEventListener("DOMContentLoaded", () => {
     usernameDiv.replaceWith(inputUsername);
     inputUsername.focus();
 
-    const saveChanges = () => {
+    let isSavingUsername = false;
+    const saveChanges = (e) => {
+      // console.log(e);
+      if (isSavingUsername) return;
+      isSavingUsername = true;
       const newUsernameValue = inputUsername.value.trim();
 
       // Revenir à l'affichage si la valeur n'a pas changé
       if (newUsernameValue === originalUsernameValue) {
         inputUsername.replaceWith(usernameDiv);
+        isSavingUsername = false;
         return;
       }
 
       const formData = new URLSearchParams();
       formData.append("value", newUsernameValue);
-      formData.append('field', 'username'); 
+      formData.append("field", "username");
 
       // Envoyer les nouvelles données au serveur (AJAX)
       fetch(`/req/profil`, {
@@ -112,8 +126,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => {
           if (response.ok) {
             // Mise à jour réussie, afficher la nouvelle valeur
-            usernameDiv.textContent = newValue;
-            inputUsername.replaceWith(usernameDiv);
+            const newUsernameDiv = document.createElement("div");
+            newUsernameDiv.id = "editUsername";
+            newUsernameDiv.textContent = newUsernameValue;
+            inputUsername.replaceWith(newUsernameDiv);
           } else {
             alert("Erreur lors de la mise à jour. Veuillez réessayer.");
             inputUsername.replaceWith(usernameDiv);
@@ -123,12 +139,15 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error("Erreur réseau :", error);
           alert("Erreur réseau. Veuillez réessayer.");
           inputUsername.replaceWith(element);
+        })
+        .finally(() => {
+          isSavingUsername = false; // Réinitialiser l'état
         });
     };
     inputUsername.addEventListener("blur", saveChanges);
     inputUsername.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        saveChanges();
+        saveChanges(e);
       }
     });
   }
