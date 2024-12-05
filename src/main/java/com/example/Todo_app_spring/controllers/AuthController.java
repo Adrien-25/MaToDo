@@ -65,14 +65,7 @@ public class AuthController {
             if (!newPassword.equals(confirmPassword)) {
                 return ResponseEntity.ok("Les nouveaux mots de passe ne correspondent pas.");
             }
-            // if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            //     return ResponseEntity.badRequest().body("Ancien mot de passe incorrect.");
-            // }
-
-            // // Vérifier que les nouveaux mots de passe correspondent
-            // if (!newPassword.equals(confirmPassword)) {
-            //     return ResponseEntity.badRequest().body("Les nouveaux mots de passe ne correspondent pas.");
-            // }
+           
             // Mettre à jour le mot de passe
             userService.updatePassword(user.getId(), passwordEncoder.encode(newPassword));
             return ResponseEntity.ok("Mot de passe modifié avec succès.");
