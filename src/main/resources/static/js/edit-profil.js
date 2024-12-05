@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const newEmailDiv = document.createElement("div");
             newEmailDiv.id = "editEmail";
             newEmailDiv.textContent = newEmailValue;
+            newEmailDiv.addEventListener("click", changeEmail);
             inputEmail.replaceWith(newEmailDiv);
           } else {
             alert("Erreur lors de la mise à jour. Veuillez réessayer.");
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function changeUsername() {
     // Logique pour changer l'email
     console.log("Changement username");
+
     const usernameDiv = document.getElementById("editUsername");
     const originalUsernameValue = usernameDiv.textContent.trim();
     const inputUsername = document.createElement("input");
@@ -98,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let isSavingUsername = false;
     const saveChanges = (e) => {
+      console.log(isSavingUsername);
       // console.log(e);
       if (isSavingUsername) return;
       isSavingUsername = true;
@@ -129,7 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const newUsernameDiv = document.createElement("div");
             newUsernameDiv.id = "editUsername";
             newUsernameDiv.textContent = newUsernameValue;
+            newUsernameDiv.addEventListener("click", changeUsername);
             inputUsername.replaceWith(newUsernameDiv);
+            document.querySelector(".current-username").textContent =
+              newUsernameValue;
           } else {
             alert("Erreur lors de la mise à jour. Veuillez réessayer.");
             inputUsername.replaceWith(usernameDiv);
@@ -143,12 +149,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .finally(() => {
           isSavingUsername = false; // Réinitialiser l'état
         });
-    };
-    inputUsername.addEventListener("blur", saveChanges);
-    inputUsername.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        saveChanges(e);
-      }
-    });
+      };
+      inputUsername.addEventListener("blur", saveChanges);
+      inputUsername.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          saveChanges(e);
+        }
+      });
   }
 });

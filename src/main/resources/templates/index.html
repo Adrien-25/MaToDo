@@ -97,30 +97,7 @@
             Voir le projet sur GitHub
           </a>
         </div>
-        <!-- USER INFOS DROPDOWN -->
-        <!-- <div class="dropdown user-edit">
-          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
-            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-circle me-2 fs-4"></i>
-            <strong th:if="${userInfo.username}" th:text="${userInfo.username}" class="me-2"></strong>
-          </a>
-          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-            <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                Profil
-              </button>
-            </li>
 
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li>
-              <form th:action="@{/auth/logout}" method="post" class="dropdown-item">
-                <input type="submit" class="fw-bold border-0 p-0 text-decoration-underline bg-transparent text-dark"
-                  value="Déconnexion" />
-              </form>
-            </li>
-          </ul>
-        </div> -->
       </div>
     </div>
     <!-- 
@@ -140,19 +117,13 @@
           <u th:if="${selectedtaskListname}" th:text="${selectedtaskListname}" class=""></u>
         </h1>
         <div class="d-flex gap-2 align-items-center">
-          <!-- <span th:if="${userInfo.username}" th:text="${userInfo.username}" class=""></span>
-          |
-          <form th:action="@{/auth/logout}" method="post" class="logout-header">
-            <button type="submit" class="border-0 bg-transparent p-0 text-dark" aria-label="Déconnexion">
-              <i class="bi bi-box-arrow-right fs-5"></i>
-            </button>
-          </form> -->
+
           <!-- DROPDOWN USERS INFOS -->
           <div class="dropdown user-edit">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
               id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-circle me-2 fs-4 d-flex align-items-center"></i>
-              <strong th:if="${userInfo.username}" th:text="${userInfo.username}" class="me-2"></strong>
+              <strong th:if="${userInfo.username}" th:text="${userInfo.username}" class="me-2 current-username"></strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
               <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editProfileModal">
@@ -391,7 +362,7 @@
                 Modifier le mot de passe
               </button>
             </div>
-            <div class="d-flex flex-column w-100">
+            <div class="d-flex flex-column w-100 edit-pass-form">
               <form action="/user/change-password" method="post" class="bg-white p-6 rounded shadow-md">
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
@@ -442,6 +413,7 @@
   <script src="/js/homepage.js" defer></script>
   <script src="/js/edit-profil.js" defer></script>
   <script th:if="${selectedTaskListId}" src="/js/edit-desc.js" defer></script>
+  <script src="/js/edit-password.js" defer></script>
 </body>
 
 </html>
