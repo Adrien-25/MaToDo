@@ -31,6 +31,22 @@ public class UserService implements UserDetailsService {
     //     user.setPassword(encodedPassword);
     //     userRepository.save(user);
     // }
+
+    public User processOAuthPostLogin(String email, String name) {
+        Optional<User> existingUser = userRepository.findByEmail(email);
+
+        if (existingUser.isPresent()) {
+            return existingUser.get();
+        } else {
+            // Crée un nouvel utilisateur
+            User newUser = new User();
+            newUser.setEmail(email);
+            newUser.setUsername(name);
+            userRepository.save(newUser);
+            return newUser;
+        }
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

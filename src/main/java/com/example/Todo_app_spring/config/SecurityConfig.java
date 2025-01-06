@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
@@ -37,9 +41,15 @@ public class SecurityConfig {
     }
 
     @Bean
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService() {
+        return new DefaultOAuth2UserService();
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+        
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -60,8 +70,15 @@ public class SecurityConfig {
                 .formLogin(httpForm -> {
                     httpForm.loginPage("/req/login").permitAll();
                     httpForm.defaultSuccessUrl("/", true);
-
                 })
+                .oauth2Login(oauth2 -> oauth2
+                .loginPage("/req/login")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/req/login?error=true")
+                .userInfoEndpoint(userInfo -> userInfo
+                .userService(oAuth2UserService()) // Méthode définie ci-dessus
+                )
+                )
                 // Configuration des routes
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/req/signup", "/req/login", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
