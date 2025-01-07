@@ -73,20 +73,21 @@ public class TodoFormController {
 
         // Integer maxPosition = todoItemRepository.findMaxPositionByListId(todoItem.getList().getId());
         // todoItem.setPosition((maxPosition != null ? maxPosition : 0) + 1);
-
-
+        
         todoItemService.save(todoItem);
         return "redirect:/task-lists/" + taskListId;
 
     }
 
     // DEPLACER UNE TACHE
-    @PatchMapping("/move/{id}")
+    @PostMapping("/move/{id}")
+    // @PatchMapping("/move/{id}")
     public ResponseEntity<Void> moveTask(
             @PathVariable Long taskId,
-            @RequestParam Long listId,
+            @RequestParam("task_list_id") Long taskListId,
             @RequestParam int newPosition) {
-        todoItemService.moveTask(taskId, listId, newPosition);
+
+        todoItemService.moveTask(taskId, taskListId, newPosition);
         return ResponseEntity.ok().build();
     }
 
