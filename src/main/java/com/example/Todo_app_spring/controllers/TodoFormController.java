@@ -70,6 +70,10 @@ public class TodoFormController {
         todoItem.setDescription(todoItem.getDescription());
         todoItem.setStatus(TodoItem.Status.TODO);
 
+        // Integer maxPosition = todoItemRepository.findMaxPositionByListId(todoItem.getList().getId());
+        // todoItem.setPosition((maxPosition != null ? maxPosition : 0) + 1);
+
+
         todoItemService.save(todoItem);
         return "redirect:/task-lists/" + taskListId;
 

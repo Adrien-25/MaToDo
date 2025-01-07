@@ -33,21 +33,11 @@ public class HomeController {
 
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
             String username = authentication.getName();
-            // String email = null;
-
-            // if (authentication.getPrincipal() instanceof OAuth2User) {
-            //     OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-            //     email = oAuth2User.getAttribute("email");
-            //     username = oAuth2User.getAttribute("name");
-            // }
 
             User user = userService.getUserByUsername(username);
             User currentUser = userService.getCurrentUser();
 
             List<TaskList> userTaskLists = taskListService.getAllByUser(user);
-
-            // System.out.println(currentUser);
-            // System.out.println(currentUser.getEmail());
 
             // modelAndView.addObject("todoItems", userTodoItems);
             modelAndView.addObject("taskLists", userTaskLists);

@@ -86,6 +86,9 @@ public class TaskListController {
         User currentUser = userService.getCurrentUser();
 
         todoItems.sort(Comparator.comparing(TodoItem::getStatus));
+        // todoItems.sort(Comparator
+        //         .comparing(TodoItem::getStatus) // Priorité : Status
+        //         .thenComparing(Comparator.comparing(TodoItem::getPosition).reversed()));
         String selectedtaskListname = taskList.getName();
 
         model.addAttribute("selectedTaskList", taskList);
@@ -95,7 +98,6 @@ public class TaskListController {
         model.addAttribute("taskLists", userTaskLists);
         model.addAttribute("username", username);
         model.addAttribute("userInfo", currentUser);
-        
 
         return "index";
     }
