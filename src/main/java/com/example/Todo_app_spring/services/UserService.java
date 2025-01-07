@@ -36,8 +36,12 @@ public class UserService implements UserDetailsService {
         Optional<User> existingUser = userRepository.findByEmail(email);
 
         if (existingUser.isPresent()) {
+            System.out.println("Utilisateur existant trouvé : " + email);
+
             return existingUser.get();
         } else {
+            System.out.println("Création d'un nouvel utilisateur : " + email);
+
             // Crée un nouvel utilisateur
             User newUser = new User();
             newUser.setEmail(email);
