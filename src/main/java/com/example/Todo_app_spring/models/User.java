@@ -22,6 +22,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.groups.Default;
 
 @Entity
 @Table(name = "app_user")
@@ -42,7 +43,7 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @NotBlank(message = "Le mot de passe est obligatoire")
+    // @NotBlank(message = "Le mot de passe est obligatoire", groups = ManualUserGroup.class)
     @Size(min = 8, message = "Le mot de passe doit comporter au moins 8 caractères")
     @Pattern(regexp = ".*[A-Z].*", message = "Le mot de passe doit contenir au moins une lettre majuscule.")
     @Pattern(regexp = ".*[a-z].*", message = "Le mot de passe doit contenir au moins une lettre minuscule.")
@@ -51,8 +52,10 @@ public class User implements UserDetails {
     private String password;
 
     @Transient
-    @NotBlank(message = "Veuillez confirmer le mot de passe")
+    // @NotBlank(message = "Veuillez confirmer le mot de passe", groups = ManualUserGroup.class)
     private String confirmPassword;
+
+    public interface ManualUserGroup extends Default {};
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private final List<TodoItem> todos = new ArrayList<>();
@@ -116,4 +119,26 @@ public class User implements UserDetails {
         // Implémentez en fonction de votre logique métier
         return Collections.emptyList(); // Remplacez par vos rôles si nécessaire
     }
+    private boolean enabled;
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    private Provider provider;
+
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    // Assurez-vous que l'énumération Provider est définie ici ou dans un fichier séparé
+    public enum Provider {
+        LOCAL, GOOGLE
+    }
+
 }

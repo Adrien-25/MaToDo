@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import com.example.Todo_app_spring.models.User;
@@ -22,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     @Override
-    void deleteById(Long userId);
+    void deleteById(@NonNull Long userId);
 
     @Modifying
     @Query("UPDATE User u SET u.username = :username WHERE u.id = :userId")

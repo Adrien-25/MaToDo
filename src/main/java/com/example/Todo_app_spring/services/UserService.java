@@ -42,11 +42,15 @@ public class UserService implements UserDetailsService {
             User newUser = new User();
             newUser.setEmail(email);
             newUser.setUsername(name);
+            newUser.setProvider(User.Provider.GOOGLE);
+            newUser.setEnabled(true);
+
             userRepository.save(newUser);
             return newUser;
         }
     }
-
+ 
+ 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

@@ -7,49 +7,46 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import com.example.Todo_app_spring.services.CustomOAuth2UserService;
 import com.example.Todo_app_spring.services.UserService;
 
-import lombok.AllArgsConstructor;
-
 @Configuration
-@AllArgsConstructor
+// @AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
+    private final SecurityUtils securityUtils;
     private final UserService userService;
-
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     return userService;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    
+    @Autowired
+    public SecurityConfig(SecurityUtils securityUtils, UserService userService, CustomOAuth2UserService customOAuth2UserService) {
+        this.securityUtils = securityUtils;
+        this.userService = userService;
+        this.customOAuth2UserService = customOAuth2UserService;
+    }
+    
+    // @Autowired
+    // public void setCustomOAuth2UserService(CustomOAuth2UserService service) {
+    //     this.customOAuth2UserService = service;
     // }
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userService);
-        provider.setPasswordEncoder(passwordEncoder());
+        provider.setPasswordEncoder(securityUtils.passwordEncoder());
         return provider;
     }
 
-    @Bean
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService() {
-        return new DefaultOAuth2UserService();
-    }
+    // @Bean
+    // public PasswordEncoder passwordEncoder() {
+    //     return new BCryptPasswordEncoder();
+    // }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-        
+    
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -71,12 +68,16 @@ public class SecurityConfig {
                     httpForm.loginPage("/req/login").permitAll();
                     httpForm.defaultSuccessUrl("/", true);
                 })
+            
                 .oauth2Login(oauth2 -> oauth2
                 .loginPage("/req/login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/req/login?error=true")
                 .userInfoEndpoint(userInfo -> userInfo
-                .userService(oAuth2UserService()) // Méthode définie ci-dessus
+                .userService(customOAuth2UserService) // Méthode définie ci-dessus
+                )
+                .authorizationEndpoint(authorizationEndpoint ->
+                authorizationEndpoint.baseUri("/oauth2/authorization")
                 )
                 )
                 // Configuration des routes
