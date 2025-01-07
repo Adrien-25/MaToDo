@@ -13,4 +13,5 @@ import com.example.Todo_app_spring.models.User;
 public interface TodoItemRepository extends JpaRepository<TodoItem, Long> {
 
     List<TodoItem> findAllByUser(User user);
+    List<TodoItem> findByListIdOrderByPositionAsc(Long listId);
 }

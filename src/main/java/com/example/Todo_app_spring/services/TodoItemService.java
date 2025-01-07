@@ -11,6 +11,9 @@ import com.example.Todo_app_spring.models.TodoItem;
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.repositories.TodoItemRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 @Service
 public class TodoItemService {
 
@@ -39,5 +42,29 @@ public class TodoItemService {
 
     public List<TodoItem> getAllByUser(User user) {
         return todoItemRepository.findAllByUser(user);
+    }
+
+     @Transactional
+    public void moveTask(Long taskId, Long listId, int newPosition) {
+        // Récupérer la tâche à déplacer
+        TodoItem taskToMove = todoItemRepository.findById(taskId)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found"));
+
+        // Récupérer toutes les tâches de la liste triées par position
+        List<TodoItem> tasks = todoItemRepository.findByListIdOrderByPositionAsc(listId);
+
+        // Supprimer la tâche existante
+        tasks.removeIf(task -> task.getId().equals(taskId));
+
+        // Ajouter la tâche à la nouvelle position
+        tasks.add(newPosition, taskToMove);
+
+        // Réassigner les positions
+        for (int i = 0; i < tasks.size(); i++) {
+            tasks.get(i).setPosition(i + 1);
+        }
+
+        // Sauvegarder les modifications
+        todoItemRepository.saveAll(tasks);
     }
 }

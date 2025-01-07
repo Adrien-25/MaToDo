@@ -47,11 +47,13 @@ public class TodoItem implements Serializable {
     @JoinColumn(name = "task_list_id", nullable = false)
     private TaskList taskList;
 
+    private int position;
+
     @Override
     public String toString() {
         return String.format(
-                "TodoItem{id=%d, name='%s', description='%s', status='%s', createdAt='%s', updatedAt='%s', dueDate='%s', user_id=%d, taskList_id=%d}",
-                id, name, description, status, createdAt, updatedAt, dueDate,
+                "TodoItem{id=%d, name='%s', description='%s', status='%s', createdAt='%s', updatedAt='%s', dueDate='%s', user_id=%d, taskList_id=%d, position=%d}",
+                id, name, description, status, createdAt, updatedAt, dueDate,position,
                 user != null ? user.getId() : null,
                 taskList != null ? taskList.getId() : null
         );
@@ -65,6 +67,14 @@ public class TodoItem implements Serializable {
     }
 
     // Getters et setters
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public Long getId() {
         return id;
     }
