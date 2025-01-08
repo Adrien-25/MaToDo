@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.Todo_app_spring.models.TaskList;
 import com.example.Todo_app_spring.models.TodoItem;
 import com.example.Todo_app_spring.models.User;
+import com.example.Todo_app_spring.repositories.TodoItemRepository;
 import com.example.Todo_app_spring.services.TaskListService;
 import com.example.Todo_app_spring.services.TodoItemService;
 import com.example.Todo_app_spring.services.UserService;
@@ -39,11 +40,15 @@ public class TodoFormController {
     @Autowired
     private TaskListService taskListService;
 
+    @Autowired
+    private TodoItemRepository todoItemRepository;
+
     @GetMapping("/create-todo")
     public String showCreateForm(TodoItem todoItem) {
         return "new-todo-item";
     }
 
+    // CREER UNE TACHE
     @PostMapping("/todo")
     public String createTodoItem(
             @Valid @ModelAttribute("todoItem") TodoItem todoItem,
@@ -70,8 +75,9 @@ public class TodoFormController {
         todoItem.setDescription(todoItem.getDescription());
         todoItem.setStatus(TodoItem.Status.TODO);
 
-        // Integer maxPosition = todoItemRepository.findMaxPositionByListId(todoItem.getList().getId());
-        // todoItem.setPosition((maxPosition != null ? maxPosition : 0) + 1);
+        Integer maxPosition = todoItemRepository.findMaxPositionByListId(taskListId);
+        todoItem.setPosition((maxPosition != null ? maxPosition : 0) + 1);
+
         todoItemService.save(todoItem);
         return "redirect:/task-lists/" + taskListId;
 
@@ -79,8 +85,6 @@ public class TodoFormController {
 
     // DEPLACER UNE TACHE
     @PostMapping("/move/{id}")
-    // @PatchMapping("/move/{id}")
-    // public ResponseEntity<Void> moveTask(
     public String moveTask(
             @PathVariable("id") Long taskId,
             @RequestParam("task_list_id") Long taskListId,
@@ -96,10 +100,16 @@ public class TodoFormController {
         TodoItem todoItem = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
+                
+        int deletedPosition = todoItem.getPosition();
+
         todoItemService.delete(todoItem);
+        todoItemService.updatePositionsAfterDeletion(taskListId, deletedPosition);
+
         return "redirect:/task-lists/" + taskListId;
     }
 
+    // MODIFIER UNE TACHE
     @PostMapping("/todo/{id}")
     public String updateTodoItem(
             @Valid @ModelAttribute("todoItem") TodoItem todoItem,

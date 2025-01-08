@@ -49,6 +49,18 @@ public class TodoItemService {
     }
 
     @Transactional
+    public void updatePositionsAfterDeletion(Long taskListId, int deletedPosition) {
+        List<TodoItem> remainingTasks = todoItemRepository.findByTaskListIdAndPositionGreaterThanOrderByPositionAsc(
+                taskListId, deletedPosition);
+
+        for (TodoItem task : remainingTasks) {
+            task.setPosition(task.getPosition() - 1);
+        }
+
+        todoItemRepository.saveAll(remainingTasks);
+    }
+
+    @Transactional
     public void moveTask(Long taskId, Long taskListId, int newPosition) {
         // Récupérer la tâche à déplacer
         TodoItem taskToMove = todoItemRepository.findById(taskId)
@@ -61,15 +73,26 @@ public class TodoItemService {
         // Récupérer toutes les tâches de la liste triées par position
         List<TodoItem> tasks = todoItemRepository.findByTaskListOrderByPositionAsc(taskList);
 
-        // Supprimer la tâche existante
-        tasks.removeIf(task -> task.getId().equals(taskId));
+        int oldPosition = taskToMove.getPosition();
 
-        // Ajouter la tâche à la nouvelle position
-        tasks.add(newPosition, taskToMove);
+        // Déterminer la direction du déplacement
+        int direction = Integer.compare(newPosition, oldPosition);
 
-        // Réassigner les positions
-        for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).setPosition(i + 1);
+        for (TodoItem task : tasks) {
+            if (task.getId().equals(taskId)) {
+                // C'est la tâche qu'on déplace, on met à jour sa position
+                task.setPosition(newPosition);
+            } else if (direction > 0) {
+                // La tâche a été montée
+                if (task.getPosition() <= newPosition && task.getPosition() > oldPosition) {
+                    task.setPosition(task.getPosition() - 1);
+                }
+            } else if (direction < 0) {
+                // La tâche a été descendue
+                if (task.getPosition() >= newPosition && task.getPosition() < oldPosition) {
+                    task.setPosition(task.getPosition() + 1);
+                }
+            }
         }
 
         // Sauvegarder les modifications

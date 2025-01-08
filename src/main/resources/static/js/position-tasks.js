@@ -48,18 +48,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fonction pour mettre à jour toutes les positions
   function updateAllTaskPositions() {
     const tasks = document.querySelectorAll(".draggable");
-    console.log("list de taches" + tasks);
+    const totalTasks = tasks.length;
 
     tasks.forEach((task, index) => {
+      // Calculer la nouvelle position (décroissante)
+      const newPosition = totalTasks - index;
+
       // Mettre à jour la position dans l'attribut dataset
-      task.dataset.position = index + 1;
+      task.dataset.position = newPosition;
+
+      console.log(task.dataset.id + " --> " + newPosition);
 
       // Si c'est l'élément déplacé, envoyer les données au backend
       if (task.classList.contains("dragging")) {
-        console.log("dragging" + task);
         const taskId = task.dataset.id;
         const listId = task.dataset.listId;
-        const newPosition = index + 1;
+        // const newPosition = index + 1;
+
+        console.log("tache dragged " + task.dataset.id + " -->" + newPosition);
 
         updateTaskPositions(taskId, listId, newPosition);
         // updateTaskPosition(taskId, listId, newPosition);
@@ -70,8 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateTaskPositions(taskId, listId, newPosition) {
     const csrfToken = document.querySelector('input[name="_csrf"]').value;
     const currentListId = document.getElementById("current-list-id").value;
-
-    console.log("send new positions");
 
     const formData = new URLSearchParams();
     formData.append("task_list_id", currentListId);

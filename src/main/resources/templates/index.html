@@ -185,12 +185,13 @@
 
         <!-- AFFICHAGE DES TACHES -->
         <div class="d-flex flex-column gap-3">
-          <div class="card task-card border-bottom draggable flex-row align-items-center" th:each="item : ${todoItems}"
-            th:data-id="${item.id}" th:data-position="${item.position}" th:data-status="${item.status}">
+          <div th:data-position="${item.position}" th:data-id="${item.id}"
+            class="card task-card border-bottom draggable flex-row align-items-center" th:each="item : ${todoItems}"
+            th:data-status="${item.status}">
             <!-- draggable="true" -->
 
             <!-- <i class="bi bi-grip-vertical ms-2"></i> -->
-            <i class="bi bi-grip-vertical ms-2 fs-4" draggable="true" data-task-id="${item.id}"
+            <i class="bi bi-grip-vertical ms-2 fs-5" draggable="true" data-task-id="${item.id}"
               data-list-id="${item.taskList.id}">
             </i>
 

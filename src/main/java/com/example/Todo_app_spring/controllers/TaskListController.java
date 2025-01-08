@@ -89,6 +89,7 @@ public class TaskListController {
         todoItems.sort(Comparator
                 .comparing(TodoItem::getStatus) // Priorité : Status
                 .thenComparing(Comparator.comparing(TodoItem::getPosition).reversed()));
+
         String selectedtaskListname = taskList.getName();
 
         model.addAttribute("selectedTaskList", taskList);
