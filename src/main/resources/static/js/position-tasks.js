@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     task.addEventListener("dragend", () => {
       draggedElement.classList.remove("dragging");
       draggedElement = null;
+
+      // Recalculer les positions après le drag-and-drop
+      updateAllTaskPositions();
     });
 
     // Autoriser le drop sur d'autres éléments
@@ -30,62 +33,55 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    const taskId = taskElement.dataset.id;
-    const listId = taskElement.dataset.listId;
-    // const newPosition = Array.from(taskElement.parentElement.children).indexOf(
-    //   taskElement
-    // );
+    const taskId = task.dataset.id;
+    const listId = task.dataset.listId;
+    const newPosition = task.dataset.position;
 
     // Gestion du drop
-    task.addEventListener("drop", (e) => {
-      updateTaskPositions(taskId, listId, newPosition);
-    });
+    // task.addEventListener("drop", (e) => {
+    //   updateTaskPositions(taskId, listId, newPosition);
+    // });
   });
 
+  // Fonction pour mettre à jour toutes les positions
+  function updateAllTaskPositions() {
+    const tasks = document.querySelectorAll(".draggable"); 
+    console.log("list de taches"+tasks)
+
+    tasks.forEach((task, index) => {
+      // Mettre à jour la position dans l'attribut dataset
+      task.dataset.position = index + 1;
+
+      // Si c'est l'élément déplacé, envoyer les données au backend
+      if (task.classList.contains("dragging")) {
+        console.log("dragging"+task)
+        const taskId = task.dataset.id;
+        const listId = task.dataset.listId;
+        const newPosition = index + 1;
+
+        updateTaskPosition(taskId, listId, newPosition);
+      }
+    });
+  }
+
   function updateTaskPositions(taskId, listId, newPosition) {
-    // const taskId = taskElement.dataset.id;
-    // const listId = taskElement.dataset.listId; 
-
     // Envoi des données au serveur
-    fetch(`/move/${taskId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        listId: listId,
-        taskId: taskId,
-        newPosition: newPosition,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(`Position de la tâche ${taskId} mise à jour !`);
-        } else {
-          console.error("Erreur lors de la mise à jour de la position");
-        }
-      })
-      .catch((error) => console.error("Erreur : ", error));
-    // const tasks = document.querySelectorAll(".draggable");
-    // const updatedPositions = Array.from(tasks).map((task, index) => ({
-    //   taskId: task.dataset.id,
-    //   listId: index + 1,
-    //   newPosition: index + 1,
-    // }));
-
-    // // Envoi des nouvelles positions au serveur
     // fetch(`/move/${taskId}`, {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",
     //   },
-    //   body: JSON.stringify(updatedPositions),
+    //   body: JSON.stringify({
+    //     listId: listId,
+    //     taskId: taskId,
+    //     newPosition: newPosition,
+    //   }),
     // })
     //   .then((response) => {
     //     if (response.ok) {
-    //       console.log("Positions mises à jour !");
+    //       console.log(`Position de la tâche ${taskId} mise à jour !`);
     //     } else {
-    //       console.error("Erreur lors de la mise à jour des positions");
+    //       console.error("Erreur lors de la mise à jour de la position");
     //     }
     //   })
     //   .catch((error) => console.error("Erreur : ", error));
