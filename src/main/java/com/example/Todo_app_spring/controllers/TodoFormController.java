@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -73,7 +72,6 @@ public class TodoFormController {
 
         // Integer maxPosition = todoItemRepository.findMaxPositionByListId(todoItem.getList().getId());
         // todoItem.setPosition((maxPosition != null ? maxPosition : 0) + 1);
-        
         todoItemService.save(todoItem);
         return "redirect:/task-lists/" + taskListId;
 
@@ -82,13 +80,14 @@ public class TodoFormController {
     // DEPLACER UNE TACHE
     @PostMapping("/move/{id}")
     // @PatchMapping("/move/{id}")
-    public ResponseEntity<Void> moveTask(
-            @PathVariable Long taskId,
+    // public ResponseEntity<Void> moveTask(
+    public String moveTask(
+            @PathVariable("id") Long taskId,
             @RequestParam("task_list_id") Long taskListId,
             @RequestParam int newPosition) {
 
         todoItemService.moveTask(taskId, taskListId, newPosition);
-        return ResponseEntity.ok().build();
+        return "redirect:/";
     }
 
     // SUPPRIMER UNE TACHE

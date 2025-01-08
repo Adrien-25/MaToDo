@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fin du drag
     task.addEventListener("dragend", () => {
-      draggedElement.classList.remove("dragging");
-      draggedElement = null;
-
       // Recalculer les positions après le drag-and-drop
       updateAllTaskPositions();
+
+      draggedElement.classList.remove("dragging");
+      draggedElement = null;
     });
 
     // Autoriser le drop sur d'autres éléments
@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour mettre à jour toutes les positions
   function updateAllTaskPositions() {
-    const tasks = document.querySelectorAll(".draggable"); 
-    console.log("list de taches"+tasks)
+    const tasks = document.querySelectorAll(".draggable");
+    console.log("list de taches" + tasks);
 
     tasks.forEach((task, index) => {
       // Mettre à jour la position dans l'attribut dataset
@@ -54,36 +54,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Si c'est l'élément déplacé, envoyer les données au backend
       if (task.classList.contains("dragging")) {
-        console.log("dragging"+task)
+        console.log("dragging" + task);
         const taskId = task.dataset.id;
         const listId = task.dataset.listId;
         const newPosition = index + 1;
 
-        updateTaskPosition(taskId, listId, newPosition);
+        updateTaskPositions(taskId, listId, newPosition);
+        // updateTaskPosition(taskId, listId, newPosition);
       }
     });
   }
 
   function updateTaskPositions(taskId, listId, newPosition) {
+    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+    const currentListId = document.getElementById("current-list-id").value;
+
+    console.log("send new positions");
+
+    const formData = new URLSearchParams();
+    formData.append("task_list_id", currentListId);
+    formData.append("taskId", taskId);
+    formData.append("newPosition", newPosition);
+
     // Envoi des données au serveur
-    // fetch(`/move/${taskId}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     listId: listId,
-    //     taskId: taskId,
-    //     newPosition: newPosition,
-    //   }),
-    // })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       console.log(`Position de la tâche ${taskId} mise à jour !`);
-    //     } else {
-    //       console.error("Erreur lors de la mise à jour de la position");
-    //     }
-    //   })
-    //   .catch((error) => console.error("Erreur : ", error));
+    fetch(`/move/${taskId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-XSRF-TOKEN": csrfToken,
+      },
+      body: formData.toString(),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log(`Position de la tâche ${taskId} mise à jour !`);
+        } else {
+          console.error("Erreur lors de la mise à jour de la position");
+        }
+      })
+      .catch((error) => console.error("Erreur : ", error));
   }
 });
