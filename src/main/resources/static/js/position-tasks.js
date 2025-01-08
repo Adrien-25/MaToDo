@@ -3,15 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let draggedElement = null;
 
   tasks.forEach((task) => {
+    const grip = task.querySelector(".bi-grip-vertical");
+
     // Démarrage du drag
-    task.addEventListener("dragstart", (event) => {
+    grip.addEventListener("dragstart", (event) => {
       draggedElement = task;
       event.dataTransfer.setData("text/plain", task.dataset.id);
       task.classList.add("dragging");
     });
 
     // Fin du drag
-    task.addEventListener("dragend", () => {
+    grip.addEventListener("dragend", () => {
       // Recalculer les positions après le drag-and-drop
       updateAllTaskPositions();
 

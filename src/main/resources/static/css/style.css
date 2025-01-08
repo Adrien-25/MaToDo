@@ -207,6 +207,17 @@ TACHES
   width: 30px;
   height: 30px;
 }
+
+.dragging {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+  border: 1px solid rgba(0, 0, 0, 0.1); 
+  /* transform: scale(1.01);  */
+  z-index: 1000; 
+}
+.draggable .bi-grip-vertical {
+  cursor: grab;
+}
+
 /* 
 ===================================================================
 AUTH PAGES (login.html and signup.html)
@@ -240,7 +251,6 @@ input.form-control.large {
   border-radius: 3px;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
   width: unset;
-
 
   color: #757575;
   font-size: 14px;
