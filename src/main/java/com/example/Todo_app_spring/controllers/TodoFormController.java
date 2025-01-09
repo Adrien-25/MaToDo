@@ -1,6 +1,7 @@
 package com.example.Todo_app_spring.controllers;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,9 +133,19 @@ public class TodoFormController {
             if (todoItem.getDescription() != null && !todoItem.getDescription().isBlank()) {
                 existingItem.setDescription(todoItem.getDescription());
                 todoItemService.save(existingItem);
-                return ResponseEntity.ok(existingItem.getDescription());
+                // return ResponseEntity.ok(existingItem.getDescription());
+                return ResponseEntity.ok(Map.of(
+                        "status", "success",
+                        "description", existingItem.getDescription()
+                ));
             } else {
-                return ResponseEntity.badRequest().body("Description cannot be empty.");
+                // return ResponseEntity.badRequest().body("Description cannot be empty.");
+
+                return ResponseEntity.ok(Map.of(
+                        "status", "error",
+                        "message", "Description cannot be empty."
+                ));
+
             }
 
         } catch (Exception e) {

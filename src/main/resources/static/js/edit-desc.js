@@ -45,19 +45,22 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: formData.toString(),
           })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success") {
+                element.textContent = data.description;
+                input.replaceWith(element);
+              } else {
+                throw new Error(data.message);
               }
-              return response.text();
-            })
-            .then((newDescription) => {
-              element.textContent = newDescription;
-              input.replaceWith(element);
             })
             .catch((error) => {
-              console.error("Error:", error);
-              alert("Erreur lors de la mise à jour. Veuillez réessayer.");
+              console.log("Error:", error);
+              if (error.message === "Description cannot be empty.") {
+                alert("La description ne peut pas être vide.");
+              } else {
+                alert("Erreur lors de la mise à jour. Veuillez réessayer.");
+              }
               input.replaceWith(element);
             });
           // .then((response) => {
