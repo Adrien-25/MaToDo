@@ -46,20 +46,35 @@ document.addEventListener("DOMContentLoaded", () => {
             body: formData.toString(),
           })
             .then((response) => {
-              if (response.ok) {
-                // Mise à jour réussie, afficher la nouvelle valeur
-                element.textContent = newValue;
-                input.replaceWith(element);
-              } else {
-                alert("Erreur lors de la mise à jour. Veuillez réessayer.");
-                input.replaceWith(element);
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
               }
+              return response.text();
+            })
+            .then((newDescription) => {
+              element.textContent = newDescription;
+              input.replaceWith(element);
             })
             .catch((error) => {
-              console.error("Erreur réseau :", error);
-              alert("Erreur réseau. Veuillez réessayer.");
+              console.error("Error:", error);
+              alert("Erreur lors de la mise à jour. Veuillez réessayer.");
               input.replaceWith(element);
             });
+          // .then((response) => {
+          //   if (response.ok) {
+          //     // Mise à jour réussie, afficher la nouvelle valeur
+          //     element.textContent = newValue;
+          //     input.replaceWith(element);
+          //   } else {
+          //     alert("Erreur lors de la mise à jour. Veuillez réessayer.");
+          //     input.replaceWith(element);
+          //   }
+          // })
+          // .catch((error) => {
+          //   console.error("Erreur réseau :", error);
+          //   alert("Erreur réseau. Veuillez réessayer.");
+          //   input.replaceWith(element);
+          // });
         };
 
         // Sauvegarder au blur (perte de focus)

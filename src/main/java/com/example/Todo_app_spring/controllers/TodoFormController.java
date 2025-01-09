@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.Todo_app_spring.models.TaskList;
 import com.example.Todo_app_spring.models.TodoItem;
@@ -100,7 +103,7 @@ public class TodoFormController {
         TodoItem todoItem = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
-                
+
         int deletedPosition = todoItem.getPosition();
 
         todoItemService.delete(todoItem);
@@ -111,30 +114,32 @@ public class TodoFormController {
 
     // MODIFIER UNE TACHE
     @PostMapping("/todo/{id}")
-    public String updateTodoItem(
+    @ResponseBody
+    public ResponseEntity<?> updateTodoItem(
             @Valid @ModelAttribute("todoItem") TodoItem todoItem,
             @PathVariable("id") Long id,
-            BindingResult result,
-            @RequestParam("task_list_id") Long taskListId,
-            Model model
+            BindingResult result
     ) {
         if (result.hasErrors()) {
-            model.addAttribute("error", "Validation error. Please check the input data.");
-            return "redirect:/";
+            return ResponseEntity.badRequest().body("Validation error. Please check the input data.");
         }
 
-        TodoItem existingItem = todoItemService
-                .getById(id)
-                .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
+        try {
+            TodoItem existingItem = todoItemService
+                    .getById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
 
-        if (todoItem.getDescription() != null && !todoItem.getDescription().isBlank()) {
-            existingItem.setDescription(todoItem.getDescription());
+            if (todoItem.getDescription() != null && !todoItem.getDescription().isBlank()) {
+                existingItem.setDescription(todoItem.getDescription());
+                todoItemService.save(existingItem);
+                return ResponseEntity.ok(existingItem.getDescription());
+            } else {
+                return ResponseEntity.badRequest().body("Description cannot be empty.");
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the item.");
         }
-
-        todoItemService.save(existingItem);
-
-        // return "redirect:/task-lists/" + taskListId;
-        return "redirect:/";
     }
 
     // STATUT DE TACHE FAITE / A FAIRE
