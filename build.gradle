@@ -5,7 +5,8 @@ plugins {
 }
 
 group = 'com.example'
-version = '2.0.0'
+version = '2.0.1'
+ext.versionComment = 'Ajout du drag and drop pour les tâches. Ajout de la connexion avec Google. Correction de bugs mineurs et améliorations de performance'
 
 java {
 	toolchain {

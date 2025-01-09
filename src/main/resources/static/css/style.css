@@ -70,6 +70,25 @@ SIDEBAR
   color: grey !important;
 }
 /* -------------------------
+SIDEBAR 
+*/
+@media only screen and (max-width: 992px) {
+  #toggle-sidebar span {
+    display: none;
+  }
+  .current-username{
+    display: none;
+  }
+
+}
+/* @media only screen and (max-width: 1200px) {
+  
+  .current-username{
+    display: none;
+  }
+} */
+
+/* -------------------------
 LISTES
 */
 .task-list-item {
