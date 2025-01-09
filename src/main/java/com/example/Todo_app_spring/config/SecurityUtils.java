@@ -8,17 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityUtils {
 
-    // private final PasswordEncoder passwordEncoder;
-
-    // public SecurityUtils() {
-    //     this.passwordEncoder = new BCryptPasswordEncoder();
-    // }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
-    // Ajoutez ici d'autres méthodes utilitaires liées à la sécurité si nécessaire
 }

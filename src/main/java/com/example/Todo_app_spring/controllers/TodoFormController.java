@@ -133,13 +133,12 @@ public class TodoFormController {
             if (todoItem.getDescription() != null && !todoItem.getDescription().isBlank()) {
                 existingItem.setDescription(todoItem.getDescription());
                 todoItemService.save(existingItem);
-                // return ResponseEntity.ok(existingItem.getDescription());
+
                 return ResponseEntity.ok(Map.of(
                         "status", "success",
                         "description", existingItem.getDescription()
                 ));
             } else {
-                // return ResponseEntity.badRequest().body("Description cannot be empty.");
 
                 return ResponseEntity.ok(Map.of(
                         "status", "error",

@@ -15,7 +15,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserService userService;
 
-    // @Autowired
     public CustomOAuth2UserService(UserService userService) {
         this.userService = userService;
     }
@@ -32,24 +31,4 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return new CustomOAuth2User(oauth2User, user.getId());
     }
 
-    // private final UserRepository userRepository;
-    // private final SecurityUtils securityUtils;
-    // public CustomOAuth2UserService(UserRepository userRepository, SecurityUtils  securityUtils) {
-    //     this.userRepository = userRepository;
-    //     this.securityUtils = securityUtils;
-    // }
-    // @Override
-    // public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-    //     OAuth2User oauth2User = super.loadUser(userRequest);
-    //     String email = oauth2User.getAttribute("email");
-    //     String username = oauth2User.getAttribute("name");
-    //     User user = userRepository.findByEmail(email).orElseGet(() -> {
-    //         User newUser = new User();
-    //         newUser.setEmail(email);
-    //         newUser.setUsername(username);
-    //         // Ne pas définir de mot de passe pour les utilisateurs OAuth2
-    //         return userRepository.save(newUser);
-    //     });
-    //     return new CustomOAuth2User(oauth2User, user.getId());
-    // }
 }

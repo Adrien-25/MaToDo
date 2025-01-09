@@ -24,14 +24,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private final UserRepository userRepository;
 
-    // @Transactional
-    // public void updatePassword(Long userId, String encodedPassword) {
-    //     User user = userRepository.findById(userId)
-    //             .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
-    //     user.setPassword(encodedPassword);
-    //     userRepository.save(user);
-    // }
-
     public User processOAuthPostLogin(String email, String name) {
         Optional<User> existingUser = userRepository.findByEmail(email);
 
@@ -53,8 +45,7 @@ public class UserService implements UserDetailsService {
             return newUser;
         }
     }
- 
- 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -96,9 +87,9 @@ public class UserService implements UserDetailsService {
 
             switch (field) {
                 case "username" ->
-                    userRepository.updateUsername(value,user.getId());
+                    userRepository.updateUsername(value, user.getId());
                 case "email" ->
-                    userRepository.updateEmail(value,user.getId());
+                    userRepository.updateEmail(value, user.getId());
                 default ->
                     throw new IllegalArgumentException("Champ invalide");
             }

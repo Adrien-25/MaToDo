@@ -17,8 +17,6 @@ import com.example.Todo_app_spring.services.UserService;
 @Controller
 public class HomeController {
 
-    // @Autowired
-    // private TodoItemService todoItemService;
     @Autowired
     private TaskListService taskListService;
 
@@ -39,7 +37,6 @@ public class HomeController {
 
             List<TaskList> userTaskLists = taskListService.getAllByUser(user);
 
-            // modelAndView.addObject("todoItems", userTodoItems);
             modelAndView.addObject("taskLists", userTaskLists);
             modelAndView.addObject("username", username);
             modelAndView.addObject("userInfo", currentUser);
