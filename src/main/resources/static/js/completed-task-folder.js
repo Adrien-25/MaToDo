@@ -3,11 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const completedTasksContainer = document.createElement("details");
   completedTasksContainer.id = "completed-tasks";
   completedTasksContainer.className = "d-flex flex-column gap-3";
-  completedTasksContainer.innerHTML =
-    "<summary class='mb-2 mt-3 h5'>Complété</summary>";
+  completedTasksContainer.innerHTML = `
+    <summary class='mb-2 mt-4 h6'>Complété</summary>
+    <div class="completed-tasks-list d-flex flex-column gap-3"></div>
+    `;
   taskList.parentNode.insertBefore(
     completedTasksContainer,
     taskList.nextSibling
+  );
+
+  // Référence au conteneur interne pour les tâches complétées
+  const completedTasksList = completedTasksContainer.querySelector(
+    ".completed-tasks-list"
   );
 
   function moveCompletedTasks() {
@@ -15,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tasks.forEach((task) => {
       const checkbox = task.querySelector(".task-checkbox");
       if (checkbox.checked) {
-        completedTasksContainer.appendChild(task);
+        completedTasksList.appendChild(task);
       } else {
         taskList.appendChild(task);
       }

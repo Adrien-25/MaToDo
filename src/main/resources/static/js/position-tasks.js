@@ -4,71 +4,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tasks.forEach((task) => {
     const grip = task.querySelector(".bi-grip-vertical");
+    const status = task.dataset.status;
 
-    // Démarrage du drag
     grip.addEventListener("dragstart", (event) => {
       draggedElement = task;
       event.dataTransfer.setData("text/plain", task.dataset.id);
       task.classList.add("dragging");
     });
 
-    // Fin du drag
     grip.addEventListener("dragend", () => {
-      // Recalculer les positions après le drag-and-drop
       updateAllTaskPositions();
 
       draggedElement.classList.remove("dragging");
       draggedElement = null;
     });
 
-    // Autoriser le drop sur d'autres éléments
     task.addEventListener("dragover", (event) => {
       event.preventDefault();
       const bounding = task.getBoundingClientRect();
       const offset = event.clientY - bounding.top + window.scrollY;
 
-      // Vérifie si on est avant ou après
-      if (offset > bounding.height / 2) {
-        task.parentNode.insertBefore(draggedElement, task.nextSibling);
-      } else {
-        task.parentNode.insertBefore(draggedElement, task);
+      if (canDrop(draggedElement, task)) {
+        if (offset > bounding.height / 2) {
+          task.parentNode.insertBefore(draggedElement, task.nextSibling);
+        } else {
+          task.parentNode.insertBefore(draggedElement, task);
+        }
       }
     });
 
     const taskId = task.dataset.id;
     const listId = task.dataset.listId;
     const newPosition = task.dataset.position;
-
-    // Gestion du drop
-    // task.addEventListener("drop", (e) => {
-    //   updateTaskPositions(taskId, listId, newPosition);
-    // });
   });
 
-  // Fonction pour mettre à jour toutes les positions
+  function canDrop(draggedTask, targetTask) {
+    const draggedStatus = draggedTask.dataset.status;
+    const targetStatus = targetTask.dataset.status;
+
+    // Autoriser le drop seulement si les statuts sont identiques
+    return draggedStatus === targetStatus;
+  }
+  
   function updateAllTaskPositions() {
     const tasks = document.querySelectorAll(".draggable");
     const totalTasks = tasks.length;
 
     tasks.forEach((task, index) => {
-      // Calculer la nouvelle position (décroissante)
       const newPosition = totalTasks - index;
-
-      // Mettre à jour la position dans l'attribut dataset
       task.dataset.position = newPosition;
 
-      console.log(task.dataset.id + " --> " + newPosition);
-
-      // Si c'est l'élément déplacé, envoyer les données au backend
       if (task.classList.contains("dragging")) {
         const taskId = task.dataset.id;
         const listId = task.dataset.listId;
-        // const newPosition = index + 1;
-
-        console.log("tache dragged " + task.dataset.id + " -->" + newPosition);
 
         updateTaskPositions(taskId, listId, newPosition);
-        // updateTaskPosition(taskId, listId, newPosition);
       }
     });
   }
