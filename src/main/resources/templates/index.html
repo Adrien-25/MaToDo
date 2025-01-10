@@ -179,14 +179,16 @@
         <form action="/todo" method="post" id="create-task-form" class="">
           <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
           <input type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
-          <div class="d-flex justify-content-start mb-3 gap-2 task-form-grid">
+          <div class="d-flex justify-content-start mb-3 gap-2 ">
+            <!-- flex-md-row -->
             <input id="new-task-input" type="text" class="form-control" placeholder="Nouvelle tâche..."
               name="description" required />
-            <input type="date" id="createdDate" name="dueDate" class="form-control" />
-
-            <button id="add-task-btn" class="btn btn-outline-success">
-              <i class="bi bi-plus-square-fill"></i>
-            </button>
+            <div class="d-flex gap-2">
+              <input type="date" id="createdDate" name="dueDate" class="form-control d-none" placeholder="jj/mm/aaaa"/>
+              <button id="add-task-btn" class="btn btn-outline-success">
+                <i class="bi bi-plus-square-fill"></i>
+              </button>
+            </div>
           </div>
         </form>
 

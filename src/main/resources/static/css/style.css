@@ -156,34 +156,9 @@ TACHES
   height: 40px;
 }
 #createdDate {
-  /* text-indent: -9999px;
-  width: 40px; */
-  width: fit-content;
   height: 40px;
 }
 
-@media (max-width: 700px) {
-  #create-task-form .task-form-grid {
-    display: grid !important;
-    grid-template-columns: 1fr;
-  }
-  #new-task-input {
-    grid-column: span 3;
-  }
-
-  #createdDate {
-    grid-column: span 2;
-    width: 100%;
-  }
-
-  #add-task-btn {
-    grid-column: span 1;
-  }
-  /* #createdDate,
-  #add-task-btn {
-    grid-column: span 1; 
-  } */
-}
 
 .task-card {
   transition: background-color 0.3s ease;
