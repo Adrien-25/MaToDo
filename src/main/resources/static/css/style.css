@@ -76,10 +76,9 @@ SIDEBAR
   #toggle-sidebar span {
     display: none;
   }
-  .current-username{
+  .current-username {
     display: none;
   }
-
 }
 /* @media only screen and (max-width: 1200px) {
   
@@ -153,18 +152,39 @@ LISTE DETAILLE PAGE D'ACCUEIL
 /* -------------------------
 TACHES 
 */
+#new-task-input {
+  height: 40px;
+}
 #createdDate {
   /* text-indent: -9999px;
   width: 40px; */
   width: fit-content;
+  height: 40px;
 }
-@media only screen and (max-width: 700px) {
-  #createdDate {
-    text-indent: -9999px;
-    width: 40px;
-    /* width: fit-content; */
+
+@media (max-width: 700px) {
+  #create-task-form .task-form-grid {
+    display: grid !important;
+    grid-template-columns: 1fr;
   }
+  #new-task-input {
+    grid-column: span 3;
+  }
+
+  #createdDate {
+    grid-column: span 2;
+    width: 100%;
+  }
+
+  #add-task-btn {
+    grid-column: span 1;
+  }
+  /* #createdDate,
+  #add-task-btn {
+    grid-column: span 1; 
+  } */
 }
+
 .task-card {
   transition: background-color 0.3s ease;
 }
@@ -228,10 +248,10 @@ TACHES
 }
 
 .dragging {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
-  border: 1px solid rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   /* transform: scale(1.01);  */
-  z-index: 1000; 
+  z-index: 1000;
 }
 .draggable .bi-grip-vertical {
   cursor: grab;
