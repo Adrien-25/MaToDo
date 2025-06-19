@@ -2,7 +2,6 @@ package com.example.Todo_app_spring.services;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,13 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.Todo_app_spring.models.User;
 import com.example.Todo_app_spring.repositories.UserRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    @Autowired
     private final UserRepository userRepository;
 
     public User processOAuthPostLogin(String email, String name) {
