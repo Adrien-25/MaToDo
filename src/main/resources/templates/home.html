@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 
-<body>
+<body class="text-white" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
     <div class="d-flex flex-column min-vh-100">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <!-- <a class="navbar-brand" th:href="@{/}">MaToDo</a> -->
-                <a href="/" class="d-flex align-items-center mb-md-0 me-md-auto link-dark text-decoration-none">
+                <a href="/" class="d-flex align-items-center mb-md-0 me-md-auto link-white text-decoration-none text-white">
                     <span class="fs-4">MaToDo</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -28,8 +28,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" th:href="@{/req/login}">Se connecter</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/req/signup}">Créer un compte</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" th:href="@{/req/login}">Se connecter</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" th:href="@{/req/signup}">Créer un compte</a></li>
                     </ul>
                 </div>
             </div>
@@ -41,13 +41,13 @@
                 <p class="lead mb-4">Simplifiez la gestion de vos tâches quotidiennes avec une interface claire et un
                     accès sécurisé via Google.</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a class="btn btn-primary btn-lg px-4" th:href="@{/req/login}">Se connecter</a>
-                    <a class="btn btn-outline-primary btn-lg px-4" th:href="@{/req/signup}">Créer un compte</a>
+                    <a class="btn btn-light btn-lg px-4" th:href="@{/req/login}">Se connecter</a>
+                    <a class="btn btn-outline-light btn-lg px-4" th:href="@{/req/signup}">Créer un compte</a>
                 </div>
             </div>
         </main>
 
-        <footer class="bg-white text-center py-3 mt-auto">
+        <footer class="text-center py-3 mt-auto">
             <div class="container">
                 <small>&copy; 2025 MaToDo — Tous droits réservés</small>
             </div>

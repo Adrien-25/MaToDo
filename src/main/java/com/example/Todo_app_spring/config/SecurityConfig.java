@@ -73,7 +73,8 @@ public class SecurityConfig {
                 // Gestion de la déconnexion
                 .logout(logout -> logout
                 .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/auth/login?logout")
+                // .logoutSuccessUrl("/auth/login?logout")
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
