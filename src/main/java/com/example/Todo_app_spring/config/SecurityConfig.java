@@ -52,11 +52,11 @@ public class SecurityConfig {
                 // Configuration du formulaire de connexion
                 .formLogin(httpForm -> {
                     httpForm.loginPage("/req/login").permitAll();
-                    httpForm.defaultSuccessUrl("/", true);
+                    httpForm.defaultSuccessUrl("/dashboard", true);
                 })
                 .oauth2Login(oauth2 -> oauth2
                 .loginPage("/req/login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/dashboard", true)
                 .failureUrl("/req/login?error=true")
                 .userInfoEndpoint(userInfo -> userInfo
                 .userService(customOAuth2UserService) // Méthode définie ci-dessus
@@ -67,7 +67,7 @@ public class SecurityConfig {
                 )
                 // Configuration des routes
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/req/signup", "/req/login","/home", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
+                    registry.requestMatchers("/","/home","/req/signup", "/req/login", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 // Gestion de la déconnexion

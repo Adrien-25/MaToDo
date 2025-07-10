@@ -24,12 +24,8 @@ public class HomeController {
     private UserService userService;
 
     @GetMapping("/")
-    public String redirectToDashboardOrHome() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
-            return "forward:/dashboard"; // ou redirect:/dashboard si tu préfères
-        }
-        return "redirect:/home";
+    public String root() {
+        return "home";  // page publique
     }
 
     @GetMapping("/home")
