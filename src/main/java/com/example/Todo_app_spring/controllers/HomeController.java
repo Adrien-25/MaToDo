@@ -45,4 +45,9 @@ public class HomeController {
         return modelAndView;
     }
 
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+
 }
