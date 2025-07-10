@@ -24,17 +24,30 @@ public class HomeController {
     private UserService userService;
 
     @GetMapping("/")
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("index");
+    public String redirectToDashboardOrHome() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+            return "forward:/dashboard"; // ou redirect:/dashboard si tu préfères
+        }
+        return "redirect:/home";
+    }
 
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/dashboard")
+    public ModelAndView dashboard() {
+        ModelAndView modelAndView = new ModelAndView("index");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
-            String username = authentication.getName();
+        if (authentication != null && authentication.isAuthenticated()
+                && !"anonymousUser".equals(authentication.getPrincipal())) {
 
+            String username = authentication.getName();
             User user = userService.getUserByUsername(username);
             User currentUser = userService.getCurrentUser();
-
             List<TaskList> userTaskLists = taskListService.getAllByUser(user);
 
             modelAndView.addObject("taskLists", userTaskLists);
@@ -45,9 +58,19 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
-
+    // @GetMapping("/")
+    // public ModelAndView index() {
+    //     ModelAndView modelAndView = new ModelAndView("index");
+    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    //     if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
+    //         String username = authentication.getName();
+    //         User user = userService.getUserByUsername(username);
+    //         User currentUser = userService.getCurrentUser();
+    //         List<TaskList> userTaskLists = taskListService.getAllByUser(user);
+    //         modelAndView.addObject("taskLists", userTaskLists);
+    //         modelAndView.addObject("username", username);
+    //         modelAndView.addObject("userInfo", currentUser);
+    //     }
+    //     return modelAndView;
+    // }
 }

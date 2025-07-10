@@ -67,7 +67,7 @@ public class SecurityConfig {
                 )
                 // Configuration des routes
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/req/signup", "/req/login", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
+                    registry.requestMatchers("/req/signup", "/req/login","/home", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 // Gestion de la déconnexion

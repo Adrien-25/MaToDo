@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaToDo — Bienvenue</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">MaToDo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" th:href="@{/req/login}">Se connecter</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/req/signup}">Créer un compte</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-fill d-flex align-items-center justify-content-center">
+            <div class="text-center container">
+                <h1 class="display-4 fw-bold">Bienvenue sur MaToDo</h1>
+                <p class="lead mb-4">Simplifiez la gestion de vos tâches quotidiennes avec une interface claire et un
+                    accès sécurisé via Google.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a class="btn btn-primary btn-lg px-4" th:href="@{/req/login}">Se connecter</a>
+                    <a class="btn btn-outline-primary btn-lg px-4" th:href="@{/req/signup}">Créer un compte</a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-white text-center py-3 mt-auto">
+            <div class="container">
+                <small>&copy; 2025 MaToDo — Tous droits réservés</small>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
