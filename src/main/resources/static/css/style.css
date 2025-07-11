@@ -1,13 +1,13 @@
 html {
   font-size: 0.9rem;
 }
-body{
+body {
   height: 100vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
-.matodo-app{
+.matodo-app {
   height: 100%;
 }
 /* .fs-minus {
@@ -39,6 +39,30 @@ button.btn {
   overflow-y: scroll;
 }
 
+/* 
+===================================================================
+Home (home.html)
+===================================================================
+*/
+.home-page .navbar,
+.signup-page .navbar,
+.login-page .navbar {
+  border-color: rgba(
+    255,
+    255,
+    255,
+    0.3
+  ) !important; /* Bordure blanche très légère */
+}
+
+.btn-custom {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.btn-custom-signup {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
 /* 
 ===================================================================
 DASHBOARD (Index.html)

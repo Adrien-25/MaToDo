@@ -16,14 +16,14 @@
 
 <body>
   <div class="matodo-app">
-    <div class="login-page">
-      <div class="container h-100 d-flex align-items-center justify-content-center flex-column">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <div class="container">
-            <a href="/" class="mx-auto navbar-brand fs-4 text-white">MaToDo</a>
-          </div>
-        </nav>
-        <section class="row justify-content-center align-items-center px-4 h-100">
+    <div class="login-page d-flex flex-column min-vh-100">
+      <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+        <div class="container">
+          <a href="/" class="mx-auto navbar-brand fs-4 text-white">MaToDo</a>
+        </div>
+      </nav>
+      <section class="container h-100 d-flex align-items-center justify-content-center flex-column">
+        <div class="row justify-content-center align-items-center px-4 h-100">
           <div class="form-auth">
             <form action="/req/login" method="post" class="row p-2 p-lg-5">
               <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
@@ -32,38 +32,38 @@
                 <p th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
                   class="text-danger m-0"></p>
               </div>
-  
+
               <!-- Username input -->
               <div class="form-outline mb-4">
                 <input name="username" type="name" id="username" class="form-control large"
                   placeholder="Nom d'utilisateur" required />
               </div>
-  
+
               <!-- Password input -->
               <div class="form-outline mb-4 position-relative">
-                <input name="password" type="password" id="password" class="form-control large" placeholder="Mot de passe"
-                  required />
+                <input name="password" type="password" id="password" class="form-control large"
+                  placeholder="Mot de passe" required />
                 <button type="button" class="btn position-absolute password-unveil"
                   onclick="togglePasswordVisibility('password', this)">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-  
+
               <!-- Submit button -->
               <div>
                 <button type="submit" id="submit-login" class="btn btn-primary btn-block w-100">
                   Se connecter
                 </button>
               </div>
-  
+
               <span class="p-3 fw-bold text-center">
                 OU
               </span>
-              
+
               <a href="/oauth2/authorization/google" class="login-with-google-btn">
                 Continuer avec Google
               </a>
-  
+
               <!-- Register buttons -->
               <!-- <div class="text-center fw-bold fs-minus mb-3 mt-2">
                     <a href="#!" class="text-dark">Mot de passe oublié ?</a>
@@ -73,8 +73,8 @@
               </div>
             </form>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   </div>
   <script src="/js/auth-user.js" defer></script>

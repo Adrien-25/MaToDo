@@ -16,34 +16,40 @@
 
 <body>
     <div class="home-page d-flex flex-column min-vh-100 text-white">
-        <!-- <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container h-100">
-                <a href="/" class="mx-auto navbar-brand fs-4 text-white">MaToDo</a>
-            </div>
-        </nav> -->
-
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark border-bottom">
+            <div class="container py-1">
                 <a href="/"
                     class="d-flex align-items-center mb-md-0 me-md-auto link-white text-decoration-none text-white">
                     <span class="fs-4">MaToDo</span>
                 </a>
+                <!-- Bouton hamburger -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto align-items-center gap-4">
-                        <li class="nav-item"><a class="nav-link text-white" th:href="@{/req/login}">Connexion</a></li>
-                        <li class="nav-item"><a class="btn btn-outline-light btn-sm px-4" href="/req/signup">Essayer gratuitement</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link text-white" th:href="@{/req/signup}">Créer un compte</a></li> -->
+                <!-- Menu collapsé -->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav align-items-center gap-3 d-none d-lg-flex">
+                        <li class="nav-item"><a class="btn btn-outline-secondary btn-custom border-0 px-3 py-2 text-white" href="/req/login">Connexion</a></li>
+                        <li class="nav-item"><a class="btn btn-light btn-custom-signup px-4 py-2" href="/req/signup">Essayer
+                                gratuitement</a></li>
                     </ul>
+
+                    <!-- Menu mobile personnalisé -->
+                    <div class="d-lg-none w-100 py-5 justify-content-center d-flex align-items-center gap-3">
+                        <!-- <div class="d-flex gap-3 justify-content-center"> -->
+                            <a class="btn btn-outline-light" href="/req/login">Connexion</a>
+                            <a class="btn btn-light" href="/req/signup">Essayer gratuitement</a>
+                        <!-- </div> -->
+                    </div>
                 </div>
+
+
             </div>
         </nav>
 
         <main class="flex-fill d-flex align-items-center justify-content-center">
-            <div class="text-center container">
+            <div class="text-center container my-5">
                 <h1 class="display-4 fw-bold">Bienvenue sur MaToDo</h1>
                 <p class="lead mb-4">Simplifiez la gestion de vos tâches quotidiennes avec une interface claire et un
                     accès sécurisé via Google.</p>
