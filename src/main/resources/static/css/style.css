@@ -1,7 +1,15 @@
 html {
   font-size: 0.9rem;
 }
-
+body{
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.matodo-app{
+  height: 100%;
+}
 /* .fs-minus {
   font-size: 0.9rem;
 } */
@@ -23,9 +31,17 @@ button.btn {
   font-size: 13px;
 }
 
+.login-page,
+.signup-page,
+.home-page {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  height: 100%;
+  overflow-y: scroll;
+}
+
 /* 
 ===================================================================
-HOME PAGE (Index.html)
+DASHBOARD (Index.html)
 ===================================================================
 */
 /* -------------------------
@@ -159,7 +175,6 @@ TACHES
   height: 40px;
 }
 
-
 .task-card {
   transition: background-color 0.3s ease;
 }
@@ -241,11 +256,14 @@ input.form-control.large {
   padding: 0.8rem 1rem;
 }
 .form-auth {
-  width: 400px;
   background-color: #e1e1e1;
+  max-width: 400px;
   border-radius: 10px;
-  max-width: 100%;
+  /* width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem; */
 }
+
 .form-auth form.p-2 {
   padding: 0.5rem !important;
 }
