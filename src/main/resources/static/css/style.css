@@ -9,6 +9,7 @@ body {
 }
 .matodo-app {
   height: 100%;
+  overflow: hidden;
 }
 /* .fs-minus {
   font-size: 0.9rem;
@@ -30,7 +31,7 @@ button.btn {
 .fs-13 {
   font-size: 13px;
 }
-.font-weight-normal{
+.font-weight-normal {
   font-weight: normal;
 }
 
@@ -39,7 +40,7 @@ button.btn {
 .home-page {
   background: linear-gradient(135deg, #6a11cb, #2575fc);
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 /* 
@@ -279,8 +280,9 @@ TACHES
 AUTH PAGES (login.html and signup.html)
 ===================================================================
 */
-.login-page .form-auth .btn,.signup-page .form-auth .btn{
-    padding: 12px 16px 12px 16px;
+.login-page .form-auth .btn,
+.signup-page .form-auth .btn {
+  padding: 12px 16px 12px 16px;
 }
 input.form-control.large {
   padding: 0.8rem 1rem;

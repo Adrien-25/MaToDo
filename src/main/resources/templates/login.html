@@ -98,7 +98,7 @@
               <!-- Connexion with credentiels -->
               <ul class="form-outline my-0 list-unstyled">
                 <li th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-                  class="text-danger m-0 fs-13 font-weight-normal mb-3"></li>
+                  class="text-danger m-0 small font-weight-normal mb-3"></li>
               </ul>
               <div class="credentiels-auth">
                 <!-- Username input -->
@@ -126,10 +126,10 @@
               </div>
             </form>
             <div class="mt-3">
-              <a href="#" class="fs-13">Mot de passe oublié</a>
+              <a href="#" class="small">Mot de passe oublié</a>
             </div>
 
-            <div class="fs-13 mt-3">En continuant avec Google, Apple ou une adresse e-mail, vous acceptez les
+            <div class="small mt-3">En continuant avec Google ou une adresse e-mail, vous acceptez les
               Conditions générales et la Politique de confidentialité de Todoist.</div>
 
             <!-- <span class="p-3 fw-bold text-center">

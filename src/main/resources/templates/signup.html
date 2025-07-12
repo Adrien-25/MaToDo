@@ -97,7 +97,7 @@
               <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
               <div class="form-outline my-0 fw-bold">
                 <ul th:if="${errors != null}" class="p-0 list-unstyled">
-                  <li th:each="error : ${errors}" class="text-danger fs-13 font-weight-normal mb-3" th:text="${error}">
+                  <li th:each="error : ${errors}" class="text-danger small font-weight-normal mb-3" th:text="${error}">
                   </li>
                 </ul>
               </div>
@@ -162,7 +162,7 @@
               </span> -->
 
             </form>
-            <div class="fs-13 mt-3">En continuant avec Google, Apple ou une adresse e-mail, vous acceptez les
+            <div class="small mt-3">En continuant avec Google ou une adresse e-mail, vous acceptez les
               Conditions générales et la Politique de confidentialité de Todoist.
             </div>
             <div>
