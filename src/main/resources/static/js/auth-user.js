@@ -51,10 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
       errorMsgEl.textContent = "Mot de passe solide";
       errorMsgEl.classList.remove("text-danger");
       errorMsgEl.classList.add("text-success");
+      pwd.classList.remove("is-invalid");
+      pwd.classList.add("is-valid");
     } else {
       errorMsgEl.textContent = "Mot de passe faible";
       errorMsgEl.classList.remove("text-success");
       errorMsgEl.classList.add("text-danger");
+      pwd.classList.remove("is-valid"); // au cas où
+      pwd.classList.add("is-invalid");
     }
   });
 
@@ -89,11 +93,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("credential-signup");
 
   form.addEventListener("submit", (e) => {
-    if (pwd.value !== confirmPwd.value) {
-      e.preventDefault(); // ⛔️ Empêche la soumission du formulaire
-      confirmPwd.classList.add("is-invalid");
-    } else {
-      confirmPwd.classList.remove("is-invalid");
+    const pwdValid = strongRegex.test(pwd.value);
+    const match = pwd.value === confirmPwd.value;
+
+    if (!pwdValid) {
+      e.preventDefault();
+      pwd.classList.add("is-invalid");
     }
+
+    if (!match) {
+      e.preventDefault();
+      confirmPwd.classList.add("is-invalid");
+    }
+
+    // Supprime la classe d’erreur si tout va bien
+    if (pwdValid) pwd.classList.remove("is-invalid");
+    if (match) confirmPwd.classList.remove("is-invalid");
+    // if (pwd.value !== confirmPwd.value) {
+    //   e.preventDefault(); // ⛔️ Empêche la soumission du formulaire
+    //   confirmPwd.classList.add("is-invalid");
+    // } else {
+    //   confirmPwd.classList.remove("is-invalid");
+    // }
   });
 });
