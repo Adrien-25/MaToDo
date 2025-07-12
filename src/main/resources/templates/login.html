@@ -17,54 +17,23 @@
 <body>
   <div class="matodo-app">
     <div class="login-page d-flex flex-column min-vh-100">
-      <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+      <!-- <nav class="navbar navbar-expand-lg navbar-light border-bottom">
         <div class="container">
           <a href="/" class="mx-auto navbar-brand fs-4 text-white">MaToDo</a>
         </div>
-      </nav>
+      </nav> -->
       <section class="container h-100 d-flex align-items-center justify-content-center flex-column">
-        <div class="row justify-content-center align-items-center px-4 h-100">
-          <div class="form-auth">
-            <form action="/req/login" method="post" class="row p-2 p-lg-5">
-              <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-              <h1 class="text-center mt-3">Connexion</h1>
-              <div class="form-outline my-3 fw-bold">
-                <p th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-                  class="text-danger m-0"></p>
-              </div>
-
-              <!-- Username input -->
-              <div class="form-outline mb-4">
-                <input name="username" type="name" id="username" class="form-control large"
-                  placeholder="Nom d'utilisateur" required />
-              </div>
-
-              <!-- Password input -->
-              <div class="form-outline mb-4 position-relative">
-                <input name="password" type="password" id="password" class="form-control large"
-                  placeholder="Mot de passe" required />
-                <button type="button" class="btn position-absolute password-unveil"
-                  onclick="togglePasswordVisibility('password', this)">
-                  <i class="bi bi-eye"></i>
-                </button>
-              </div>
-
-              <!-- Submit button -->
-              <div class="">
-                <button type="submit" id="submit-login" class="btn btn-primary btn-block w-100">
-                  Se connecter
-                </button>
-              </div>
-
-              <span class="p-3 fw-bold text-center">
-                OU
-              </span>
-
+        <div class="row justify-content-center align-items-center w-100 h-100">
+          <div class="form-auth p-3">
+            <h1 class="text-center mt-3 mb-5">Connexion</h1>
+            <!-- Connexion with socials poviders -->
+            <div class="social-auth d-flex flex-column gap-3">
+              <!-- GOOGLE LOGIN -->
               <div class="d-flex">
                 <a href="/oauth2/authorization/google" class="login-with-google-btn gap-3 rounded">
-                  <div class="position-relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                      class="position-absolute" aria-hidden="true">
+                  <div class="d-flex align-items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" class=""
+                      aria-hidden="true">
                       <g fill="none" fill-rule="evenodd">
                         <path fill="#4285F4"
                           d="M17.64 9.205q-.002-.958-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615">
@@ -84,15 +53,101 @@
                   </div>
                 </a>
               </div>
+              <!-- FACEBOOK LOGIN -->
+              <!-- <div class="d-flex">
+                  <a href="#" class="login-with-google-btn gap-3 rounded">
+                    <div class="d-flex align-items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"
+                        class="" aria-hidden="true">
+                        <mask id="facebook-icon_svg__a" width="18" height="18" x="0" y="0" maskUnits="userSpaceOnUse"
+                          style="mask-type: alpha;">
+                          <path fill="#fff" fill-rule="evenodd" d="M.001 0H18v17.89H.001z" clip-rule="evenodd"></path>
+                        </mask>
+                        <g mask="url(#facebook-icon_svg__a)">
+                          <path fill="#1877F2" fill-rule="evenodd"
+                            d="M18 9a9 9 0 1 0-10.406 8.89v-6.288H5.309V9h2.285V7.017c0-2.255 1.343-3.501 3.4-3.501.984 0 2.014.175 2.014.175v2.215h-1.135c-1.118 0-1.467.694-1.467 1.406V9h2.496l-.399 2.602h-2.097v6.289C14.71 17.216 18 13.492 18 9"
+                            clip-rule="evenodd"></path>
+                        </g>
+                        <path fill="#fff" fill-rule="evenodd"
+                          d="m12.503 11.602.4-2.602h-2.497V7.312c0-.712.349-1.406 1.467-1.406h1.135V3.691s-1.03-.175-2.015-.175c-2.056 0-3.4 1.246-3.4 3.501V9H5.31v2.602h2.285v6.289a9 9 0 0 0 2.812 0V11.6z"
+                          clip-rule="evenodd"></path>
+                      </svg>Continuer avec Facebook
+                    </div>
+                  </a>
+                </div> -->
+              <!-- APPLE LOGIN -->
+              <!-- <div class="d-flex">
+                  <a href="#" class="login-with-google-btn gap-3 rounded">
+                    <div class="d-flex align-items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" preserveAspectRatio="xMidYMid"
+                        viewBox="0 0 256 315" class="IuLDlH8" aria-hidden="true">
+                        <path fill="currentColor"
+                          d="M214 167c0 48 42 63 42 64s-7 22-22 44c-13 20-26 39-48 39-21 0-28-12-52-12s-31 12-51 12c-21 1-37-20-50-39-27-39-48-111-20-159 14-24 39-39 65-39 21-1 40 13 52 13s36-16 60-14c11 0 39 4 58 31-2 1-35 20-34 60M174 50c11-13 19-32 17-50-16 1-35 11-47 24a66 66 0 0 0-16 48c17 2 35-9 46-22">
+                        </path>
+                      </svg>Continuer avec Apple
+                    </div>
+                  </a>
+                </div> -->
+            </div>
+            <div>
+              <hr class="hr my-4">
+            </div>
+            <form action="/req/login" method="post" class="">
+              <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
-              <!-- Register buttons -->
-              <!-- <div class="text-center fw-bold fs-minus mb-3 mt-2">
-                    <a href="#!" class="text-dark">Mot de passe oublié ?</a>
-                  </div> -->
-              <div class="text-center fw-bold fs-minus mb-3 mt-4">
-                <a href="/req/signup" class="text-dark">Pas encore de compte ? Inscrivez-vous</a>
+              <!-- Connexion with credentiels -->
+              <ul class="form-outline my-0 list-unstyled">
+                <li th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+                  class="text-danger m-0 fs-13 font-weight-normal mb-3"></li>
+              </ul>
+              <div class="credentiels-auth">
+                <!-- Username input -->
+                <div class="form-outline mb-4">
+                  <input name="username" type="name" id="username" class="form-control large"
+                    placeholder="Nom d'utilisateur" required />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4 position-relative">
+                  <input name="password" type="password" id="password" class="form-control large"
+                    placeholder="Mot de passe" minlength="8" required />
+                  <button type="button" class="btn position-absolute password-unveil"
+                    onclick="togglePasswordVisibility('password', this)">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+
+                <!-- Submit button -->
+                <div class="">
+                  <button type="submit" id="submit-login" class="btn btn-primary btn-block w-100">
+                    Se connecter
+                  </button>
+                </div>
               </div>
             </form>
+            <div class="mt-3">
+
+              <a href="#" class="fs-13">Mot de passe oublié</a>
+            </div>
+
+            <div class="fs-13 mt-3">En continuant avec Google, Apple ou une adresse e-mail, vous acceptez les
+              Conditions générales et la Politique de confidentialité de Todoist.</div>
+
+            <!-- <span class="p-3 fw-bold text-center">
+              OU
+            </span> -->
+            <div>
+              <hr class="hr my-4">
+            </div>
+
+
+            <!-- Register buttons -->
+            <!-- <div class="text-center fw-bold fs-minus mb-3 mt-2">
+                  <a href="#!" class="text-dark">Mot de passe oublié ?</a>
+                </div> -->
+            <div class="text-center fw-bold fs-minus mb-3 mt-0">
+              <a href="/req/signup" class="text-dark">Pas encore de compte ? Inscrivez-vous</a>
+            </div>
           </div>
         </div>
       </section>

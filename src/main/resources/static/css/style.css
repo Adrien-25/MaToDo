@@ -30,6 +30,9 @@ button.btn {
 .fs-13 {
   font-size: 13px;
 }
+.font-weight-normal{
+  font-weight: normal;
+}
 
 .login-page,
 .signup-page,
