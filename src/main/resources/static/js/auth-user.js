@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       errorMsgEl.classList.add("text-danger");
     }
   });
+
   /* ===============
   Validation du Mot de passe de confirmation 
   =============== */
@@ -75,10 +76,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Bonus : synchronise quand on modifie le mot de passe principal
+  // Synchronise quand on modifie le mot de passe principal
   pwd.addEventListener("input", () => {
     if (confirmPwd.value.length > 0) {
       confirmPwd.dispatchEvent(new Event("input")); // relance la validation
+    }
+  });
+
+  /* ===============
+  Bloquage de l'envoie du formulaire lorsque les mdp ne correpondent pas 
+  =============== */
+  const form = document.getElementById("credential-signup");
+
+  form.addEventListener("submit", (e) => {
+    if (pwd.value !== confirmPwd.value) {
+      e.preventDefault(); // ⛔️ Empêche la soumission du formulaire
+      confirmPwd.classList.add("is-invalid");
+    } else {
+      confirmPwd.classList.remove("is-invalid");
     }
   });
 });

@@ -93,7 +93,7 @@
             <div>
               <hr class="hr my-4">
             </div>
-            <form action="/req/signup" method="post" class="">
+            <form action="/req/signup" method="post" class="" id="credential-signup">
               <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
               <div class="form-outline my-0 fw-bold">
                 <ul th:if="${errors != null}" class="p-0 list-unstyled">
