@@ -184,7 +184,7 @@
             <input id="new-task-input" type="text" class="form-control" placeholder="Nouvelle tâche..."
               name="description" required />
             <div class="d-flex gap-2">
-              <input type="date" id="createdDate" name="dueDate" class="form-control d-none" placeholder="jj/mm/aaaa"/>
+              <input type="date" id="createdDate" name="dueDate" class="form-control d-none" placeholder="jj/mm/aaaa" />
               <button id="add-task-btn" class="btn btn-outline-success">
                 <i class="bi bi-plus-square-fill"></i>
               </button>
@@ -335,63 +335,78 @@
           <h5 class="modal-title" id="editProfileModalLabel">Profil</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
         <!-- Corps du modal -->
-        <div class="modal-body">
-
-          <!-- Nom -->
-          <div class="mb-3 d-flex justify-content-between align-items-center">
-            <div class="m-0 me-2 w-100">Nom d'utilisateur</div>
-            <button
-              class="btn-edit-profil gap-2 align-items-center d-flex btn btn-link fw-normal text-decoration-none text-dark "
-              type="button" id="editUsername" th:text="${userInfo.username}">
-            </button>
+        <div class="modal-body d-flex">
+          <!-- Sidebar du modal -->
+          <div class="border-end pe-3 mr-3" style="width: 200px;">
+            <ul class="nav flex-column nav-pills" id="settingsTabs">
+              <li class="nav-item">
+                <button class="nav-link active" data-section="account">Compte</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-section="general">Général</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-section="theme">Thème</button>
+              </li>
+            </ul>
           </div>
-          <hr />
-
-          <!-- Email -->
-          <div class="mb-3 d-flex justify-content-between align-items-center">
-            <div class="m-0 me-2 w-100">Email</div>
-            <button
-              class="btn-edit-profil gap-2 d-flex btn btn-link fw-normal text-decoration-none text-dark align-items-center"
-              type="button" id="editEmail" th:text="${userInfo.email}">
-            </button>
-          </div>
-          <hr />
-
-          <!-- Mot de passe -->
-          <div class="mb-2 d-flex justify-content-between align-items-center flex-column">
-            <div class="w-100 d-flex justify-content-between mb-3 align-items-center ">
-              <div class="form-label m-0 me-2 w-100">Mot de passe
-              </div>
-              <button type="button"
-                class="btn-edit-profil btn btn-link fw-normal text-decoration-none w-100 text-end d-none"
-                id="editPassword">
-                Modifier le mot de passe
+          <!-- Contenu du modal -->
+          <div class="p-2 w-100">
+            <!-- Nom -->
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+              <div class="m-0 me-2 w-100">Nom d'utilisateur</div>
+              <button
+                class="btn-edit-profil gap-2 align-items-center d-flex btn btn-link fw-normal text-decoration-none text-dark "
+                type="button" id="editUsername" th:text="${userInfo.username}">
               </button>
             </div>
-            <div class="d-flex flex-column w-100 edit-pass-form">
-              <span class="info-request-notif fw-bold mb-3"></span>
-              <form action="/user/change-password" method="post" class="bg-white p-6 rounded shadow-md">
-                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-                <label class="mb-2 d-flex flex-column">
-                  Ancien mot de passe :
-                  <input type="password" name="oldPassword" required class="border w-full p-2 rounded">
-                </label>
-                <label class="mb-2 d-flex flex-column">
-                  Nouveau mot de passe :
-                  <input type="password" name="newPassword" required class="border w-full p-2 rounded">
-                </label>
-                <label class="mb-3 d-flex flex-column">
-                  Confirmer le mot de passe :
-                  <input type="password" name="confirmPassword" required class="border w-full p-2 rounded">
-                </label>
-                <button type="submit" class="btn btn-primary">
-                  Modifier
-                </button>
-              </form>
+            <hr />
+
+            <!-- Email -->
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+              <div class="m-0 me-2 w-100">Email</div>
+              <button
+                class="btn-edit-profil gap-2 d-flex btn btn-link fw-normal text-decoration-none text-dark align-items-center"
+                type="button" id="editEmail" th:text="${userInfo.email}">
+              </button>
             </div>
-            <!-- th:value="{userInfo.email}" -->
+            <hr />
+
+            <!-- Mot de passe -->
+            <div class="mb-2 d-flex justify-content-between align-items-center flex-column">
+              <div class="w-100 d-flex justify-content-between mb-3 align-items-center ">
+                <div class="form-label m-0 me-2 w-100">Mot de passe
+                </div>
+                <button type="button"
+                  class="btn-edit-profil btn btn-link fw-normal text-decoration-none w-100 text-end d-none"
+                  id="editPassword">
+                  Modifier le mot de passe
+                </button>
+              </div>
+              <div class="d-flex flex-column w-100 edit-pass-form">
+                <span class="info-request-notif fw-bold mb-3"></span>
+                <form action="/user/change-password" method="post" class="bg-white p-6 rounded shadow-md">
+                  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                  <label class="mb-2 d-flex flex-column">
+                    Ancien mot de passe :
+                    <input type="password" name="oldPassword" required class="border w-full p-2 rounded">
+                  </label>
+                  <label class="mb-2 d-flex flex-column">
+                    Nouveau mot de passe :
+                    <input type="password" name="newPassword" required class="border w-full p-2 rounded">
+                  </label>
+                  <label class="mb-3 d-flex flex-column">
+                    Confirmer le mot de passe :
+                    <input type="password" name="confirmPassword" required class="border w-full p-2 rounded">
+                  </label>
+                  <button type="submit" class="btn btn-primary">
+                    Modifier
+                  </button>
+                </form>
+              </div>
+              <!-- th:value="{userInfo.email}" -->
+            </div>
           </div>
         </div>
         <!-- Supprimer le compte -->

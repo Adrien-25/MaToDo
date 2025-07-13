@@ -164,6 +164,26 @@ LISTES
 /* -------------------------
 PROFIL
 */
+.modal.show#editProfileModal .modal-dialog {
+  max-width: 100%;
+}
+@media (min-width: 992px) {
+  .modal.show#editProfileModal .modal-dialog {
+    width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .modal.show#editProfileModal .modal-dialog {
+    width: 1060px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .modal.show#editProfileModal .modal-dialog {
+    width: 768px;
+  }
+}
+
 #editProfileModal .dropdown .dropdown-menu button:hover {
   background-color: #80808040;
 }
