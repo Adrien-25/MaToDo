@@ -196,13 +196,14 @@ PROFIL
   /* border: 0;
   padding: 0;
   background-color: transparent; */
-  max-width: fit-content;
+  /* max-width: fit-content; */
+  max-width: 400px;
   height: 35px;
   padding: 0 5px !important;
 }
 .btn-edit-profil {
   height: 35px;
-  padding: 0 5px !important;
+  /* padding: 0 5px !important; */
 }
 .input-edit-profil:focus {
   box-shadow: unset;

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Création INPUT
     inputEmail.type = "text";
     inputEmail.value = originalEmailValue;
-    inputEmail.className = "form-control input-edit-profil text-end";
+    inputEmail.className = "form-control input-edit-profil";
     emailDiv.replaceWith(inputEmail);
     inputEmail.focus();
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     inputUsername.type = "text";
     inputUsername.value = originalUsernameValue;
-    inputUsername.className = "form-control input-edit-profil text-end";
+    inputUsername.className = "form-control input-edit-profil ";
     usernameDiv.replaceWith(inputUsername);
     inputUsername.focus();
 

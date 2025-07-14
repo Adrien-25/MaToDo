@@ -332,7 +332,7 @@
       <div class="modal-content  h-100 overflow-hidden">
         <!-- Header du modal -->
         <div class="modal-header">
-          <h5 class="modal-title" id="editProfileModalLabel">Profil</h5>
+          <h4 class="modal-title" id="editProfileModalLabel">Paramètres</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <!-- Corps du modal -->
@@ -355,30 +355,32 @@
           <div class="p-2 flex-grow-1 overflow-auto">
             <!-- Section Compte -->
             <div class="settings-section" id="section-account">
+              <h5>Compte</h5>
+              <hr>
               <!-- Nom -->
-              <div class="mb-3 d-flex justify-content-between align-items-center">
-                <div class="m-0 me-2 w-100">Nom d'utilisateur</div>
+              <div class="mb-3 d-flex flex-column">
+                <div class="m-0 fw-bold">Nom d'utilisateur</div>
                 <button
-                  class="btn-edit-profil gap-2 align-items-center d-flex btn btn-link fw-normal text-decoration-none text-dark "
+                  class="btn-edit-profil gap-2 align-items-center d-flex btn btn-link fw-normal text-decoration-none text-dark px-0"
                   type="button" id="editUsername" th:text="${userInfo.username}">
                 </button>
               </div>
-              <hr />
+              <!-- <hr /> -->
 
               <!-- Email -->
-              <div class="mb-3 d-flex justify-content-between align-items-center">
-                <div class="m-0 me-2 w-100">Email</div>
+              <div class="mb-3 d-flex flex-column">
+                <div class="m-0 fw-bold">Email</div>
                 <button
-                  class="btn-edit-profil gap-2 d-flex btn btn-link fw-normal text-decoration-none text-dark align-items-center"
+                  class="btn-edit-profil gap-2 d-flex btn btn-link fw-normal text-decoration-none text-dark align-items-center px-0"
                   type="button" id="editEmail" th:text="${userInfo.email}">
                 </button>
               </div>
-              <hr />
+              <!-- <hr /> -->
 
               <!-- Mot de passe -->
-              <div class="mb-2 d-flex justify-content-between align-items-center flex-column">
+              <div class="mb-3 d-flex flex-column">
                 <div class="w-100 d-flex justify-content-between mb-3 align-items-center ">
-                  <div class="form-label m-0 me-2 w-100">Mot de passe
+                  <div class="m-0 fw-bold">Mot de passe
                   </div>
                   <button type="button"
                     class="btn-edit-profil btn btn-link fw-normal text-decoration-none w-100 text-end d-none"
@@ -387,7 +389,7 @@
                   </button>
                 </div>
                 <div class="d-flex flex-column w-100 edit-pass-form">
-                  <span class="info-request-notif fw-bold mb-3"></span>
+                  <span class="info-request-notif fw-bold"></span>
                   <form action="/user/change-password" method="post" class="bg-white p-6 rounded shadow-md">
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
                     <label class="mb-2 d-flex flex-column">
@@ -406,15 +408,29 @@
                       Modifier
                     </button>
                   </form>
-                  <form action="/user/delete" method="POST"
-                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-
-                    <button type="submit" class="p-0 btn btn-link text-danger fw-normal text-decoration-none">Supprimer
-                      mon compte</button>
-                  </form>
                 </div>
-                <!-- th:value="{userInfo.email}" -->
+              </div>
+              <!-- Supprimer le compte -->
+              <div class="d-flex flex-column gap-2">
+                <div class="m-0 fw-bold">Comptes connectés
+                </div>
+                <span class="small text-secondary">Connectez-vous à Todoist avec votre compte Google, Facebook ou Apple.
+                </span>
+               
+              </div>
+              <!-- Supprimer le compte -->
+              <div class="d-flex flex-column gap-2">
+                <div class="m-0 fw-bold">Supprimer le compte
+                </div>
+                <span class="small">La suppression de votre compte est définitive. Vous perdrez immédiatement l'accès à
+                  toutes vos données.</span>
+                <form action="/user/delete" method="POST"
+                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
+                  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+                  <button type="submit" class="btn btn-outline-danger fw-normal text-decoration-none">Supprimer
+                    le compte</button>
+                </form>
               </div>
             </div>
             <!-- Section Général -->
