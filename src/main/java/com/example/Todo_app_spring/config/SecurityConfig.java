@@ -1,5 +1,6 @@
 package com.example.Todo_app_spring.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,10 +21,15 @@ public class SecurityConfig {
     private final UserService userService;
     private final CustomOAuth2UserService customOAuth2UserService;
 
+    // @Autowired
+    // private  OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
     public SecurityConfig(SecurityUtils securityUtils, UserService userService, CustomOAuth2UserService customOAuth2UserService) {
         this.securityUtils = securityUtils;
         this.userService = userService;
         this.customOAuth2UserService = customOAuth2UserService;
+        // this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
+
     }
 
     @Bean
@@ -58,8 +64,9 @@ public class SecurityConfig {
                 .loginPage("/req/login")
                 .defaultSuccessUrl("/dashboard", true)
                 .failureUrl("/req/login?error=true")
+                // .successHandler(oAuth2LoginSuccessHandler)
                 .userInfoEndpoint(userInfo -> userInfo
-                .userService(customOAuth2UserService) // Méthode définie ci-dessus
+                .userService(customOAuth2UserService)
                 )
                 .authorizationEndpoint(authorizationEndpoint
                         -> authorizationEndpoint.baseUri("/oauth2/authorization")
@@ -67,7 +74,7 @@ public class SecurityConfig {
                 )
                 // Configuration des routes
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/","/home","/req/signup", "/req/login", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
+                    registry.requestMatchers("/", "/home", "/req/signup", "/req/login", "/favicon.ico", "/css/**", "/js/**", "/h2-console/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 // Gestion de la déconnexion

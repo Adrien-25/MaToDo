@@ -184,6 +184,17 @@ PROFIL
     width: 768px;
   }
 }
+#settingsTabs li.nav-item .nav-link {
+  color: black;
+}
+#settingsTabs li.nav-item .nav-link:hover {
+  background-color: rgba(0, 00, 0, 0.05);
+}
+#settingsTabs li.nav-item .nav-link.active {
+  background-color: rgb(255 222 222);
+  color:#851900;
+}
+/* ???? */
 #editProfileModal .dropdown .dropdown-menu button:hover {
   background-color: #80808040;
 }
@@ -192,18 +203,11 @@ PROFIL
     display: block;
   }
 }
+/* Input edit profil added with js */
 .input-edit-profil {
-  /* border: 0;
-  padding: 0;
-  background-color: transparent; */
-  /* max-width: fit-content; */
   max-width: 400px;
   height: 35px;
   padding: 0 5px !important;
-}
-.btn-edit-profil {
-  height: 35px;
-  /* padding: 0 5px !important; */
 }
 .input-edit-profil:focus {
   box-shadow: unset;

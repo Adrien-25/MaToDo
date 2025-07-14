@@ -134,6 +134,10 @@ public class AuthController {
 
         // Encodage du mot de passe et sauvegarde de l'utilisateur
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setProvider(User.Provider.LOCAL);
+        // System.out.println("=============================user=================================");
+        // System.out.println(user);
+
         userRepository.save(user);
 
         return "redirect:/req/login";
