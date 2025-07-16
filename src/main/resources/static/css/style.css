@@ -191,8 +191,10 @@ PROFIL
   background-color: rgba(0, 00, 0, 0.05);
 }
 #settingsTabs li.nav-item .nav-link.active {
-  background-color: rgb(255 222 222);
-  color:#851900;
+  /* background-color: rgb(255 222 222);
+  color:#851900; */
+  background-color: rgb(222 223 255);
+  color: #001585;
 }
 /* ???? */
 #editProfileModal .dropdown .dropdown-menu button:hover {
