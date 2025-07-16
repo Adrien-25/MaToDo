@@ -1,0 +1,31 @@
+<!-- fragments/modal-edit-list.html -->
+<div th:fragment="editListModal">
+    <div class="modal fade modal-create-list" id="editList" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="editListLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Renommer une liste</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-list-form" action="/task-lists/{id}" method="POST">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                        <div class="mb-3">
+                            <label for="edit-list-name" class="form-label">Nom de la liste</label>
+                            <input type="text" class="form-control" id="edit-list-name" name="name"
+                                placeholder="Entrez le nom de la liste" required />
+                            <input type="hidden" name="task_list_id" th:value="${selectedTaskListId}" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" form="edit-list-form" class="btn btn-primary" id="edit-list-btn">
+                        Renommer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -260,7 +260,9 @@
   ============================================================================================================================================================== 
   -->
   <!-- MODAL CREATION DE LISTE -->
-  <div class="modal fade modal-create-list" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
+  <div th:replace="fragments/modal-create-list :: createListModal"></div>
+
+  <!-- <div class="modal fade modal-create-list" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -290,9 +292,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- MODAL RENOMMER UNE LISTE -->
-  <div class="modal fade modal-create-list" id="editList" data-bs-keyboard="false" tabindex="-1"
+  <!-- <div class="modal fade modal-create-list" id="editList" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="editListLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -324,7 +326,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <div th:replace="fragments/modal-edit-list :: editListModal"></div>
+
   <!-- MODAL PARAMETRES -->
   <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
     aria-hidden="true">
