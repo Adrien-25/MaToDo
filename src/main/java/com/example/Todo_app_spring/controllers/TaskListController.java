@@ -126,7 +126,7 @@ public class TaskListController {
     @DeleteMapping("/{id}")
     public String deleteTaskList(@PathVariable Long id) {
         taskListService.deleteById(id);
-        return "redirect:/"; // Redirige vers la page d'accueil pour recharger la liste mise à jour
+        return "redirect:/dashboard"; // Redirige vers la page d'accueil pour recharger la liste mise à jour
     }
 
 }

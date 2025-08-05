@@ -1,0 +1,84 @@
+<div th:fragment="sidebar">
+    <div class="bg-light collapse show h-100" id="sidebar">
+        <div class="d-flex flex-column p-3 h-100">
+            <div class="d-flex justify-content-between">
+                <a href="/" class="d-flex align-items-center mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <span class="fs-4">MaToDo</span>
+                </a>
+                <button id="close-sidebar" href="#"
+                    class="border rounded-3 p-1 text-decoration-none d-flex align-items-center justify-content-center">
+                    <i class="bi bi-x fs-5 d-flex align-items-center justify-content-center"></i>
+                </button>
+            </div>
+            <hr />
+            <div class="nav nav-pills flex-column mb-auto">
+                <!-- LISTES DE TACHES -->
+                <div>
+                    <a href="#"
+                        class="nav-link link-dark d-flex align-items-center justify-content-between mb-2 mb-md-0">
+                        <span><strong>Listes</strong></span>
+                        <button type="button"
+                            class="btn btn-link text-dark text-decoration-none p-0 d-flex align-items-center justify-content-center"
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="width: 30px; height: 30px">
+                            <i class="bi bi-plus d-flex align-items-center justify-content-center fs-4"></i>
+                        </button>
+                    </a>
+
+                    <ul class="list-group list-unstyled">
+                        <!-- Liste des TaskLists -->
+                        <li th:each="list : ${taskLists}" th:data-id="${list.id}" class="task-list-item rounded d-flex"
+                            th:classappend="${list.id == selectedTaskListId} ? 'active' : ''">
+                            <a th:href="@{/task-lists/{id}(id=${list.id})}"
+                                class="text-decoration-none text-dark d-flex p-2 w-100 align-items-center">
+                                <i class="bi bi-card-checklist"></i>
+                                <span class="fs-13" th:text="${list.name}"></span>
+                            </a>
+                            <!-- DROPDOWN LIST  -->
+                            <div class="dropdown edit-list  d-flex align-items-center justify-content-center">
+                                <a href="#"
+                                    class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle h-100 justify-content-center"
+                                    id="dropdownList2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <!-- <i class="bi bi-three-dots-vertical me-2"></i> -->
+                                </a>
+                                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownList2">
+                                    <li>
+                                        <button type="button"
+                                            class="dropdown-item btn btn-link text-dark text-decoration-none fw-normal py-2"
+                                            data-bs-toggle="modal" data-bs-target="#editList" th:data-id="${list.id}">
+                                            <span class="d-none list-name-data" th:data-name="${list.name}"></span>
+                                            <span class="d-none current-list-data"
+                                                th:data-name="${selectedTaskListId}"></span>
+                                            <i class="bi bi-pencil me-2"></i>
+                                            Renommer
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <form th:action="@{/task-lists/{id}(id=${list.id})}" method="post"
+                                            class="dropdown-item py-2"
+                                            onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette liste ?');">
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <button type="submit"
+                                                class="btn btn-link text-decoration-none p-0 fw-normal text-danger">
+                                                <i class="bi bi-trash-fill me-2 text-danger"></i>
+                                                Supprimer
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div class="p-2 github-link">
+                <a href="https://github.com/Adrien-25/MaToDo" target="_blank"
+                    class="text-decoration-none d-flex justify-content-center text-dark fw-bold">
+                    <i class="bi bi-github me-2"></i>
+                    Voir le projet sur GitHub
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
